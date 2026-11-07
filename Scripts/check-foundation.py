@@ -61,7 +61,8 @@ for path in (ROOT / "Sources").rglob("*.swift"):
         if role not in roles:
             errors.append(f"Rôle inconnu ou primitive interdite : {relative} → {role}")
     imports = re.findall(r"^import (\w+)", text, re.M)
-    if "GrakerCore" in path.parts and set(imports) - {"Foundation"}:
+    allowed_imports = {"Foundation", "CoreGraphics"} if path.name == "PanelPlacement.swift" else {"Foundation"}
+    if "GrakerCore" in path.parts and set(imports) - allowed_imports:
         errors.append(f"Frontière du noyau : {relative} importe {imports}")
     if "Presentation" in path.parts and path.name != "Tokens.swift":
         if re.search(r"Color\((?:red:|white:)|NSColor\(|#[0-9a-fA-F]{6}\b|--(?:gray|blue|space)-", text):

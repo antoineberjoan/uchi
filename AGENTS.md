@@ -14,7 +14,8 @@ Les méthodes restent dans Sophos ; aucune copie dans ce projet. Lire le fichier
 
 ## Règles du projet
 
-- `Sources/GrakerCore` n'importe que Foundation. Aucun accès au réseau, au disque,
+- `Sources/GrakerCore` importe Foundation ; `PanelPlacement.swift` importe aussi
+  CoreGraphics sur macOS pour la géométrie pure de CGRect. Aucun accès au réseau, au disque,
   au presse-papiers, au trousseau ni à l'horloge dans ce module.
 - `Sources/GrakerLocal/Platform` contient les effets macOS et réseau.
 - `Sources/GrakerLocal/Presentation` ne lit que des rôles de `Tokens`.

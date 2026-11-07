@@ -1,4 +1,8 @@
 import Foundation
+#if canImport(CoreGraphics)
+// Sur macOS, l'overlay fournit les accès géométriques de CGRect.
+import CoreGraphics
+#endif
 
 public enum PanelPlacement {
     /// Toutes les coordonnées sont dans l'espace AppKit, origine en bas à gauche.
