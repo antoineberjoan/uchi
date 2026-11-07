@@ -29,7 +29,7 @@ final class ShortcutController {
             guard let event, let context else { return OSStatus(eventNotHandledErr) }
             var identifier = EventHotKeyID()
             let status = GetEventParameter(event, EventParamName(kEventParamDirectObject), EventParamType(typeEventHotKeyID),
-                                           nil, ByteCount(MemoryLayout<EventHotKeyID>.size), nil, &identifier)
+                                           nil, MemoryLayout<EventHotKeyID>.size, nil, &identifier)
             guard status == noErr else { return status }
             let controller = Unmanaged<ShortcutController>.fromOpaque(context).takeUnretainedValue()
             guard identifier.signature == controller.signature else { return OSStatus(eventNotHandledErr) }
@@ -106,10 +106,10 @@ final class ShortcutController {
         for code in UInt16(0)..<128 {
             var deadKeyState: UInt32 = 0
             var characters = [UniChar](repeating: 0, count: 8)
-            var length: UniCharCount = 0
+            var length = 0
             let status = UCKeyTranslate(layout, code, UInt16(kUCKeyActionDisplay), 0,
                                         UInt32(LMGetKbdType()), OptionBits(kUCKeyTranslateNoDeadKeysMask),
-                                        &deadKeyState, UniCharCount(characters.count), &length, &characters)
+                                        &deadKeyState, characters.count, &length, &characters)
             if status == noErr, length > 0,
                String(utf16CodeUnits: characters, count: Int(length)).uppercased() == letter { return UInt32(code) }
         }
