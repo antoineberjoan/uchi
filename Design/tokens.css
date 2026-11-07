@@ -262,4 +262,16 @@
   --role-weight-title: 600;
   /* Approche du texte courant ; garder les chiffres tabulaires pour les compteurs. */
   --role-tracking-body: 0px;
+  /* Famille de tout le texte ; le système fournit les glyphes et l’accessibilité. */
+  --role-family-body: system-ui;
+  /* Hauteur maximale du panneau, 80 % de l’écran ; source Graker 1.4.0. */
+  --role-ratio-screen-height: 0.8;
+  /* Fond de la carte d’explication uniquement ; lit le rôle de surface. */
+  --role-variant-explanation-background-light: var(--role-surface-light);
+  /* Fond de la carte d’explication, thème sombre. */
+  --role-variant-explanation-background-dark: var(--role-surface-dark);
+  /* Texte de la carte d’explication uniquement ; lit le rôle de texte. */
+  --role-variant-explanation-text-light: var(--role-text-light);
+  /* Texte de la carte d’explication, thème sombre. */
+  --role-variant-explanation-text-dark: var(--role-text-dark);
 }

@@ -51,7 +51,10 @@ Les frais éventuels sont ceux de son API. L'application ne demande pas de clé
 dans le chat et ne dispose d'aucune clé partagée.
 
 La correction de la sélection utilise ⇧⌘G ; la traduction utilise ⇧⌘T.
-Les raccourcis sont modifiables. Les actions sur une sélection demandent
+Les raccourcis sont modifiables et suivent la disposition du clavier. Dans le
+panneau, ⌘Retour lance le traitement ; Retour garde la saisie sur plusieurs lignes.
+Le bouton « Coller et corriger/traduire » colle et lance ; un collage ordinaire
+dans la saisie ne lance pas de requête à lui seul. Les actions sur une sélection demandent
 l'autorisation Accessibilité de macOS. La saisie manuelle fonctionne sans elle.
 Le remplacement refuse une sélection qui a changé ; Copier reste disponible.
 
@@ -79,6 +82,7 @@ Le noyau ne dépend pas de l'application. Les adaptateurs importent le noyau.
 L'état observable orchestre les adaptateurs ; les vues lisent cet état et des rôles
 de tokens. Le fichier Swift de tokens est généré, jamais maintenu à la main.
 Les règles de noms vivent dans AGENTS.md ; les contrats et critères dans la décision.
+Le [contrat réseau](Documentation/Network.md) cite les exemples officiels des API.
 
 ## Liens avec les autres projets
 
@@ -96,10 +100,16 @@ et son [journal](https://graker.fehey.com/changelog), consultés le 7 novembre 2
 [Décision de fondation](Documentation/Decisions/2026-11-07-foundation.md) : options,
 critères de qualité, couches, tokens et contrats.
 
-La vérification sous Linux contrôle la fondation, la génération et les frontières.
-La compilation, les tests Swift et les essais réels de permissions, raccourcis,
+Le noyau compile sous Linux avec Swift 6.0.3 ; ses 22 tests XCTest passent.
+L'analyse syntaxique du compilateur pour une cible macOS passe aussi.
+La vérification Python contrôle la fondation, la génération et les frontières.
+La compilation de l’application et les essais réels de permissions, raccourcis,
 placement multi-écrans et remplacement exigent macOS. Une analyse syntaxique
 seule ne prouve pas ces comportements. Ne pas les annoncer comme vérifiés.
+
+Le rendu natif conserve les sauts de ligne et les styles Markdown en ligne.
+Les titres, tableaux et blocs complexes restent lisibles sous forme de texte
+Markdown ; leur rendu complet de Graker n'est pas encore reproduit.
 
 Le parcours manuel minimal est : régler un fournisseur → saisir une phrase →
 corriger → affiner → traduire → copier ; puis sélectionner dans TextEdit et dans

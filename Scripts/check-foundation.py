@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Cliquets Sophos : usages, contrastes, rôles, frontières et génération."""
-import math
 import re
 import runpy
 import sys
@@ -44,20 +43,31 @@ for theme in ("light", "dark"):
     count += 1
     if ratio < 4.5:
         errors.append(f"Contraste du bouton en {theme} : {ratio:.2f} < 4.5")
+    ratio = contrast(convert(resolve(tokens, f"role-variant-explanation-text-{theme}")),
+                     convert(resolve(tokens, f"role-variant-explanation-background-{theme}")))
+    count += 1
+    if ratio < 4.5:
+        errors.append(f"Contraste de la carte d’explication en {theme} : {ratio:.2f} < 4.5")
 
 target = ROOT / "Sources/GrakerLocal/Presentation/Tokens.swift"
 if not target.exists() or target.read_text() != model["render"]():
     errors.append("Tokens.swift absent ou périmé.")
+roles = set(re.findall(r"static (?:let|var) (\w+)", model["render"]()))
 
 for path in (ROOT / "Sources").rglob("*.swift"):
     text = path.read_text()
     relative = path.relative_to(ROOT)
+    for role in re.findall(r"Tokens\.(\w+)", text):
+        if role not in roles:
+            errors.append(f"Rôle inconnu ou primitive interdite : {relative} → {role}")
     imports = re.findall(r"^import (\w+)", text, re.M)
     if "GrakerCore" in path.parts and set(imports) - {"Foundation"}:
         errors.append(f"Frontière du noyau : {relative} importe {imports}")
     if "Presentation" in path.parts and path.name != "Tokens.swift":
         if re.search(r"Color\((?:red:|white:)|NSColor\(|#[0-9a-fA-F]{6}\b|--(?:gray|blue|space)-", text):
             errors.append(f"Valeur visuelle brute : {relative}")
+        if re.search(r"(?:Color\.|foregroundStyle\(\.|tint\(\.)(?:red|blue|green|gray|white|black)\b", text):
+            errors.append(f"Couleur hors rôles : {relative}")
         if re.search(r"\.(?:padding|cornerRadius|opacity)\(\s*\d|\.system\(size:\s*\d|(?:width|height):\s*\d", text):
             errors.append(f"Dimension hors tokens : {relative}")
     if re.search(r"\bprint\(|\bdebugPrint\(|\bNSLog\(", text):

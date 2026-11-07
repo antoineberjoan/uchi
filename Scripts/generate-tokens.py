@@ -53,7 +53,7 @@ def camel(name):
 
 def render():
     tokens = read_tokens()
-    result = ["// Généré depuis Design/tokens.css ; ne pas modifier.",
+    result = ["// Généré depuis Design/tokens.css ; ne pas modifier.", "#if os(macOS)",
               "import SwiftUI", "import AppKit", "", "enum Tokens {"]
     for name in tokens:
         if not name.startswith("role-"):
@@ -69,14 +69,26 @@ def render():
             result.append(f"    static let {camel(role)} = makeColor(light: ({values(light)}), dark: ({values(dark)}))")
         else:
             value = resolve(tokens, name)
+            if short.startswith("weight-"):
+                weights = {"100": "ultraLight", "200": "thin", "300": "light", "400": "regular", "500": "medium",
+                           "600": "semibold", "700": "bold", "800": "heavy", "900": "black"}
+                result.append(f"    static let {camel(short)}: Font.Weight = .{weights[value]}")
+                continue
+            if short == "family-body":
+                designs = {"system-ui": "default", "serif": "serif", "monospace": "monospaced", "rounded": "rounded"}
+                result.append(f"    static let familyBody: Font.Design = .{designs[value]}")
+                continue
             number = re.fullmatch(r"([\d.]+)(px|s)?", value)
             if number:
                 result.append(f"    static let {camel(short)}: CGFloat = {number[1]}")
+    for role in ["body", "label", "caption", "title", "heading"]:
+        weight = "weightTitle" if role in ["title", "heading"] else "weightBody"
+        result.append(f"    static let font{role.title()} = Font.system(size: size{role.title()}, weight: {weight}, design: familyBody)")
     result.extend(["", "    private static func makeColor(light: (Double, Double, Double), dark: (Double, Double, Double)) -> Color {",
                    "        Color(nsColor: NSColor(name: nil) { appearance in",
                    "            let value = appearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua ? dark : light",
                    "            return NSColor(srgbRed: value.0, green: value.1, blue: value.2, alpha: 1)",
-                   "        })", "    }", "}", ""])
+                   "        })", "    }", "}", "#endif", ""])
     return "\n".join(result)
 
 

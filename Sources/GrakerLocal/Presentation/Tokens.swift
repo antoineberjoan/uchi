@@ -1,4 +1,5 @@
 // Généré depuis Design/tokens.css ; ne pas modifier.
+#if os(macOS)
 import SwiftUI
 import AppKit
 
@@ -51,10 +52,19 @@ enum Tokens {
     static let shadowOffset: CGFloat = 4
     static let layerContent: CGFloat = 0
     static let layerOverlay: CGFloat = 1
-    static let weightBody: CGFloat = 400
-    static let weightLabel: CGFloat = 500
-    static let weightTitle: CGFloat = 600
+    static let weightBody: Font.Weight = .regular
+    static let weightLabel: Font.Weight = .medium
+    static let weightTitle: Font.Weight = .semibold
     static let trackingBody: CGFloat = 0
+    static let familyBody: Font.Design = .default
+    static let ratioScreenHeight: CGFloat = 0.8
+    static let variantExplanationBackground = makeColor(light: (0.94445386, 0.93374956, 0.91187016), dark: (0.08396877, 0.07670412, 0.06187218))
+    static let variantExplanationText = makeColor(light: (0.08396877, 0.07670412, 0.06187218), dark: (0.99032116, 0.97952103, 0.95744492))
+    static let fontBody = Font.system(size: sizeBody, weight: weightBody, design: familyBody)
+    static let fontLabel = Font.system(size: sizeLabel, weight: weightBody, design: familyBody)
+    static let fontCaption = Font.system(size: sizeCaption, weight: weightBody, design: familyBody)
+    static let fontTitle = Font.system(size: sizeTitle, weight: weightTitle, design: familyBody)
+    static let fontHeading = Font.system(size: sizeHeading, weight: weightTitle, design: familyBody)
 
     private static func makeColor(light: (Double, Double, Double), dark: (Double, Double, Double)) -> Color {
         Color(nsColor: NSColor(name: nil) { appearance in
@@ -63,3 +73,4 @@ enum Tokens {
         })
     }
 }
+#endif
