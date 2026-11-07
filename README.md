@@ -98,14 +98,13 @@ le commit exporté. La session de revue peut restaurer le dépôt complet après
 extraction, depuis un autre dossier :
 
 ```sh
-git clone --branch feat/graker-local /chemin/vers/graker-local/history.bundle graker-local-review
+git clone --branch main /chemin/vers/graker-local/history.bundle graker-local-review
 cd graker-local-review
 git log --oneline
 ```
 
-La branche à restaurer est aussi écrite dans `EXPORT.txt` : utiliser cette valeur
-si l'archive provient d'une autre branche. Cela évite d'ouvrir l'ancien Scratch
-encore présent dans l'historique et sur la branche principale avant la fusion.
+La branche à restaurer est écrite dans `EXPORT.txt` : utiliser cette valeur
+si l'archive provient de la branche d'import plutôt que de `main`.
 
 Avant la revue, lire `AGENTS.md`, ce README, la décision de fondation et le
 contrat réseau. Le contrôle Python et les tests du noyau sont exécutables sous
@@ -143,16 +142,16 @@ Le [contrat réseau](Documentation/Network.md) cite les exemples officiels des A
 
 Le dépôt choisi est [antoineberjoan/uchi](https://github.com/antoineberjoan/uchi).
 Son nom GitHub est conservé ; le produit intégré s'appelle Graker Local.
-Le précédent Scratch (Tauri/React) est conservé dans l'historique et sur la
-branche `backup/scratch-before-graker-2026-11-07`. Ses sources, ses images et ses
-workflows sont remplacés dans l'arbre de la branche `feat/graker-local`.
+Les sources, images et workflows du précédent Scratch (Tauri/React) sont
+remplacés par le projet Swift. Sa branche de sauvegarde est supprimée à la
+demande de l'utilisateur. L'historique Git existant n'est pas réécrit.
 Les cinq commits du projet Graker préparé localement sont également conservés
 comme ascendance de l'import. La suppression des fichiers n'efface donc pas
 l'ancien projet de l'historique Git.
 
-Pour une revue de l'import, sélectionner `feat/graker-local` ou sa PR, plutôt que
-la branche principale tant que la PR n'est pas fusionnée. Le dépôt fourni est
-un fork public ; aucune modification de sa visibilité n'est supposée.
+La PR de `feat/graker-local` porte le remplacement. Après sa fusion, une autre
+session peut repartir de `main` et lire ces documents. L'utilisateur autorise
+la publication dans le dépôt public fourni ; sa visibilité ne change pas.
 Référence fonctionnelle : [Graker](https://graker.fehey.com/)
 et son [journal](https://graker.fehey.com/changelog), consultés le 7 novembre 2026.
 
@@ -163,6 +162,8 @@ et son [journal](https://graker.fehey.com/changelog), consultés le 7 novembre 2
 critères de qualité, couches, tokens et contrats.
 [Décision d'import dans uchi](Documentation/Decisions/2026-11-07-repository.md) :
 raison du remplacement et conservation des deux historiques.
+[Décision de publication](Documentation/Decisions/2026-11-07-publication.md) :
+publication dans uchi et suppression de la branche de sauvegarde.
 
 Le noyau compile sous Linux avec Swift 6.0.3 ; ses 22 tests XCTest passent.
 L'analyse syntaxique du compilateur pour une cible macOS passe aussi.

@@ -48,13 +48,13 @@ provider = fournisseur ; endpoint = adresse de base de son API.
 ## Versionnement et reprise
 
 L'utilisateur autorise le remplacement du projet dans `antoineberjoan/uchi`
-par Graker Local. L'ancien Scratch est conservé dans l'historique et sur la
-branche `backup/scratch-before-graker-2026-11-07`. La branche d'import est
-`feat/graker-local`. Aucun force-push ni effacement d'historique n'est nécessaire.
+par Graker Local sur la branche principale. Il demande également de supprimer
+la branche de sauvegarde de Scratch. La branche d'import est `feat/graker-local`.
+Aucun force-push ni effacement d'historique n'est nécessaire.
 
-Le dépôt fourni est un fork public ; le choix de visibilité doit être explicite
-avant de publier les nouveaux fichiers. Ne pas modifier la visibilité ni
-annoncer de push, de PR ou de CI sans avoir vérifié l'opération sur GitHub.
+L'utilisateur autorise la publication dans ce dépôt public existant. Ne pas
+modifier sa visibilité ni annoncer de push, de PR ou de CI sans avoir vérifié
+l'opération sur GitHub.
 
 Les commits locaux portent les lots ; aucune issue ou PR fictive ne remplace
 GitHub. Ouvrir la PR de revue selon Sophos, puis vérifier la compilation macOS.
