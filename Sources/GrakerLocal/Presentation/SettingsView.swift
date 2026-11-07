@@ -32,6 +32,7 @@ struct SettingsView: View {
     @State private var isMessageError = false
     @State private var message: String?
     @State private var validationTask: Task<Void, Never>?
+    @State private var validationID = UUID()
 
     var body: some View {
         NavigationSplitView {
@@ -69,10 +70,9 @@ struct SettingsView: View {
             model.activateSettings()
             loadKey()
         }
-        .onDisappear { validationTask?.cancel(); key = "" }
+        .onDisappear { cancelValidation(); key = "" }
         .onChange(of: page) { _, _ in
-            validationTask?.cancel()
-            isValidating = false
+            cancelValidation()
             message = nil
         }
     }
@@ -139,7 +139,7 @@ struct SettingsView: View {
                 if isValidating {
                     ProgressView().controlSize(.small)
                     Text("Vérification du fournisseur…")
-                    Button("Annuler") { validationTask?.cancel(); isValidating = false }
+                    Button("Annuler") { cancelValidation() }
                 } else {
                     Button("Valider et enregistrer") { validateProvider() }
                         .buttonStyle(.borderedProminent)
@@ -210,6 +210,8 @@ struct SettingsView: View {
     }
 
     private func validateProvider() {
+        let identifier = UUID()
+        validationID = identifier
         let configuration = draft
         let candidateKey = key
         isValidating = true
@@ -218,13 +220,23 @@ struct SettingsView: View {
             do {
                 try await model.validateAndSaveProvider(configuration, key: candidateKey)
                 try Task.checkCancellation()
+                guard validationID == identifier else { return }
                 showMessage("Connexion validée. Clé enregistrée dans le trousseau.")
             } catch {
+                guard validationID == identifier else { return }
                 if !Task.isCancelled { showMessage(error.localizedDescription, isError: true) }
             }
+            guard validationID == identifier else { return }
             isValidating = false
             validationTask = nil
         }
+    }
+
+    private func cancelValidation() {
+        validationTask?.cancel()
+        validationTask = nil
+        validationID = UUID()
+        isValidating = false
     }
 
     private func showMessage(_ text: String, isError: Bool = false) {
