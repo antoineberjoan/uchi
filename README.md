@@ -1,117 +1,185 @@
-# Scratch
+<!-- carte:en-tete:debut — fabriqué depuis projet.yml par sophos/outils/carte.mjs ; ne pas modifier à la main -->
+# Graker Local
 
-<img src="docs/app-icon.png" alt="Scratch" width="128" height="128" style="border-radius: 22px; margin-bottom: 8px;">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/carte/banniere-sombre.svg">
+  <img alt="Graker Local : Corriger et traduire un texte sans quitter son application." src=".github/carte/banniere-claire.svg" width="100%">
+</picture>
 
-A minimalist, offline-first markdown note-taking app for macOS, Windows, and Linux.
+**État** actif · **Sorte** application macOS personnelle
+<!-- carte:en-tete:fin -->
 
-![macOS](https://img.shields.io/badge/platform-macOS-lightgrey) ![Windows](https://img.shields.io/badge/platform-Windows-blue) ![Linux](https://img.shields.io/badge/platform-Linux-orange)
+## Ce que c'est
 
-[Website](https://www.ericli.io/scratch) · [Releases](https://github.com/erictli/scratch/releases)
+### Origine et objectif
 
-## Features
+Ce projet vient d'une demande d'Antoine : reproduire l'outil présenté sur
+[graker.fehey.com](https://graker.fehey.com/) pour son usage personnel sur Mac,
+en appliquant les méthodes [Sophos](https://antoineberjoan.github.io/sophos/).
+L'objectif est de corriger et traduire un texte depuis l'application où il écrit,
+avec un raccourci, une explication et la possibilité de remplacer la sélection.
 
-- **Offline-first** - No cloud, no account, no internet required
-- **Markdown-based** - Notes stored as plain `.md` files you own
-- **WYSIWYG editing** - Rich text editing that saves as markdown
-- **Preview mode** - Open any `.md` file via drag-and-drop or "Open With" without a notes folder
-- **Markdown source mode** - Toggle to view and edit raw markdown (`Cmd+Shift+M`)
-- **Syntax highlighting** - 20 languages with GitHub-inspired color scheme
-- **Mermaid diagrams** - Render flowcharts, sequence diagrams, and more in fenced code blocks
-- **KaTeX math** - Render block `$$...$$` math equations
-- **Wikilinks** - Type `[[` to link between notes with autocomplete
-- **Slash commands** - Type `/` to quickly insert headings, lists, code blocks, diagrams, and more
-- **Focus mode** - Distraction-free writing with animated sidebar/toolbar fade (`Cmd+Shift+Enter`)
-- **Edit with Claude Code, OpenAI Codex, OpenCode, or Ollama** - Use your local CLI to edit notes with AI (including fully offline via Ollama)
-- **Works with other AI agents** - Detects external file changes
-- **Folders** - Opt-in collapsible folder tree with drag-and-drop to organize notes
-- **Keyboard optimized** - Lots of shortcuts and a command palette
-- **Customizable** - Theme, typography, page width, and RTL text direction
-- **Git integration** - Optional version control with push/pull for multi-device sync
-- **Lightweight** - 5-10x smaller than Obsidian or Notion
+Le périmètre accepté dans le chat est une application native SwiftUI, avec
+AppKit et les API macOS pour les fonctions système, et les clés API personnelles
+de l'utilisateur. Tailwind n'est pas utilisé pour l'interface. Le fichier CSS
+de design sert uniquement de source aux tokens Swift générés. « Local » décrit
+l'application installée sur le Mac ; les traitements IA utilisent l'API choisie.
 
-## Screenshot
+### Fonctionnement et limites
 
-![Screenshot](docs/screenshot.png)
+Un outil personnel natif, inspiré du fonctionnement public de Graker 1.6.3 :
+correction expliquée, traduction, affinage et panneau près de la sélection.
+SwiftUI dessine l'interface. Les adaptateurs macOS utilisent AppKit, Accessibilité
+et Carbon pour les fonctions système. Aucun service intermédiaire.
 
-## Installation
+Les requêtes partent directement vers le fournisseur choisi. Ce n'est pas un
+modèle hors ligne. Les clés vont dans le trousseau ; les préférences locales
+n'en contiennent aucune. Les dix résultats récents restent dans la mémoire du
+processus et disparaissent à sa fermeture.
 
-### macOS
+Les sources publiques ne donnent ni le code de Graker ni tous ses comportements.
+Ce projet est une réimplémentation personnelle, sans affiliation avec son auteur.
+La fidélité visuelle et les intégrations doivent être vérifiées sur un Mac.
+Le remplacement porte sur du texte ; la conservation intégrale d'un courriel
+HTML, de ses images et de ses styles n'est pas garantie.
 
-**Homebrew (Recommended)**
+## Démarrer
 
-```bash
-brew tap erictli/tap
-brew install --cask erictli/tap/scratch
+Mac sous macOS 15 ou plus, Xcode 16 ou plus, Python 3 et Node.js pour les
+vérifications et les fichiers générés. Aucune dépendance Swift externe.
+
+```sh
+python3 Scripts/check-foundation.py
+swift test
+bash Scripts/build-app.sh
+open "dist/Graker Local.app"
 ```
 
-**Manual Download**
+Ouvrir aussi `Package.swift` dans Xcode pour développer. Pour l'usage quotidien,
+lancer le paquet `.app` construit, qui garde un identifiant stable pour le
+trousseau et les permissions. Une signature ad hoc locale ne vaut ni signature
+Developer ID ni notarisation ; une reconstruction peut demander de réautoriser
+l'application dans les réglages macOS.
 
-1. Download the latest `.dmg` from [Releases](https://github.com/erictli/scratch/releases)
-2. Open the DMG and drag Scratch to Applications
-3. Open Scratch from Applications
+Choisir le fournisseur et le modèle dans Réglages → Fournisseur IA. Le bouton
+« Valider et enregistrer » envoie une requête de test au fournisseur affiché.
+Les frais éventuels sont ceux de son API. L'application ne demande pas de clé
+dans le chat et ne dispose d'aucune clé partagée.
 
-### Windows
+La correction de la sélection utilise ⇧⌘G ; la traduction utilise ⇧⌘T.
+Les raccourcis sont modifiables et suivent la disposition du clavier. Dans le
+panneau, ⌘Retour lance le traitement ; Retour garde la saisie sur plusieurs lignes.
+Le bouton « Coller et corriger/traduire » colle et lance ; un collage ordinaire
+dans la saisie ne lance pas de requête à lui seul. Les actions sur une sélection demandent
+l'autorisation Accessibilité de macOS. La saisie manuelle fonctionne sans elle.
+Le remplacement refuse une sélection qui a changé ; Copier reste disponible.
 
-Download the latest `.exe` installer from [Releases](https://github.com/erictli/scratch/releases) and run it. WebView2 will be downloaded automatically if needed.
+Pour régénérer les tokens : `python3 Scripts/generate-tokens.py`.
+Pour la carte, utiliser le script central de Sophos épinglé dans AGENTS.md :
+`node ../sophos/outils/carte.mjs --verifier`. Il ne se copie pas dans le projet.
 
-### Linux
+### Archive et reprise dans une autre session
 
-Download the latest `.AppImage` or `.deb` from [Releases](https://github.com/erictli/scratch/releases).
+L'archive de sources contient le code Swift de l'application, les tests, les
+règles et les décisions. Elle ne contient ni la transcription intégrale du chat,
+ni une application `.app` compilée, ni de clé API. Le présent README et les
+décisions conservent l'objectif et les choix nécessaires à une reprise.
 
-### From Source
+Pour produire une archive avec l'historique Git, depuis un dépôt sans changement
+non enregistré :
 
-**Prerequisites:** Node.js 18+, Rust 1.70+
-
-**macOS:** Xcode Command Line Tools · **Windows:** WebView2 Runtime (pre-installed on Windows 11)
-
-```bash
-git clone https://github.com/erictli/scratch.git
-cd scratch
-npm install
-npm run tauri dev      # Development
-npm run tauri build    # Production build
+```sh
+python3 Scripts/export-project.py
 ```
 
-## Keyboard Shortcuts
+Le fichier `dist/Graker-Local-sources.zip` contient aussi `history.bundle`, une
+sauvegarde de toutes les références Git locales, et `EXPORT.txt`, qui identifie
+le commit exporté. La session de revue peut restaurer le dépôt complet après
+extraction, depuis un autre dossier :
 
-Scratch is designed to be usable without a mouse. Here are the essentials to get started:
+```sh
+git clone /chemin/vers/graker-local/history.bundle graker-local-review
+cd graker-local-review
+git log --oneline
+```
 
-| Shortcut          | Action                 |
-| ----------------- | ---------------------- |
-| `Cmd+N`           | New note               |
-| `Cmd+D`           | Duplicate note         |
-| `Delete`          | Delete note            |
-| `Cmd+Backspace`   | Delete note            |
-| `Cmd+P`           | Command palette        |
-| `Cmd+K`           | Add/edit link          |
-| `Cmd+F`           | Find in note           |
-| `Cmd+Shift+C`     | Copy & Export menu     |
-| `Cmd+Shift+M`     | Toggle Markdown source |
-| `Cmd+Shift+Enter` | Toggle Focus mode      |
-| `Cmd+Shift+F`     | Search notes           |
-| `Cmd+R`           | Reload current note    |
-| `Cmd+,`           | Open settings          |
-| `Cmd+\`           | Toggle sidebar         |
-| `Cmd+B/I`         | Bold/Italic            |
-| `Cmd+=/-/0`       | Zoom in/out/reset      |
-| `↑/↓`             | Navigate notes         |
+Avant la revue, lire `AGENTS.md`, ce README, la décision de fondation et le
+contrat réseau. Le contrôle Python et les tests du noyau sont exécutables sous
+Linux. Sur Mac, lancer le script de construction, puis le parcours manuel décrit
+ci-dessous. Le workflow macOS est fourni ; il n'a pas encore été exécuté sur
+GitHub. Il ne suffit pas de voir les fichiers pour conclure que l'app fonctionne.
 
-**Note:** On Windows, use `Ctrl` instead of `Cmd` for all shortcuts.
+## Organisation du dépôt
 
-Many more shortcuts and features are available in the app—explore via the command palette (`Cmd+P` / `Ctrl+P`) or view the full reference in Settings → Shortcuts.
+```text
+Design/                              source unique des tokens et icônes vectorielles
+Sources/GrakerCore/                   types, contrats, requêtes, SSE, révisions, placement
+Sources/GrakerLocal/                  point d'entrée de l'application
+Sources/GrakerLocal/Platform/         réseau, trousseau, sélection, raccourcis, fenêtres
+Sources/GrakerLocal/Presentation/     vues SwiftUI, état observable et tokens générés
+Tests/GrakerCoreTests/                contrats et cas limites du noyau
+Scripts/                             génération, contrôles et construction de l'app
+Documentation/Decisions/              décisions datées et contrats
+.github/carte/                       bannières produites par le script central Sophos
+.github/workflows/                   vérifications macOS à activer sur un dépôt distant
+```
 
-## Built With
+Cette carte fixe les emplacements ; un dossier ne naît qu'avec son premier fichier.
+Le noyau ne dépend pas de l'application. Les adaptateurs importent le noyau.
+L'état observable orchestre les adaptateurs ; les vues lisent cet état et des rôles
+de tokens. Le fichier Swift de tokens est généré, jamais maintenu à la main.
+Les règles de noms vivent dans AGENTS.md ; les contrats et critères dans la décision.
+Le [contrat réseau](Documentation/Network.md) cite les exemples officiels des API.
 
-[Tauri](https://tauri.app/) · [React](https://react.dev/) · [TipTap](https://tiptap.dev/) · [Tailwind CSS](https://tailwindcss.com/) · [Tantivy](https://github.com/quickwit-oss/tantivy)
+## Liens avec les autres projets
 
-## Contributing
+<!-- carte:liens:debut — fabriqué depuis projet.yml par sophos/outils/carte.mjs ; ne pas modifier à la main -->
+- **Applique** : [sophos](https://github.com/antoineberjoan/sophos)
+<!-- carte:liens:fin -->
 
-Scratch is mostly stable and intentionally minimal, so I'm no longer monitoring issues and PRs regularly. You're welcome to open them, but I can't guarantee I'll get to everything, and it may take a while when I do.
+Le dépôt choisi est [antoineberjoan/uchi](https://github.com/antoineberjoan/uchi).
+Son nom GitHub est conservé ; le produit intégré s'appelle Graker Local.
+Le précédent Scratch (Tauri/React) est conservé dans l'historique et sur la
+branche `backup/scratch-before-graker-2026-11-07`. Ses sources, ses images et ses
+workflows sont remplacés dans l'arbre de la branche `feat/graker-local`.
+Les cinq commits du projet Graker préparé localement sont également conservés
+comme ascendance de l'import. La suppression des fichiers n'efface donc pas
+l'ancien projet de l'historique Git.
 
-What makes Scratch special is its minimal feature set and focus on user experience. We're not trying to build Obsidian or Notion, so not every feature will be a fit. If you want to make major changes or take Scratch in a new direction, you should fork it – it's MIT licensed.
+Pour une revue de l'import, sélectionner `feat/graker-local` ou sa PR, plutôt que
+la branche principale tant que la PR n'est pas fusionnée. Le dépôt fourni est
+un fork public ; aucune modification de sa visibilité n'est supposée.
+Référence fonctionnelle : [Graker](https://graker.fehey.com/)
+et son [journal](https://graker.fehey.com/changelog), consultés le 7 novembre 2026.
 
-**If you open a PR:** keep it small and focused, and try to address any CodeRabbit comments. I generally won't go back and forth with review comments – if I merge, I'll make any additional changes directly.
+## Règles et décisions
 
-## License
+[AGENTS.md](AGENTS.md) active les méthodes Sophos sans les recopier.
+[Décision de fondation](Documentation/Decisions/2026-11-07-foundation.md) : options,
+critères de qualité, couches, tokens et contrats.
+[Décision d'import dans uchi](Documentation/Decisions/2026-11-07-repository.md) :
+raison du remplacement et conservation des deux historiques.
 
-MIT
+Le noyau compile sous Linux avec Swift 6.0.3 ; ses 22 tests XCTest passent.
+L'analyse syntaxique du compilateur pour une cible macOS passe aussi.
+La vérification Python contrôle la fondation, la génération et les frontières.
+La compilation de l’application et les essais réels de permissions, raccourcis,
+placement multi-écrans et remplacement exigent macOS. Une analyse syntaxique
+seule ne prouve pas ces comportements. Ne pas les annoncer comme vérifiés.
+
+Le rendu natif conserve les sauts de ligne et les styles Markdown en ligne.
+Les titres, tableaux et blocs complexes restent lisibles sous forme de texte
+Markdown ; leur rendu complet de Graker n'est pas encore reproduit.
+
+Le parcours manuel minimal est : régler un fournisseur → saisir une phrase →
+corriger → affiner → traduire → copier ; puis sélectionner dans TextEdit et dans
+un navigateur → lancer le raccourci → remplacer ; enfin changer la sélection
+avant de remplacer, révoquer la permission, annuler une requête et simuler un
+fournisseur inaccessible. Chaque échec doit rester visible, sans perdre la saisie.
+
+## Licence
+
+Usage personnel demandé. Aucune licence de redistribution n'est accordée ici.
+Les éléments de marque et captures de Graker ne sont pas inclus. Les méthodes
+Sophos sont seulement référencées ; leur licence et leurs restrictions restent
+dans leur dépôt d'origine.

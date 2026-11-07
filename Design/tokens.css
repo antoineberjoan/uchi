@@ -1,0 +1,277 @@
+/* Source unique du design system. Les fichiers Swift sont générés. */
+:root {
+  /* Primitive gray 50 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --gray-50: oklch(0.985 0.008 85);
+  /* Primitive gray 100 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --gray-100: oklch(0.95 0.008 85);
+  /* Primitive gray 200 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --gray-200: oklch(0.9 0.008 85);
+  /* Primitive gray 300 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --gray-300: oklch(0.82 0.008 85);
+  /* Primitive gray 400 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --gray-400: oklch(0.68 0.008 85);
+  /* Primitive gray 500 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --gray-500: oklch(0.56 0.008 85);
+  /* Primitive gray 600 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --gray-600: oklch(0.46 0.008 85);
+  /* Primitive gray 700 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --gray-700: oklch(0.36 0.008 85);
+  /* Primitive gray 800 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --gray-800: oklch(0.27 0.008 85);
+  /* Primitive gray 900 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --gray-900: oklch(0.19 0.008 85);
+  /* Primitive gray 950 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --gray-950: oklch(0.13 0.008 85);
+  /* Primitive blue 50 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --blue-50: oklch(0.985 0.025 250);
+  /* Primitive blue 100 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --blue-100: oklch(0.95 0.05 250);
+  /* Primitive blue 200 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --blue-200: oklch(0.9 0.13 250);
+  /* Primitive blue 300 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --blue-300: oklch(0.82 0.13 250);
+  /* Primitive blue 400 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --blue-400: oklch(0.68 0.13 250);
+  /* Primitive blue 500 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --blue-500: oklch(0.56 0.13 250);
+  /* Primitive blue 600 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --blue-600: oklch(0.46 0.13 250);
+  /* Primitive blue 700 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --blue-700: oklch(0.36 0.13 250);
+  /* Primitive blue 800 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --blue-800: oklch(0.27 0.13 250);
+  /* Primitive blue 900 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --blue-900: oklch(0.19 0.05 250);
+  /* Primitive blue 950 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --blue-950: oklch(0.13 0.025 250);
+  /* Primitive red 50 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --red-50: oklch(0.985 0.025 25);
+  /* Primitive red 100 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --red-100: oklch(0.95 0.05 25);
+  /* Primitive red 200 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --red-200: oklch(0.9 0.13 25);
+  /* Primitive red 300 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --red-300: oklch(0.82 0.13 25);
+  /* Primitive red 400 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --red-400: oklch(0.68 0.13 25);
+  /* Primitive red 500 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --red-500: oklch(0.56 0.13 25);
+  /* Primitive red 600 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --red-600: oklch(0.46 0.13 25);
+  /* Primitive red 700 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --red-700: oklch(0.36 0.13 25);
+  /* Primitive red 800 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --red-800: oklch(0.27 0.13 25);
+  /* Primitive red 900 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --red-900: oklch(0.19 0.05 25);
+  /* Primitive red 950 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --red-950: oklch(0.13 0.025 25);
+  /* Primitive green 50 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --green-50: oklch(0.985 0.025 155);
+  /* Primitive green 100 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --green-100: oklch(0.95 0.05 155);
+  /* Primitive green 200 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --green-200: oklch(0.9 0.1 155);
+  /* Primitive green 300 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --green-300: oklch(0.82 0.1 155);
+  /* Primitive green 400 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --green-400: oklch(0.68 0.1 155);
+  /* Primitive green 500 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --green-500: oklch(0.56 0.1 155);
+  /* Primitive green 600 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --green-600: oklch(0.46 0.1 155);
+  /* Primitive green 700 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --green-700: oklch(0.36 0.1 155);
+  /* Primitive green 800 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --green-800: oklch(0.27 0.1 155);
+  /* Primitive green 900 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --green-900: oklch(0.19 0.05 155);
+  /* Primitive green 950 ; à lire uniquement depuis un rôle, jamais dans une vue. */
+  --green-950: oklch(0.13 0.025 155);
+  /* Échelle de 4 points, pas 0 ; réservée aux rôles d’espacement. */
+  --space-0: 0px;
+  /* Échelle de 4 points, pas 1 ; réservée aux rôles d’espacement. */
+  --space-1: 4px;
+  /* Échelle de 4 points, pas 2 ; réservée aux rôles d’espacement. */
+  --space-2: 8px;
+  /* Échelle de 4 points, pas 3 ; réservée aux rôles d’espacement. */
+  --space-3: 12px;
+  /* Échelle de 4 points, pas 4 ; réservée aux rôles d’espacement. */
+  --space-4: 16px;
+  /* Échelle de 4 points, pas 5 ; réservée aux rôles d’espacement. */
+  --space-5: 20px;
+  /* Échelle de 4 points, pas 6 ; réservée aux rôles d’espacement. */
+  --space-6: 24px;
+  /* Échelle de 4 points, pas 7 ; réservée aux rôles d’espacement. */
+  --space-7: 28px;
+  /* Échelle de 4 points, pas 8 ; réservée aux rôles d’espacement. */
+  --space-8: 32px;
+  /* Échelle de 4 points, pas 9 ; réservée aux rôles d’espacement. */
+  --space-9: 36px;
+  /* Échelle de 4 points, pas 10 ; réservée aux rôles d’espacement. */
+  --space-10: 40px;
+  /* Échelle de 4 points, pas 11 ; réservée aux rôles d’espacement. */
+  --space-11: 44px;
+  /* Échelle de 4 points, pas 12 ; réservée aux rôles d’espacement. */
+  --space-12: 48px;
+  /* Échelle de 4 points, pas 13 ; réservée aux rôles d’espacement. */
+  --space-13: 52px;
+  /* Échelle de 4 points, pas 14 ; réservée aux rôles d’espacement. */
+  --space-14: 56px;
+  /* Échelle de 4 points, pas 15 ; réservée aux rôles d’espacement. */
+  --space-15: 60px;
+  /* Échelle de 4 points, pas 16 ; réservée aux rôles d’espacement. */
+  --space-16: 64px;
+  /* Primitive de rayon none ; réservée aux rôles de surface. */
+  --radius-none: 0px;
+  /* Primitive de rayon small ; réservée aux rôles de surface. */
+  --radius-small: 4px;
+  /* Primitive de rayon medium ; réservée aux rôles de surface. */
+  --radius-medium: 8px;
+  /* Primitive de rayon large ; réservée aux rôles de surface. */
+  --radius-large: 12px;
+  /* Primitive de rayon panel ; réservée aux rôles de surface. */
+  --radius-panel: 20px;
+  /* Fond de fenêtre ; ne remplace pas une surface de carte. Thème light. */
+  --role-background-light: var(--gray-50);
+  /* Fond de fenêtre ; ne remplace pas une surface de carte. Thème dark. */
+  --role-background-dark: var(--gray-950);
+  /* Cartes et sections ; ne sert pas au texte. Thème light. */
+  --role-surface-light: var(--gray-100);
+  /* Cartes et sections ; ne sert pas au texte. Thème dark. */
+  --role-surface-dark: var(--gray-900);
+  /* Zone de saisie ; ne sert pas aux actions. Thème light. */
+  --role-input-light: var(--gray-50);
+  /* Zone de saisie ; ne sert pas aux actions. Thème dark. */
+  --role-input-dark: var(--gray-900);
+  /* Texte principal sur fond, surface ou saisie. Thème light. */
+  --role-text-light: var(--gray-900);
+  /* Texte principal sur fond, surface ou saisie. Thème dark. */
+  --role-text-dark: var(--gray-50);
+  /* Texte secondaire lisible ; ne sert pas à masquer une erreur. Thème light. */
+  --role-text-muted-light: var(--gray-600);
+  /* Texte secondaire lisible ; ne sert pas à masquer une erreur. Thème dark. */
+  --role-text-muted-dark: var(--gray-300);
+  /* Action principale et liens ; ne sert pas à décorer. Thème light. */
+  --role-accent-light: var(--blue-600);
+  /* Action principale et liens ; ne sert pas à décorer. Thème dark. */
+  --role-accent-dark: var(--blue-300);
+  /* Libellé sur le bouton accentué uniquement. Thème light. */
+  --role-on-accent-light: var(--gray-50);
+  /* Libellé sur le bouton accentué uniquement. Thème dark. */
+  --role-on-accent-dark: var(--gray-950);
+  /* Erreur et suppression dans une explication ; jamais seul indicateur. Thème light. */
+  --role-danger-light: var(--red-600);
+  /* Erreur et suppression dans une explication ; jamais seul indicateur. Thème dark. */
+  --role-danger-dark: var(--red-300);
+  /* Correction réussie et ajout ; jamais seul indicateur. Thème light. */
+  --role-success-light: var(--green-600);
+  /* Correction réussie et ajout ; jamais seul indicateur. Thème dark. */
+  --role-success-dark: var(--green-300);
+  /* Limite visible d’un contrôle ; pas un fond. Thème light. */
+  --role-border-light: var(--gray-500);
+  /* Limite visible d’un contrôle ; pas un fond. Thème dark. */
+  --role-border-dark: var(--gray-500);
+  /* Repère de focus clavier ; pas une décoration. Thème light. */
+  --role-focus-light: var(--blue-600);
+  /* Repère de focus clavier ; pas une décoration. Thème dark. */
+  --role-focus-dark: var(--blue-300);
+  /* Entre éléments d’une même ligne. */
+  --role-space-inline: var(--space-2);
+  /* Entre groupes liés. */
+  --role-space-section: var(--space-4);
+  /* Marge extérieure du panneau. */
+  --role-space-panel: var(--space-5);
+  /* Entre libellé et aide courte. */
+  --role-space-compact: var(--space-1);
+  /* Contour du panneau flottant. */
+  --role-radius-panel: var(--radius-panel);
+  /* Cartes de résultat et de réglages. */
+  --role-radius-card: var(--radius-large);
+  /* Champs et boutons personnalisés. */
+  --role-radius-control: var(--radius-medium);
+  /* Trait visible des contrôles ; pas d’épaisseur libre. */
+  --role-size-border: 1px;
+  /* Texte de saisie et résultats. */
+  --role-size-body: 15px;
+  /* Libellés et commandes. */
+  --role-size-label: 13px;
+  /* Aides et explications secondaires. */
+  --role-size-caption: 12px;
+  /* Titre de section. */
+  --role-size-title: 18px;
+  /* Titre d’accueil ou de réglages. */
+  --role-size-heading: 24px;
+  /* Largeur compacte du panneau ; source Graker 1.5.0. */
+  --role-size-panel-compact: 440px;
+  /* Largeur étendue du panneau ; source Graker 1.5.0. */
+  --role-size-panel-wide: 840px;
+  /* Hauteur initiale, bornée par l’écran. */
+  --role-size-panel-height: 640px;
+  /* Hauteur minimale de lecture. */
+  --role-size-panel-minimum: 360px;
+  /* Zone de saisie initiale. */
+  --role-size-editor-height: 144px;
+  /* Largeur initiale des réglages. */
+  --role-size-settings-width: 760px;
+  /* Hauteur initiale des réglages. */
+  --role-size-settings-height: 560px;
+  /* Largeur de la navigation des réglages. */
+  --role-size-sidebar: 180px;
+  /* Cible compacte au pointeur ; pas au toucher. */
+  --role-size-button: 28px;
+  /* Icône de commande. */
+  --role-size-icon: 16px;
+  /* Cible minimale si une interaction tactile est ajoutée. */
+  --role-size-touch: 44px;
+  /* Interligne des résultats longs. */
+  --role-size-line-spacing: 4px;
+  /* Largeur lisible des explications contextuelles. */
+  --role-size-explanation: 320px;
+  /* Hauteur de la ligne d’affinage. */
+  --role-size-refinement: 40px;
+  /* Seuil de présentation large ; pas une détection d’appareil. */
+  --role-size-breakpoint: 600px;
+  /* Contrôle inactif seulement ; jamais du texte essentiel. */
+  --role-opacity-disabled: 0.5;
+  /* Fond d’une annotation, avec texte principal conservé. */
+  --role-opacity-tint: 0.12;
+  /* Transition rare d’un petit contrôle ; aucune animation pour la frappe. */
+  --role-duration-micro: 0.15s;
+  /* Apparition occasionnelle d’une surface. */
+  --role-duration-surface: 0.24s;
+  /* Sortie occasionnelle, 60 % de la durée de surface. */
+  --role-duration-exit: 0.144s;
+  /* Décélération des entrées et sorties. */
+  --role-curve-enter: ease-out;
+  /* Déplacement dans une surface, sans rebond. */
+  --role-curve-move: ease-in-out;
+  /* Élévation d’une surface si le système ne la fournit pas. */
+  --role-shadow-radius: 16px;
+  /* Décalage vertical de l’ombre de surface. */
+  --role-shadow-offset: 4px;
+  /* Contenu normal. */
+  --role-layer-content: 0;
+  /* Explication au-dessus du contenu. */
+  --role-layer-overlay: 1;
+  /* Texte courant. */
+  --role-weight-body: 400;
+  /* Commande et libellé. */
+  --role-weight-label: 500;
+  /* Titre de section. */
+  --role-weight-title: 600;
+  /* Approche du texte courant ; garder les chiffres tabulaires pour les compteurs. */
+  --role-tracking-body: 0px;
+  /* Famille de tout le texte ; le système fournit les glyphes et l’accessibilité. */
+  --role-family-body: system-ui;
+  /* Hauteur maximale du panneau, 80 % de l’écran ; source Graker 1.4.0. */
+  --role-ratio-screen-height: 0.8;
+  /* Fond de la carte d’explication uniquement ; lit le rôle de surface. */
+  --role-variant-explanation-background-light: var(--role-surface-light);
+  /* Fond de la carte d’explication, thème sombre. */
+  --role-variant-explanation-background-dark: var(--role-surface-dark);
+  /* Texte de la carte d’explication uniquement ; lit le rôle de texte. */
+  --role-variant-explanation-text-light: var(--role-text-light);
+  /* Texte de la carte d’explication, thème sombre. */
+  --role-variant-explanation-text-dark: var(--role-text-dark);
+}

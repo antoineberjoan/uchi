@@ -1,0 +1,25 @@
+name: Vérifier macOS
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  macos:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vérifier le design system et les frontières
+        run: python3 Scripts/check-foundation.py
+      - name: Construire et tester l’application native
+        run: bash Scripts/build-app.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Graker-Local-macOS
+          path: dist/Graker-Local-macOS.zip

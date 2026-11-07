@@ -1,0 +1,13 @@
+nom: Graker Local
+depot: antoineberjoan/uchi
+role: Corriger et traduire un texte sans quitter son application.
+etat: actif
+sorte: application macOS personnelle
+liens:
+  applique: [sophos]
+marque:
+  tokens: Design/tokens.css
+  icone-claire: Design/icon-light.svg
+  icone-sombre: Design/icon-dark.svg
+  clair: { fond: --role-background-light, texte: --role-text-light, accent: --role-accent-light }
+  sombre: { fond: --role-background-dark, texte: --role-text-dark, accent: --role-accent-dark }
