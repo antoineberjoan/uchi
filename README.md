@@ -48,6 +48,11 @@ HTML, de ses images et de ses styles n'est pas garantie.
 Mac sous macOS 15 ou plus, Xcode 16 ou plus, Python 3 et Node.js pour les
 vérifications et les fichiers générés. Aucune dépendance Swift externe.
 
+Le workflow GitHub produit aussi `Graker-Local-macOS.zip`, contenant une `.app`
+signée localement (ad hoc). Le runner actuel utilise Apple Silicon ; cette
+archive vise donc les Mac Apple Silicon. Sur Intel, le script ci-dessous
+construit l'application pour le Mac qui l'exécute.
+
 ```sh
 python3 Scripts/check-foundation.py
 swift test
@@ -109,8 +114,9 @@ si l'archive provient de la branche d'import plutôt que de `main`.
 Avant la revue, lire `AGENTS.md`, ce README, la décision de fondation et le
 contrat réseau. Le contrôle Python et les tests du noyau sont exécutables sous
 Linux. Sur Mac, lancer le script de construction, puis le parcours manuel décrit
-ci-dessous. Le workflow macOS est fourni ; il n'a pas encore été exécuté sur
-GitHub. Il ne suffit pas de voir les fichiers pour conclure que l'app fonctionne.
+ci-dessous. Le workflow macOS compile l'application, exécute les tests et
+produit l'archive `.app`. Les essais interactifs restent distincts de ces
+contrôles automatiques.
 
 ## Organisation du dépôt
 
@@ -124,7 +130,7 @@ Tests/GrakerCoreTests/                contrats et cas limites du noyau
 Scripts/                             génération, contrôles et construction de l'app
 Documentation/Decisions/              décisions datées et contrats
 .github/carte/                       bannières produites par le script central Sophos
-.github/workflows/                   vérifications macOS à activer sur un dépôt distant
+.github/workflows/                   compilation, tests macOS et archive de l'application
 ```
 
 Cette carte fixe les emplacements ; un dossier ne naît qu'avec son premier fichier.
@@ -166,11 +172,13 @@ raison du remplacement et conservation des deux historiques.
 publication dans uchi et suppression de la branche de sauvegarde.
 
 Le noyau compile sous Linux avec Swift 6.0.3 ; ses 22 tests XCTest passent.
-L'analyse syntaxique du compilateur pour une cible macOS passe aussi.
+L'application complète compile aussi sur macOS 15 Apple Silicon : les 22 tests,
+la construction release et la vérification de signature passent dans
+[GitHub Actions](https://github.com/antoineberjoan/uchi/actions/runs/42422431726).
 La vérification Python contrôle la fondation, la génération et les frontières.
-La compilation de l’application et les essais réels de permissions, raccourcis,
-placement multi-écrans et remplacement exigent macOS. Une analyse syntaxique
-seule ne prouve pas ces comportements. Ne pas les annoncer comme vérifiés.
+Les essais interactifs de permissions, raccourcis, placement multi-écrans et
+remplacement restent à effectuer sur un Mac. La compilation ne prouve pas ces
+comportements. Aucun appel à un fournisseur réel n'a été validé avec une clé API.
 
 Le rendu natif conserve les sauts de ligne et les styles Markdown en ligne.
 Les titres, tableaux et blocs complexes restent lisibles sous forme de texte
