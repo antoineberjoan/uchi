@@ -98,10 +98,14 @@ le commit exporté. La session de revue peut restaurer le dépôt complet après
 extraction, depuis un autre dossier :
 
 ```sh
-git clone /chemin/vers/graker-local/history.bundle graker-local-review
+git clone --branch feat/graker-local /chemin/vers/graker-local/history.bundle graker-local-review
 cd graker-local-review
 git log --oneline
 ```
+
+La branche à restaurer est aussi écrite dans `EXPORT.txt` : utiliser cette valeur
+si l'archive provient d'une autre branche. Cela évite d'ouvrir l'ancien Scratch
+encore présent dans l'historique et sur la branche principale avant la fusion.
 
 Avant la revue, lire `AGENTS.md`, ce README, la décision de fondation et le
 contrat réseau. Le contrôle Python et les tests du noyau sont exécutables sous
