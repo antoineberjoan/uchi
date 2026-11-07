@@ -6,3 +6,5 @@ dist/
 xcuserdata/
 .env*
 __pycache__/
+/history.bundle
+/EXPORT.txt

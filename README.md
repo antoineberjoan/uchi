@@ -11,6 +11,22 @@
 
 ## Ce que c'est
 
+### Origine et objectif
+
+Ce projet vient d'une demande d'Antoine : reproduire l'outil présenté sur
+[graker.fehey.com](https://graker.fehey.com/) pour son usage personnel sur Mac,
+en appliquant les méthodes [Sophos](https://antoineberjoan.github.io/sophos/).
+L'objectif est de corriger et traduire un texte depuis l'application où il écrit,
+avec un raccourci, une explication et la possibilité de remplacer la sélection.
+
+Le périmètre accepté dans le chat est une application native SwiftUI, avec
+AppKit et les API macOS pour les fonctions système, et les clés API personnelles
+de l'utilisateur. Tailwind n'est pas utilisé pour l'interface. Le fichier CSS
+de design sert uniquement de source aux tokens Swift générés. « Local » décrit
+l'application installée sur le Mac ; les traitements IA utilisent l'API choisie.
+
+### Fonctionnement et limites
+
 Un outil personnel natif, inspiré du fonctionnement public de Graker 1.6.3 :
 correction expliquée, traduction, affinage et panneau près de la sélection.
 SwiftUI dessine l'interface. Les adaptateurs macOS utilisent AppKit, Accessibilité
@@ -62,6 +78,37 @@ Pour régénérer les tokens : `python3 Scripts/generate-tokens.py`.
 Pour la carte, utiliser le script central de Sophos épinglé dans AGENTS.md :
 `node ../sophos/outils/carte.mjs --verifier`. Il ne se copie pas dans le projet.
 
+### Archive et reprise dans une autre session
+
+L'archive de sources contient le code Swift de l'application, les tests, les
+règles et les décisions. Elle ne contient ni la transcription intégrale du chat,
+ni une application `.app` compilée, ni de clé API. Le présent README et les
+décisions conservent l'objectif et les choix nécessaires à une reprise.
+
+Pour produire une archive avec l'historique Git, depuis un dépôt sans changement
+non enregistré :
+
+```sh
+python3 Scripts/export-project.py
+```
+
+Le fichier `dist/Graker-Local-sources.zip` contient aussi `history.bundle`, une
+sauvegarde de toutes les références Git locales, et `EXPORT.txt`, qui identifie
+le commit exporté. La session de revue peut restaurer le dépôt complet après
+extraction, depuis un autre dossier :
+
+```sh
+git clone /chemin/vers/graker-local/history.bundle graker-local-review
+cd graker-local-review
+git log --oneline
+```
+
+Avant la revue, lire `AGENTS.md`, ce README, la décision de fondation et le
+contrat réseau. Le contrôle Python et les tests du noyau sont exécutables sous
+Linux. Sur Mac, lancer le script de construction, puis le parcours manuel décrit
+ci-dessous. Le workflow macOS est fourni ; il n'a pas encore été exécuté sur
+GitHub. Il ne suffit pas de voir les fichiers pour conclure que l'app fonctionne.
+
 ## Organisation du dépôt
 
 ```text
@@ -91,7 +138,10 @@ Le [contrat réseau](Documentation/Network.md) cite les exemples officiels des A
 <!-- carte:liens:fin -->
 
 L'identifiant `depot` de la fiche nomme le projet ; aucun dépôt distant de ce nom
-n'est créé par cette livraison. Référence fonctionnelle : [Graker](https://graker.fehey.com/)
+n'est encore relié. La publication privée sur GitHub est demandée ; la création
+du dépôt est refusée par les droits actuels de l'intégration. Les sources et
+l'historique restent exportables en attendant un dépôt accessible.
+Référence fonctionnelle : [Graker](https://graker.fehey.com/)
 et son [journal](https://graker.fehey.com/changelog), consultés le 7 novembre 2026.
 
 ## Règles et décisions

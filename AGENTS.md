@@ -45,9 +45,16 @@ Lexique : source = texte d'origine ; revision = résultat structuré de correcti
 refinement = instruction d'affinage ; selection = sélection macOS capturée ;
 provider = fournisseur ; endpoint = adresse de base de son API.
 
-## Périmètre local
+## Versionnement et reprise
 
-L'utilisateur demande un outil personnel local. Aucun dépôt distant n'est créé.
+L'utilisateur demande un outil personnel local et autorise sa mise dans un dépôt
+GitHub privé pour revue par une autre session. La destination prévue est
+`antoineberjoan/graker-local`. Aucun dépôt distant n'est encore relié : les droits
+de l'intégration refusent sa création. Ne pas annoncer de push, de PR ou de CI
+tant que leur existence n'a pas été vérifiée sur GitHub.
+
 Les commits locaux portent les lots ; aucune issue ou PR fictive ne remplace
-GitHub. La création d'une issue Fondation et d'une PR reste à faire si ce projet
-est ensuite hébergé. C'est un écart explicite au circuit GitHub de Sophos.
+GitHub. Quand un dépôt privé est accessible, ouvrir l'issue de fondation et la
+PR de revue selon Sophos, puis vérifier la compilation macOS. Ne pas fusionner
+sans les preuves et l'arbitrage requis. Le README décrit l'export des sources et
+de l'historique pour une revue indépendante, même sans dépôt distant.
