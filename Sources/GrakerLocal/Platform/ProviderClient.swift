@@ -58,20 +58,36 @@ final class ProviderClient {
             guard response.value(forHTTPHeaderField: "Content-Type")?.lowercased().contains("text/event-stream") == true else {
                 throw ProviderFailure.unsupportedStream
             }
+            // `bytes.lines` saute les lignes vides, qui ferment les événements SSE.
+            // Le découpage se fait donc octet par octet.
+            var lines = LineDecoder()
             var decoder = StreamDecoder()
             var result = ""
-            for try await line in bytes.lines {
+            var resultCharacterCount = 0
+            let clock = ContinuousClock()
+            var lastDelivery = clock.now
+            for try await byte in bytes {
+                guard let line = lines.receive(byte) else {
+                    guard lines.pendingByteCount < 1_000_000 else { throw ProviderFailure.responseTooLarge }
+                    continue
+                }
                 try Task.checkCancellation()
-                guard line.utf8.count < 1_000_000 else { throw ProviderFailure.responseTooLarge }
                 let piece = try decoder.receive(line: line)
                 if !piece.isEmpty {
                     result += piece
-                    guard result.count <= 200_000 else { throw ProviderFailure.responseTooLarge }
-                    await onText(result)
+                    resultCharacterCount += piece.count
+                    guard resultCharacterCount <= 200_000 else { throw ProviderFailure.responseTooLarge }
+                    // L'affichage relit tout le texte : une mise à jour toutes les 80 ms au plus.
+                    if clock.now - lastDelivery >= .milliseconds(80) {
+                        lastDelivery = clock.now
+                        await onText(result)
+                    }
                 }
                 if decoder.isComplete { break }
             }
+            if let line = lines.finish() { result += try decoder.receive(line: line) }
             result += try decoder.finish()
+            guard result.count <= 200_000 else { throw ProviderFailure.responseTooLarge }
             try Task.checkCancellation()
             guard !result.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { throw GrakerError.emptyResponse }
             return result
