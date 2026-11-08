@@ -75,6 +75,8 @@ l'application dans les réglages macOS.
 
 Choisir le fournisseur et le modèle dans Réglages → Fournisseur IA. Le bouton
 « Valider et enregistrer » envoie une requête de test au fournisseur affiché.
+Le menu du fournisseur, dans la barre d'outils du panneau, passe ensuite d'un
+fournisseur à l'autre. Chaque fournisseur garde son adresse et son modèle.
 Les frais éventuels sont ceux de son API. L'application ne demande pas de clé
 dans le chat et ne dispose d'aucune clé partagée.
 
@@ -186,8 +188,10 @@ lecture du flux SSE, blancs de la sélection et retour du focus.
 interface en français, sans langue chinoise, avec DeepSeek conservé.
 [Décision de reformulation](Documentation/Decisions/2026-11-08-rephrasing.md) :
 mode Reformuler et explications écrites selon `expliquer`.
+[Décision d'alignement](Documentation/Decisions/2026-11-08-alignment.md) :
+surlignage des changements, menu du fournisseur et écarts restants avec Graker.
 
-Le noyau compile sous Linux avec Swift 6.0.3 ; ses 37 tests XCTest passent.
+Le noyau compile sous Linux avec Swift 6.0.3 ; ses 43 tests XCTest passent.
 L'application complète compile aussi sur macOS 15 Apple Silicon : les 37 tests,
 la construction release et la vérification de signature passent dans
 [GitHub Actions](https://github.com/antoineberjoan/uchi/actions/runs/42429727523).
@@ -196,12 +200,17 @@ Les essais interactifs de permissions, raccourcis, placement multi-écrans et
 remplacement restent à effectuer sur un Mac. La compilation ne prouve pas ces
 comportements. Aucun appel à un fournisseur réel n'a été validé avec une clé API.
 
-Le rendu natif conserve les sauts de ligne et les styles Markdown en ligne.
+En correction et en reformulation, chaque passage modifié est surligné à sa
+place. Un clic sur un passage montre le changement et sa raison sous le texte.
+Ce texte ne se sélectionne pas : le bouton Copier le remplace.
+
+La traduction conserve les sauts de ligne et les styles Markdown en ligne.
 Les titres, tableaux et blocs complexes restent lisibles sous forme de texte
 Markdown ; leur rendu complet de Graker n'est pas encore reproduit.
 
 Le parcours manuel minimal est : régler un fournisseur → saisir une phrase →
-corriger → reformuler une phrase en anglais → affiner → traduire → copier ;
+corriger → cliquer un passage surligné → reformuler une phrase en anglais →
+affiner → changer de fournisseur depuis le panneau → traduire → copier ;
 appeler réellement le fournisseur avec sa clé ; puis sélectionner dans TextEdit et dans
 un navigateur → lancer le raccourci → remplacer ; enfin changer la sélection
 avant de remplacer, révoquer la permission, annuler une requête et simuler un
