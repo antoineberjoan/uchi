@@ -181,10 +181,9 @@ lecture du flux SSE, blancs de la sélection et retour du focus.
 retrait de DeepSeek et absence de texte chinois.
 
 Le noyau compile sous Linux avec Swift 6.0.3 ; ses 34 tests XCTest passent.
-Avant la décision de fiabilité, l'application complète compilait sur macOS 15
-Apple Silicon : les 22 tests d'alors, la construction release et la signature
-passaient dans [GitHub Actions](https://github.com/antoineberjoan/uchi/actions/runs/42422431726).
-La compilation macOS des corrections de fiabilité reste à vérifier.
+L'application complète compile aussi sur macOS 15 Apple Silicon : les 34 tests,
+la construction release et la vérification de signature passent dans
+[GitHub Actions](https://github.com/antoineberjoan/uchi/actions/runs/42428268030).
 La vérification Python contrôle la fondation, la génération et les frontières.
 Les essais interactifs de permissions, raccourcis, placement multi-écrans et
 remplacement restent à effectuer sur un Mac. La compilation ne prouve pas ces

@@ -32,7 +32,8 @@ chaque morceau relisait tout le Markdown sur le fil principal.
 ## Preuves et limites
 
 Sous Linux, Swift 6.0.3 : les tests du noyau passent. Un test montre que la
-perte des lignes vides rend le flux illisible. Le comportement réel reste à
+perte des lignes vides rend le flux illisible. Sur macOS 15, le workflow
+compile l'application et passe les 34 tests. Le comportement réel reste à
 vérifier sur un Mac : flux d'un vrai fournisseur, retour du focus, remplacement.
 
 Le décodeur exige toujours `data: [DONE]` après `finish_reason: stop`. La
