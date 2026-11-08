@@ -43,6 +43,15 @@ final class AppModel: ObservableObject {
     private var task: Task<Void, Never>?
     private var requestID = UUID()
 
+    /// Dernier texte placé par le code (sélection, presse-papiers, récent) : jamais traité comme une frappe ou un collage.
+    private(set) var programmaticSource: String?
+
+    private func setSource(_ text: String) {
+        programmaticSource = text
+        source = text
+    }
+
+    var canRun: Bool { !isRunning && !source.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
     var canReplace: Bool { selection != nil && hasCompleted && !isRunning }
     var hasAccessibilityPermission: Bool { selections.hasPermission }
 
@@ -80,7 +89,7 @@ final class AppModel: ObservableObject {
         cancel()
         do {
             let snapshot = try selections.capture()
-            source = snapshot.text
+            setSource(snapshot.text)
             setMode(mode)
             selection = snapshot
             present()
@@ -98,7 +107,7 @@ final class AppModel: ObservableObject {
             errorMessage = "Le presse-papiers ne contient aucun texte. Copiez un texte, puis réessayez."
             return
         }
-        source = text
+        setSource(text)
         selection = nil
         present(mode: .translation)
         run()
@@ -109,7 +118,7 @@ final class AppModel: ObservableObject {
             errorMessage = "Le presse-papiers ne contient aucun texte."
             return
         }
-        source = text
+        setSource(text)
         selection = nil
         run()
     }
@@ -206,7 +215,7 @@ final class AppModel: ObservableObject {
     }
 
     func reopen(_ recent: RecentResult) {
-        source = recent.source
+        setSource(recent.source)
         setMode(recent.mode)
         selection = nil
         result = recent.result

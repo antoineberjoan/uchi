@@ -23,6 +23,13 @@ avec un modèle par défaut à jour.
    stable de mai 2026 selon [ai.google.dev](https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite),
    et modèle montré par la capture de Graker.
 
+4. **Clavier.** Antoine choisit de suivre Graker : Retour lance le traitement,
+   ⇧Retour va à la ligne, et un collage dans la saisie lance aussi. Un collage
+   se reconnaît à plus d'un caractère ajouté d'un coup (`InputChange`). Un texte
+   placé par l'application (sélection, presse-papiers, récent) ne compte pas.
+   Un collage envoie le texte au fournisseur sans étape de relecture : c'est
+   le coût accepté de ce choix.
+
 ## Options écartées
 
 - Une bulle flottante ancrée sur le passage, comme Graker : SwiftUI ne donne
@@ -39,8 +46,7 @@ avec un modèle par défaut à jour.
 
 ## Écarts restants
 
-Entrée qui lance le traitement et collage qui lance la requête : en attente du
-choix d'Antoine, car Entrée sert aujourd'hui à aller à la ligne. Markdown complet,
+Markdown complet,
 panneau qui grandit, traduction des courriels HTML, fournisseurs côte à côte,
 réflexion réduite pour Gemini et mises à jour automatiques : non faits.
 
@@ -53,5 +59,6 @@ Les profils remplacent les champs `endpoint` et `model` des préférences. Comme
 pour `rephrasingKey`, des préférences anciennes ne se décodent plus : une seule
 remise à zéro, visible, au premier lancement.
 
-Non vérifié : le rendu réel sur un Mac (fond, soulignement, clic sur un passage)
+Non vérifié : que ⇧Retour insère bien un simple retour à la ligne (et non un
+séparateur de ligne Unicode) dans le `TextEditor` ; le rendu réel sur un Mac (fond, soulignement, clic sur un passage)
 et la date d'arrêt prévue de `gemini-3.1-flash-lite`.

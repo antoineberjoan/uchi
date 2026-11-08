@@ -84,10 +84,10 @@ La correction de la sélection utilise ⇧⌘G ; la reformulation utilise ⇧⌘
 la traduction utilise ⇧⌘T. Les raccourcis sont modifiables et suivent la
 disposition du clavier. Un raccourci global prend la place du même raccourci
 dans les autres apps : ⇧⌘R recharge aussi une page dans Chrome, par exemple.
-Dans le panneau, ⌘Retour lance le traitement ; Retour garde la saisie sur
-plusieurs lignes. Le bouton « Coller et corriger » (ou reformuler, ou traduire)
-colle et lance ; un collage ordinaire
-dans la saisie ne lance pas de requête à lui seul. Les actions sur une sélection demandent
+Dans le panneau, Retour lance le traitement, comme dans Graker ; ⇧Retour va à
+la ligne. Un collage dans la saisie lance aussi le traitement, car un texte collé
+est souvent une phrase complète. Taper à la main ne lance jamais rien. Le bouton
+« Coller et corriger » (ou reformuler, ou traduire) colle et lance. Les actions sur une sélection demandent
 l'autorisation Accessibilité de macOS. La saisie manuelle fonctionne sans elle.
 Le remplacement refuse une sélection qui a changé ; Copier reste disponible.
 
@@ -191,7 +191,7 @@ mode Reformuler et explications écrites selon `expliquer`.
 [Décision d'alignement](Documentation/Decisions/2026-11-08-alignment.md) :
 surlignage des changements, menu du fournisseur et écarts restants avec Graker.
 
-Le noyau compile sous Linux avec Swift 6.0.3 ; ses 43 tests XCTest passent.
+Le noyau compile sous Linux avec Swift 6.0.3 ; ses 46 tests XCTest passent.
 L'application complète compile aussi sur macOS 15 Apple Silicon : les 43 tests,
 la construction release et la vérification de signature passent dans
 [GitHub Actions](https://github.com/antoineberjoan/uchi/actions/runs/42430969247).

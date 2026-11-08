@@ -70,6 +70,17 @@ struct EditorView: View {
                 .font(Tokens.fontBody)
                 .scrollContentBackground(.hidden)
                 .accessibilityLabel("Texte à corriger ou à traduire")
+                // Entrée lance, ⇧Entrée va à la ligne. Taper à la main ne lance rien.
+                .onKeyPress(.return) { press in
+                    guard !press.modifiers.contains(.shift) else { return .ignored }
+                    if model.canRun { model.run() }
+                    return .handled
+                }
+                // Un collage dans la saisie lance, comme dans Graker.
+                .onChange(of: model.source) { old, new in
+                    guard new != model.programmaticSource, InputChange.isPaste(from: old, to: new) else { return }
+                    model.run()
+                }
                 .padding(Tokens.spaceCompact)
         }
         .frame(height: Tokens.sizeEditorHeight)
@@ -122,12 +133,12 @@ struct EditorView: View {
             Button("Annuler", systemImage: "stop.fill") { model.cancel() }.buttonStyle(.bordered)
         } else {
             Button { model.run() } label: {
-                HStack(spacing: Tokens.spaceCompact) { Text(model.mode.title); Text("⌘↵").font(Tokens.fontCaption) }
+                HStack(spacing: Tokens.spaceCompact) { Text(model.mode.title); Text("↵").font(Tokens.fontCaption) }
             }
             .buttonStyle(.borderedProminent)
             .keyboardShortcut(.return, modifiers: .command)
-            .help("\(model.mode.title) · ⌘Retour")
-            .disabled(model.source.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            .help("\(model.mode.title) · Retour (⇧Retour : nouvelle ligne)")
+            .disabled(!model.canRun)
         }
     }
 
