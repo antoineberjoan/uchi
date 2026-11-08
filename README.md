@@ -188,9 +188,9 @@ interface en français, sans langue chinoise, avec DeepSeek conservé.
 mode Reformuler et explications écrites selon `expliquer`.
 
 Le noyau compile sous Linux avec Swift 6.0.3 ; ses 37 tests XCTest passent.
-L'application complète compile aussi sur macOS 15 Apple Silicon : les 34 tests,
+L'application complète compile aussi sur macOS 15 Apple Silicon : les 37 tests,
 la construction release et la vérification de signature passent dans
-[GitHub Actions](https://github.com/antoineberjoan/uchi/actions/runs/42428268030).
+[GitHub Actions](https://github.com/antoineberjoan/uchi/actions/runs/42429727523).
 La vérification Python contrôle la fondation, la génération et les frontières.
 Les essais interactifs de permissions, raccourcis, placement multi-écrans et
 remplacement restent à effectuer sur un Mac. La compilation ne prouve pas ces
