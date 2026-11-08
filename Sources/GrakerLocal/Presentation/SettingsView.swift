@@ -106,20 +106,17 @@ struct SettingsView: View {
                     Picker("Fournisseur", selection: $draft.provider) {
                         ForEach(Provider.allCases) { provider in Text(provider.title).tag(provider) }
                     }
-                    .onChange(of: draft.provider) { _, provider in
-                        draft.endpoint = provider.endpoint
-                        draft.model = provider.model
+                    .onChange(of: draft.provider) { _, _ in
                         message = nil
-                        key = ""
+                        loadKey()
                     }
                     TextField("Adresse de base", text: $draft.endpoint)
                         .textContentType(.URL)
                         .disabled(draft.provider != .custom)
                         .onChange(of: draft.endpoint) { _, endpoint in
-                            if draft.provider != .custom ||
-                                (endpoint == model.configuration.endpoint && draft.provider == model.configuration.provider) {
-                                loadKey()
-                            } else { key = "" }
+                            // Une adresse en cours de saisie ne lit pas le trousseau : la clé reste liée à l'adresse enregistrée.
+                            if endpoint == model.configuration.readProfile(for: draft.provider).endpoint { loadKey() }
+                            else { key = "" }
                         }
                     SecureField("Clé API", text: $key)
                         .accessibilityLabel("Clé API, enregistrée dans le trousseau macOS")

@@ -26,7 +26,7 @@ public enum GrakerError: LocalizedError, Equatable {
     }
 }
 
-public enum Provider: String, CaseIterable, Codable, Identifiable, Sendable {
+public enum Provider: String, CaseIterable, Codable, CodingKeyRepresentable, Identifiable, Sendable {
     case gemini, deepseek, custom
     public var id: String { rawValue }
     public var title: String {
@@ -36,19 +36,26 @@ public enum Provider: String, CaseIterable, Codable, Identifiable, Sendable {
         case .custom: return "Compatible OpenAI"
         }
     }
-    public var endpoint: String {
+    /// Adresse et modèle proposés tant que l'utilisateur n'a rien enregistré.
+    /// Gemini : `gemini-3.1-flash-lite`, version stable de mai 2026 (ai.google.dev, lu le 8 novembre 2026).
+    public var defaultProfile: ProviderProfile {
         switch self {
-        case .gemini: return "https://generativelanguage.googleapis.com/v1beta/openai"
-        case .deepseek: return "https://api.deepseek.com"
-        case .custom: return "https://api.openai.com/v1"
+        case .gemini:
+            return ProviderProfile(endpoint: "https://generativelanguage.googleapis.com/v1beta/openai",
+                                   model: "gemini-3.1-flash-lite")
+        case .deepseek: return ProviderProfile(endpoint: "https://api.deepseek.com", model: "deepseek-chat")
+        case .custom: return ProviderProfile(endpoint: "https://api.openai.com/v1", model: "gpt-4.1-mini")
         }
     }
-    public var model: String {
-        switch self {
-        case .gemini: return "gemini-2.5-flash"
-        case .deepseek: return "deepseek-chat"
-        case .custom: return "gpt-4.1-mini"
-        }
+}
+
+/// Adresse de base et modèle retenus pour un fournisseur.
+public struct ProviderProfile: Codable, Equatable, Sendable {
+    public var endpoint: String
+    public var model: String
+    public init(endpoint: String, model: String) {
+        self.endpoint = endpoint
+        self.model = model
     }
 }
 
@@ -87,8 +94,8 @@ public enum Scene: String, CaseIterable, Codable, Identifiable, Sendable {
 
 public struct Configuration: Codable, Equatable, Sendable {
     public var provider: Provider
-    public var endpoint: String
-    public var model: String
+    /// Un profil par fournisseur réglé : changer de fournisseur ne perd ni son adresse ni son modèle.
+    public var profiles: [Provider: ProviderProfile]
     public var scene: Scene
     public var targetLanguage: String
     public var explanationLanguage: String
@@ -97,14 +104,12 @@ public struct Configuration: Codable, Equatable, Sendable {
     public var rephrasingKey: String
     public var translationKey: String
 
-    public init(provider: Provider = .gemini, endpoint: String = Provider.gemini.endpoint,
-                model: String = Provider.gemini.model, scene: Scene = .standard,
+    public init(provider: Provider = .gemini, profiles: [Provider: ProviderProfile] = [:], scene: Scene = .standard,
                 targetLanguage: String = "Français", explanationLanguage: String = "Français",
                 isPanelWide: Bool = false, correctionKey: String = "G", rephrasingKey: String = "R",
                 translationKey: String = "T") {
         self.provider = provider
-        self.endpoint = endpoint
-        self.model = model
+        self.profiles = profiles
         self.scene = scene
         self.targetLanguage = targetLanguage
         self.explanationLanguage = explanationLanguage
@@ -112,6 +117,22 @@ public struct Configuration: Codable, Equatable, Sendable {
         self.correctionKey = correctionKey
         self.rephrasingKey = rephrasingKey
         self.translationKey = translationKey
+    }
+
+    public func readProfile(for provider: Provider) -> ProviderProfile {
+        profiles[provider] ?? provider.defaultProfile
+    }
+
+    /// Adresse de base du fournisseur choisi.
+    public var endpoint: String {
+        get { readProfile(for: provider).endpoint }
+        set { profiles[provider] = ProviderProfile(endpoint: newValue, model: model) }
+    }
+
+    /// Modèle du fournisseur choisi.
+    public var model: String {
+        get { readProfile(for: provider).model }
+        set { profiles[provider] = ProviderProfile(endpoint: endpoint, model: newValue) }
     }
 
     /// Lettre du raccourci global ⇧⌘ de chaque mode.

@@ -79,10 +79,10 @@ struct EditorView: View {
 
     private var toolbar: some View {
         ViewThatFits(in: .horizontal) {
-            HStack(spacing: Tokens.spaceInline) { modePicker; providerButton; Spacer(); runButton }
+            HStack(spacing: Tokens.spaceInline) { modePicker; providerMenu; Spacer(); runButton }
             VStack(alignment: .leading, spacing: Tokens.spaceInline) {
                 modePicker
-                HStack { providerButton; Spacer(); runButton }
+                HStack { providerMenu; Spacer(); runButton }
             }
         }
         .padding(.horizontal, Tokens.spaceInline)
@@ -98,15 +98,21 @@ struct EditorView: View {
         .fixedSize()
     }
 
-    private var providerButton: some View {
-        Button { openSettings() } label: {
-            HStack(spacing: Tokens.spaceCompact) {
-                Text(model.configuration.provider.title).lineLimit(1)
-                Image(systemName: "chevron.down").font(Tokens.fontCaption)
+    private var providerMenu: some View {
+        Menu {
+            ForEach(Provider.allCases) { provider in
+                Button { model.selectProvider(provider) } label: {
+                    let title = "\(provider.title) · \(model.configuration.readProfile(for: provider).model)"
+                    if provider == model.configuration.provider { Label(title, systemImage: "checkmark") } else { Text(title) }
+                }
             }
+            Divider()
+            Button("Réglages du fournisseur…", systemImage: "gearshape") { openSettings() }
+        } label: {
+            Text(model.configuration.provider.title).lineLimit(1)
         }
-        .buttonStyle(.bordered)
-        .help("Modèle : \(model.configuration.model). Ouvrir les réglages du fournisseur.")
+        .fixedSize()
+        .help("Modèle : \(model.configuration.model). Changer de fournisseur ou ouvrir ses réglages.")
         .font(Tokens.fontLabel)
     }
 

@@ -227,6 +227,17 @@ final class AppModel: ObservableObject {
         } catch { errorMessage = error.localizedDescription }
     }
 
+    /// Change de fournisseur sans ouvrir les réglages. Une clé absente reste une erreur visible au lancement.
+    func selectProvider(_ provider: Provider) {
+        guard provider != configuration.provider else { return }
+        var next = configuration
+        next.provider = provider
+        do {
+            try preferences.save(next)
+            configuration = next
+        } catch { errorMessage = error.localizedDescription }
+    }
+
     func loadKey(for configuration: Configuration) throws -> String {
         try keys.read(account: configuration.makeKeyAccount()) ?? ""
     }
