@@ -5,6 +5,8 @@ Exemples officiels lus le 7 novembre 2026 :
 - [Compatibilité OpenAI de Gemini](https://ai.google.dev/gemini-api/docs/openai) :
   base `https://generativelanguage.googleapis.com/v1beta/openai/`, clé Bearer,
   modèle explicite et `chat.completions.create`.
+- [DeepSeek : premier appel](https://api-docs.deepseek.com/) :
+  base `https://api.deepseek.com`, protocole compatible OpenAI.
 - [OpenAI Cookbook : streaming](https://github.com/openai/openai-cookbook/blob/main/examples/How_to_stream_completions.ipynb) :
   `choices[0].delta.content`, delta initial vide, dernier delta sans contenu et
   `finish_reason: stop`. Le transport traite les événements SSE et `[DONE]`.

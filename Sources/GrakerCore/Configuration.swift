@@ -27,23 +27,26 @@ public enum GrakerError: LocalizedError, Equatable {
 }
 
 public enum Provider: String, CaseIterable, Codable, Identifiable, Sendable {
-    case gemini, custom
+    case gemini, deepseek, custom
     public var id: String { rawValue }
     public var title: String {
         switch self {
         case .gemini: return "Google Gemini"
+        case .deepseek: return "DeepSeek"
         case .custom: return "Compatible OpenAI"
         }
     }
     public var endpoint: String {
         switch self {
         case .gemini: return "https://generativelanguage.googleapis.com/v1beta/openai"
+        case .deepseek: return "https://api.deepseek.com"
         case .custom: return "https://api.openai.com/v1"
         }
     }
     public var model: String {
         switch self {
         case .gemini: return "gemini-2.5-flash"
+        case .deepseek: return "deepseek-chat"
         case .custom: return "gpt-4.1-mini"
         }
     }

@@ -20,9 +20,9 @@ L'objectif est de corriger et traduire un texte depuis l'application où il écr
 avec un raccourci, une explication et la possibilité de remplacer la sélection.
 La copie sert ensuite de base pour adapter l'outil à nos propres cas d'usage.
 
-L'interface est en français. Les fournisseurs proposés sont Google Gemini et
-un service compatible OpenAI. Le fournisseur DeepSeek et les langues d'interface
-chinoises de Graker ne sont pas repris.
+L'interface est en français. Les langues d'interface chinoises de Graker ne
+sont pas reprises. Les fournisseurs proposés sont Google Gemini, DeepSeek et un
+service compatible OpenAI.
 
 Le périmètre accepté dans le chat est une application native SwiftUI, avec
 AppKit et les API macOS pour les fonctions système, et les clés API personnelles
@@ -177,8 +177,8 @@ raison du remplacement et conservation des deux historiques.
 publication dans uchi et suppression de la branche de sauvegarde.
 [Décision de fiabilité](Documentation/Decisions/2026-11-08-reliability.md) :
 lecture du flux SSE, blancs de la sélection et retour du focus.
-[Décision des fournisseurs](Documentation/Decisions/2026-11-08-providers.md) :
-retrait de DeepSeek et absence de texte chinois.
+[Décision des langues](Documentation/Decisions/2026-11-08-languages.md) :
+interface en français, sans langue chinoise, avec DeepSeek conservé.
 
 Le noyau compile sous Linux avec Swift 6.0.3 ; ses 34 tests XCTest passent.
 L'application complète compile aussi sur macOS 15 Apple Silicon : les 34 tests,
