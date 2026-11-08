@@ -151,35 +151,13 @@ struct EditorView: View {
                         }
                     }
                     .buttonStyle(.borderless)
-                    Text(makeReadableText(model.result))
-                        .textSelection(.enabled)
-                        .lineSpacing(Tokens.sizeLineSpacing)
-                        .frame(maxWidth: .infinity, alignment: .leading)
                     if let revision = model.revision {
-                        if !revision.changes.isEmpty {
-                            VStack(alignment: .leading, spacing: Tokens.spaceInline) {
-                                ForEach(Array(revision.changes.enumerated()), id: \.offset) { _, change in
-                                    DisclosureGroup {
-                                        Text(change.reason).foregroundStyle(Tokens.textMuted)
-                                            .textSelection(.enabled).padding(.top, Tokens.spaceCompact)
-                                    } label: {
-                                        HStack(spacing: Tokens.spaceCompact) {
-                                            if !change.original.isEmpty { Text(change.original).strikethrough().foregroundStyle(Tokens.danger) }
-                                            Image(systemName: "arrow.right").foregroundStyle(Tokens.textMuted)
-                                            Text(change.replacement.isEmpty ? "Supprimé" : change.replacement).foregroundStyle(Tokens.success)
-                                        }
-                                    }
-                                    .font(Tokens.fontLabel)
-                                }
-                            }
-                        }
-                        Text(revision.explanation)
-                            .font(Tokens.fontLabel)
+                        RevisionView(revision: revision)
+                    } else {
+                        Text(makeReadableText(model.result))
                             .textSelection(.enabled)
-                            .padding(Tokens.spaceSection)
+                            .lineSpacing(Tokens.sizeLineSpacing)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .foregroundStyle(Tokens.variantExplanationText)
-                            .background(Tokens.variantExplanationBackground, in: RoundedRectangle(cornerRadius: Tokens.radiusCard))
                     }
                 } else if !model.isRunning {
                     VStack(alignment: .leading, spacing: Tokens.spaceInline) {
