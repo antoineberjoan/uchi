@@ -71,7 +71,7 @@ struct EditorView: View {
                 .scrollContentBackground(.hidden)
                 .accessibilityLabel("Texte à corriger ou à traduire")
                 // Entrée lance, ⇧Entrée va à la ligne. Taper à la main ne lance rien.
-                .onKeyPress(.return) { press in
+                .onKeyPress(.return, phases: .down) { press in
                     guard !press.modifiers.contains(.shift) else { return .ignored }
                     if model.canRun { model.run() }
                     return .handled
