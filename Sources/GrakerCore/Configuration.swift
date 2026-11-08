@@ -53,10 +53,24 @@ public enum Provider: String, CaseIterable, Codable, Identifiable, Sendable {
 }
 
 public enum Mode: String, Codable, CaseIterable, Identifiable, Sendable {
-    case correction, translation
+    case correction, rephrasing, translation
     public var id: String { rawValue }
-    public var title: String { self == .correction ? "Corriger" : "Traduire" }
-    public var symbol: String { self == .correction ? "text.badge.checkmark" : "character.bubble" }
+    public var title: String {
+        switch self {
+        case .correction: return "Corriger"
+        case .rephrasing: return "Reformuler"
+        case .translation: return "Traduire"
+        }
+    }
+    public var symbol: String {
+        switch self {
+        case .correction: return "text.badge.checkmark"
+        case .rephrasing: return "wand.and.stars"
+        case .translation: return "character.bubble"
+        }
+    }
+    /// La correction et la reformulation renvoient une révision expliquée ; la traduction, un texte.
+    public var hasRevision: Bool { self != .translation }
 }
 
 public enum Scene: String, CaseIterable, Codable, Identifiable, Sendable {
@@ -80,12 +94,14 @@ public struct Configuration: Codable, Equatable, Sendable {
     public var explanationLanguage: String
     public var isPanelWide: Bool
     public var correctionKey: String
+    public var rephrasingKey: String
     public var translationKey: String
 
     public init(provider: Provider = .gemini, endpoint: String = Provider.gemini.endpoint,
                 model: String = Provider.gemini.model, scene: Scene = .standard,
                 targetLanguage: String = "Français", explanationLanguage: String = "Français",
-                isPanelWide: Bool = false, correctionKey: String = "G", translationKey: String = "T") {
+                isPanelWide: Bool = false, correctionKey: String = "G", rephrasingKey: String = "R",
+                translationKey: String = "T") {
         self.provider = provider
         self.endpoint = endpoint
         self.model = model
@@ -94,7 +110,19 @@ public struct Configuration: Codable, Equatable, Sendable {
         self.explanationLanguage = explanationLanguage
         self.isPanelWide = isPanelWide
         self.correctionKey = correctionKey
+        self.rephrasingKey = rephrasingKey
         self.translationKey = translationKey
+    }
+
+    /// Lettre du raccourci global ⇧⌘ de chaque mode.
+    public var shortcutKeys: [Mode: String] {
+        Dictionary(uniqueKeysWithValues: Mode.allCases.map { mode in
+            switch mode {
+            case .correction: return (mode, correctionKey)
+            case .rephrasing: return (mode, rephrasingKey)
+            case .translation: return (mode, translationKey)
+            }
+        })
     }
 
     public func validate() throws -> URL {
@@ -109,11 +137,10 @@ public struct Configuration: Codable, Equatable, Sendable {
               !explanationLanguage.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             throw GrakerError.configuration("Renseignez le modèle et les langues dans les réglages.")
         }
-        guard correctionKey.count == 1, translationKey.count == 1,
-              correctionKey.range(of: "^[A-Z]$", options: .regularExpression) != nil,
-              translationKey.range(of: "^[A-Z]$", options: .regularExpression) != nil,
-              correctionKey != translationKey else {
-            throw GrakerError.configuration("Choisissez deux lettres de raccourci différentes, de A à Z.")
+        let keys = Array(shortcutKeys.values)
+        guard keys.allSatisfy({ $0.range(of: "^[A-Z]$", options: .regularExpression) != nil }),
+              Set(keys).count == keys.count else {
+            throw GrakerError.configuration("Choisissez trois lettres de raccourci différentes, de A à Z.")
         }
         return url
     }

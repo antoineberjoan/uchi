@@ -156,6 +156,7 @@ struct SettingsView: View {
             GroupBox {
                 VStack(spacing: Tokens.spaceSection) {
                     shortcutPicker("Corriger la sélection", key: $draft.correctionKey)
+                    shortcutPicker("Reformuler la sélection", key: $draft.rephrasingKey)
                     shortcutPicker("Traduire la sélection", key: $draft.translationKey)
                 }
                 .padding(Tokens.spaceInline)
@@ -166,7 +167,12 @@ struct SettingsView: View {
                     catch { showMessage(error.localizedDescription, isError: true) }
                 }
                 .buttonStyle(.borderedProminent)
-                Button("Rétablir les lettres G et T") { draft.correctionKey = "G"; draft.translationKey = "T" }
+                Button("Rétablir les lettres G, R et T") {
+                    let defaults = Configuration()
+                    draft.correctionKey = defaults.correctionKey
+                    draft.rephrasingKey = defaults.rephrasingKey
+                    draft.translationKey = defaults.translationKey
+                }
             }
             if let error = model.shortcutError { Text(error).foregroundStyle(Tokens.danger) }
             Divider()

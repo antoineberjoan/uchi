@@ -52,8 +52,7 @@ final class AppModel: ObservableObject {
     }
 
     func start() {
-        shortcuts.onCorrection = { [weak self] in self?.processSelection(mode: .correction) }
-        shortcuts.onTranslation = { [weak self] in self?.processSelection(mode: .translation) }
+        shortcuts.onShortcut = { [weak self] mode in self?.processSelection(mode: mode) }
         shortcuts.onError = { [weak self] message in self?.shortcutError = message }
         do { try shortcuts.register(configuration) }
         catch { shortcutError = error.localizedDescription }
@@ -140,11 +139,11 @@ final class AppModel: ObservableObject {
                 let key = try keys.read(account: selectedConfiguration.makeKeyAccount()) ?? ""
                 let response = try await client.complete(request, configuration: selectedConfiguration, key: key) { [weak self] partial in
                     guard let self, self.requestID == identifier else { return }
-                    if selectedMode == .translation { self.result = partial }
+                    if !selectedMode.hasRevision { self.result = partial }
                 }
                 try Task.checkCancellation()
                 guard requestID == identifier else { return }
-                if selectedMode == .correction {
+                if selectedMode.hasRevision {
                     let parsed = try Revision.parse(response, source: original)
                     revision = parsed
                     result = parsed.text
@@ -258,6 +257,7 @@ final class AppModel: ObservableObject {
     func saveShortcuts(_ draft: Configuration) throws {
         var next = configuration
         next.correctionKey = draft.correctionKey
+        next.rephrasingKey = draft.rephrasingKey
         next.translationKey = draft.translationKey
         try shortcuts.register(next)
         do { try preferences.save(next) }

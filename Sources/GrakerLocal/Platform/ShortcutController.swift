@@ -8,14 +8,14 @@ enum ShortcutFailure: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .registration(true): return "Ce raccourci est déjà utilisé. Les anciens raccourcis restent actifs. Choisissez une autre lettre."
-        case .registration(false): return "Les raccourcis globaux n’ont pas pu être activés. Choisissez deux autres lettres ; les commandes du menu restent disponibles."
+        case .registration(false): return "Les raccourcis globaux n’ont pas pu être activés. Choisissez d’autres lettres ; les commandes du menu restent disponibles."
         }
     }
 }
 
 final class ShortcutController {
-    var onCorrection: (@MainActor () -> Void)?
-    var onTranslation: (@MainActor () -> Void)?
+    /// L'identifiant d'un raccourci est la position de son mode dans `Mode.allCases`, plus un.
+    var onShortcut: (@MainActor (Mode) -> Void)?
     var onError: (@MainActor (String) -> Void)?
     private var handler: EventHandlerRef?
     private var layoutObserver: NSObjectProtocol?
@@ -33,11 +33,10 @@ final class ShortcutController {
             guard status == noErr else { return status }
             let controller = Unmanaged<ShortcutController>.fromOpaque(context).takeUnretainedValue()
             guard identifier.signature == controller.signature else { return OSStatus(eventNotHandledErr) }
-            let action = identifier.id
-            Task { @MainActor in
-                if action == 1 { controller.onCorrection?() }
-                else if action == 2 { controller.onTranslation?() }
-            }
+            let index = Int(identifier.id) - 1
+            guard Mode.allCases.indices.contains(index) else { return OSStatus(eventNotHandledErr) }
+            let mode = Mode.allCases[index]
+            Task { @MainActor in controller.onShortcut?(mode) }
             return noErr
         }, 1, &kind, Unmanaged.passUnretained(self).toOpaque(), &handler)
         layoutObserver = DistributedNotificationCenter.default().addObserver(
@@ -55,18 +54,18 @@ final class ShortcutController {
     func register(_ configuration: Configuration, isForced: Bool = false) throws {
         _ = try configuration.validate()
         guard handler != nil else { throw ShortcutFailure.registration(false) }
-        if !isForced, current?.correctionKey == configuration.correctionKey,
-           current?.translationKey == configuration.translationKey, references.count == 2 { return }
+        if !isForced, current?.shortcutKeys == configuration.shortcutKeys,
+           references.count == Mode.allCases.count { return }
         let previous = current
         unregister()
         do {
-            try registerPair(configuration)
+            try registerKeys(configuration)
             current = configuration
         } catch {
             unregister()
             if let previous {
                 do {
-                    try registerPair(previous)
+                    try registerKeys(previous)
                     current = previous
                 } catch {
                     unregister()
@@ -79,9 +78,11 @@ final class ShortcutController {
         }
     }
 
-    private func registerPair(_ configuration: Configuration) throws {
-        for (offset, key) in [configuration.correctionKey, configuration.translationKey].enumerated() {
-            guard let code = resolveKeyCode(key) else { throw ShortcutFailure.registration(false) }
+    private func registerKeys(_ configuration: Configuration) throws {
+        for (offset, mode) in Mode.allCases.enumerated() {
+            guard let key = configuration.shortcutKeys[mode], let code = resolveKeyCode(key) else {
+                throw ShortcutFailure.registration(false)
+            }
             var reference: EventHotKeyRef?
             let identifier = EventHotKeyID(signature: signature, id: UInt32(offset + 1))
             let status = RegisterEventHotKey(code, UInt32(cmdKey | shiftKey), identifier,

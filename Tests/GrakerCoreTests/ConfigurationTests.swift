@@ -44,5 +44,14 @@ final class ConfigurationTests: XCTestCase {
         XCTAssertThrowsError(try configuration.validate())
         configuration.translationKey = "1"
         XCTAssertThrowsError(try configuration.validate())
+        configuration = Configuration()
+        configuration.rephrasingKey = configuration.translationKey
+        XCTAssertThrowsError(try configuration.validate())
+    }
+
+    func testEveryModeHasItsOwnDefaultShortcut() throws {
+        let configuration = Configuration()
+        XCTAssertEqual(configuration.shortcutKeys, [.correction: "G", .rephrasing: "R", .translation: "T"])
+        XCTAssertNoThrow(try configuration.validate())
     }
 }

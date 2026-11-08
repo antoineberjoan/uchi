@@ -131,14 +131,14 @@ struct EditorView: View {
                 if model.isRunning {
                     HStack(spacing: Tokens.spaceInline) {
                         ProgressView().controlSize(.small)
-                        Text(model.mode == .correction ? "Vérification du texte…" : "Traduction en cours…")
+                        Text(progressTitle)
                             .foregroundStyle(Tokens.textMuted).font(Tokens.fontLabel)
                         Spacer()
                     }
                 }
                 if !model.result.isEmpty {
                     HStack {
-                        Label(model.mode == .correction ? "Texte corrigé" : "Traduction", systemImage: model.mode.symbol)
+                        Label(resultTitle, systemImage: model.mode.symbol)
                             .foregroundStyle(Tokens.success)
                             .font(Tokens.fontLabel.weight(Tokens.weightLabel))
                         Spacer()
@@ -186,7 +186,7 @@ struct EditorView: View {
                         Text("Vos mots, plus clairs.").font(Tokens.fontTitle.weight(Tokens.weightLabel))
                         Text("Corrigez une phrase ou traduisez un passage. Le résultat reste ici jusqu’à votre prochaine action.")
                             .foregroundStyle(Tokens.textMuted)
-                        Button("Coller et \(model.mode == .correction ? "corriger" : "traduire")", systemImage: "clipboard") { model.pasteAndRun() }
+                        Button("Coller et \(model.mode.title.lowercased())", systemImage: "clipboard") { model.pasteAndRun() }
                             .buttonStyle(.bordered)
                         Text("Le texte est envoyé à \(model.configuration.provider.title), avec votre clé. Configurez le fournisseur dans les réglages.")
                             .font(Tokens.fontCaption).foregroundStyle(Tokens.textMuted)
@@ -198,6 +198,22 @@ struct EditorView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .frame(maxHeight: .infinity)
+    }
+
+    private var progressTitle: String {
+        switch model.mode {
+        case .correction: return "Vérification du texte…"
+        case .rephrasing: return "Reformulation en cours…"
+        case .translation: return "Traduction en cours…"
+        }
+    }
+
+    private var resultTitle: String {
+        switch model.mode {
+        case .correction: return "Texte corrigé"
+        case .rephrasing: return "Texte reformulé"
+        case .translation: return "Traduction"
+        }
     }
 
     private var refinement: some View {

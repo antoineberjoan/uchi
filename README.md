@@ -34,6 +34,8 @@ l'application installée sur le Mac ; les traitements IA utilisent l'API choisie
 
 Un outil personnel natif, inspiré du fonctionnement public de Graker 1.6.3 :
 correction expliquée, traduction, affinage et panneau près de la sélection.
+La reformulation est un ajout : elle réécrit un texte, souvent en anglais, pour
+le rendre clair et naturel, puis explique les principaux changements.
 SwiftUI dessine l'interface. Les adaptateurs macOS utilisent AppKit, Accessibilité
 et Carbon pour les fonctions système. Aucun service intermédiaire.
 
@@ -76,10 +78,13 @@ Choisir le fournisseur et le modèle dans Réglages → Fournisseur IA. Le bouto
 Les frais éventuels sont ceux de son API. L'application ne demande pas de clé
 dans le chat et ne dispose d'aucune clé partagée.
 
-La correction de la sélection utilise ⇧⌘G ; la traduction utilise ⇧⌘T.
-Les raccourcis sont modifiables et suivent la disposition du clavier. Dans le
-panneau, ⌘Retour lance le traitement ; Retour garde la saisie sur plusieurs lignes.
-Le bouton « Coller et corriger/traduire » colle et lance ; un collage ordinaire
+La correction de la sélection utilise ⇧⌘G ; la reformulation utilise ⇧⌘R ;
+la traduction utilise ⇧⌘T. Les raccourcis sont modifiables et suivent la
+disposition du clavier. Un raccourci global prend la place du même raccourci
+dans les autres apps : ⇧⌘R recharge aussi une page dans Chrome, par exemple.
+Dans le panneau, ⌘Retour lance le traitement ; Retour garde la saisie sur
+plusieurs lignes. Le bouton « Coller et corriger » (ou reformuler, ou traduire)
+colle et lance ; un collage ordinaire
 dans la saisie ne lance pas de requête à lui seul. Les actions sur une sélection demandent
 l'autorisation Accessibilité de macOS. La saisie manuelle fonctionne sans elle.
 Le remplacement refuse une sélection qui a changé ; Copier reste disponible.
@@ -179,8 +184,10 @@ publication dans uchi et suppression de la branche de sauvegarde.
 lecture du flux SSE, blancs de la sélection et retour du focus.
 [Décision des langues](Documentation/Decisions/2026-11-08-languages.md) :
 interface en français, sans langue chinoise, avec DeepSeek conservé.
+[Décision de reformulation](Documentation/Decisions/2026-11-08-rephrasing.md) :
+mode Reformuler et explications écrites selon `expliquer`.
 
-Le noyau compile sous Linux avec Swift 6.0.3 ; ses 34 tests XCTest passent.
+Le noyau compile sous Linux avec Swift 6.0.3 ; ses 37 tests XCTest passent.
 L'application complète compile aussi sur macOS 15 Apple Silicon : les 34 tests,
 la construction release et la vérification de signature passent dans
 [GitHub Actions](https://github.com/antoineberjoan/uchi/actions/runs/42428268030).
@@ -194,7 +201,8 @@ Les titres, tableaux et blocs complexes restent lisibles sous forme de texte
 Markdown ; leur rendu complet de Graker n'est pas encore reproduit.
 
 Le parcours manuel minimal est : régler un fournisseur → saisir une phrase →
-corriger → affiner → traduire → copier ; puis sélectionner dans TextEdit et dans
+corriger → reformuler une phrase en anglais → affiner → traduire → copier ;
+appeler réellement le fournisseur avec sa clé ; puis sélectionner dans TextEdit et dans
 un navigateur → lancer le raccourci → remplacer ; enfin changer la sélection
 avant de remplacer, révoquer la permission, annuler une requête et simuler un
 fournisseur inaccessible. Chaque échec doit rester visible, sans perdre la saisie.
