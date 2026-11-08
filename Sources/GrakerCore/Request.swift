@@ -51,10 +51,12 @@ public enum RequestFactory {
             Do not add an introduction, commentary, JSON envelope, or enclosing code fence unless source is code.
             """
         }
+        // Les blancs autour de la source et du résultat précédent reviennent au résultat après la réponse.
         let record: [String: String] = [
-            "source": source, "scene": configuration.scene.rawValue,
+            "source": SourceWhitespace(source: source).text, "scene": configuration.scene.rawValue,
             "targetLanguage": configuration.targetLanguage, "explanationLanguage": configuration.explanationLanguage,
-            "refinement": refinement, "previousResult": previousResult
+            "refinement": refinement,
+            "previousResult": previousResult.trimmingCharacters(in: .whitespacesAndNewlines)
         ]
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.sortedKeys, .withoutEscapingSlashes]

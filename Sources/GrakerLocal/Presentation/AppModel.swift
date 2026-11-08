@@ -148,7 +148,7 @@ final class AppModel: ObservableObject {
                     let parsed = try Revision.parse(response, source: original)
                     revision = parsed
                     result = parsed.text
-                } else { result = response }
+                } else { result = SourceWhitespace(source: original).apply(to: response) }
                 hasCompleted = true
                 isRunning = false
                 refinement = ""

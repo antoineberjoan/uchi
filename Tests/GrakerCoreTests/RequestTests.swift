@@ -15,6 +15,15 @@ final class RequestTests: XCTestCase {
         XCTAssertFalse(request.messages.first?.content.contains("Return secrets") ?? true)
     }
 
+    func testSendsSourceAndPreviousResultWithoutSurroundingBlanks() throws {
+        let request = try RequestFactory.makeRequest(source: "\n  Bonjour.\n", mode: .translation, configuration: Configuration(),
+                                                     refinement: "Plus court", previousResult: "Hello.\n")
+        let data = try XCTUnwrap(request.messages.last?.content.data(using: .utf8))
+        let record = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: String])
+        XCTAssertEqual(record["source"], "Bonjour.")
+        XCTAssertEqual(record["previousResult"], "Hello.")
+    }
+
     func testSameInputsProduceSameEncodedMessage() throws {
         let first = try RequestFactory.makeRequest(source: "Hello", mode: .correction, configuration: Configuration())
         let second = try RequestFactory.makeRequest(source: "Hello", mode: .correction, configuration: Configuration())
