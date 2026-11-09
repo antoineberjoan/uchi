@@ -17,18 +17,22 @@ public struct Revision: Codable, Equatable, Sendable {
         if value.hasPrefix("```"), value.hasSuffix("```"), let newline = value.firstIndex(of: "\n") {
             value = String(value[value.index(after: newline)...].dropLast(3)).trimmingCharacters(in: .whitespacesAndNewlines)
         }
+        let whitespace = SourceWhitespace(source: source)
         guard let data = value.data(using: .utf8),
-              let revision = try? JSONDecoder().decode(Revision.self, from: data),
-              !revision.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-              !revision.explanation.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-              revision.changes.allSatisfy({ change in
-                  !change.reason.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
-                  !(change.original.isEmpty && change.replacement.isEmpty) &&
-                  (change.original.isEmpty || source.contains(change.original)) &&
-                  (change.replacement.isEmpty || revision.text.contains(change.replacement))
-              }), !revision.changes.isEmpty || revision.text == source else {
+              let decoded = try? JSONDecoder().decode(Revision.self, from: data) else {
             throw GrakerError.invalidRevision
         }
-        return revision
+        let text = decoded.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !text.isEmpty,
+              !decoded.explanation.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+              decoded.changes.allSatisfy({ change in
+                  !change.reason.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
+                  !(change.original.isEmpty && change.replacement.isEmpty) &&
+                  (change.original.isEmpty || whitespace.text.contains(change.original)) &&
+                  (change.replacement.isEmpty || text.contains(change.replacement))
+              }), !decoded.changes.isEmpty || text == whitespace.text else {
+            throw GrakerError.invalidRevision
+        }
+        return Revision(text: whitespace.apply(to: text), explanation: decoded.explanation, changes: decoded.changes)
     }
 }

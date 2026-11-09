@@ -70,6 +70,17 @@ struct EditorView: View {
                 .font(Tokens.fontBody)
                 .scrollContentBackground(.hidden)
                 .accessibilityLabel("Texte à corriger ou à traduire")
+                // Entrée lance, ⇧Entrée va à la ligne. Taper à la main ne lance rien.
+                .onKeyPress(.return, phases: .down) { press in
+                    guard !press.modifiers.contains(.shift) else { return .ignored }
+                    if model.canRun { model.run() }
+                    return .handled
+                }
+                // Un collage dans la saisie lance, comme dans Graker.
+                .onChange(of: model.source) { old, new in
+                    guard new != model.programmaticSource, InputChange.isPaste(from: old, to: new) else { return }
+                    model.run()
+                }
                 .padding(Tokens.spaceCompact)
         }
         .frame(height: Tokens.sizeEditorHeight)
@@ -79,10 +90,10 @@ struct EditorView: View {
 
     private var toolbar: some View {
         ViewThatFits(in: .horizontal) {
-            HStack(spacing: Tokens.spaceInline) { modePicker; providerButton; Spacer(); runButton }
+            HStack(spacing: Tokens.spaceInline) { modePicker; providerMenu; Spacer(); runButton }
             VStack(alignment: .leading, spacing: Tokens.spaceInline) {
                 modePicker
-                HStack { providerButton; Spacer(); runButton }
+                HStack { providerMenu; Spacer(); runButton }
             }
         }
         .padding(.horizontal, Tokens.spaceInline)
@@ -98,15 +109,21 @@ struct EditorView: View {
         .fixedSize()
     }
 
-    private var providerButton: some View {
-        Button { openSettings() } label: {
-            HStack(spacing: Tokens.spaceCompact) {
-                Text(model.configuration.provider.title).lineLimit(1)
-                Image(systemName: "chevron.down").font(Tokens.fontCaption)
+    private var providerMenu: some View {
+        Menu {
+            ForEach(Provider.allCases) { provider in
+                Button { model.selectProvider(provider) } label: {
+                    let title = "\(provider.title) · \(model.configuration.readProfile(for: provider).model)"
+                    if provider == model.configuration.provider { Label(title, systemImage: "checkmark") } else { Text(title) }
+                }
             }
+            Divider()
+            Button("Réglages du fournisseur…", systemImage: "gearshape") { openSettings() }
+        } label: {
+            Text(model.configuration.provider.title).lineLimit(1)
         }
-        .buttonStyle(.bordered)
-        .help("Modèle : \(model.configuration.model). Ouvrir les réglages du fournisseur.")
+        .fixedSize()
+        .help("Modèle : \(model.configuration.model). Changer de fournisseur ou ouvrir ses réglages.")
         .font(Tokens.fontLabel)
     }
 
@@ -116,12 +133,12 @@ struct EditorView: View {
             Button("Annuler", systemImage: "stop.fill") { model.cancel() }.buttonStyle(.bordered)
         } else {
             Button { model.run() } label: {
-                HStack(spacing: Tokens.spaceCompact) { Text(model.mode.title); Text("⌘↵").font(Tokens.fontCaption) }
+                HStack(spacing: Tokens.spaceCompact) { Text(model.mode.title); Text("↵").font(Tokens.fontCaption) }
             }
             .buttonStyle(.borderedProminent)
             .keyboardShortcut(.return, modifiers: .command)
-            .help("\(model.mode.title) · ⌘Retour")
-            .disabled(model.source.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            .help("\(model.mode.title) · Retour (⇧Retour : nouvelle ligne)")
+            .disabled(!model.canRun)
         }
     }
 
@@ -131,14 +148,14 @@ struct EditorView: View {
                 if model.isRunning {
                     HStack(spacing: Tokens.spaceInline) {
                         ProgressView().controlSize(.small)
-                        Text(model.mode == .correction ? "Vérification du texte…" : "Traduction en cours…")
+                        Text(progressTitle)
                             .foregroundStyle(Tokens.textMuted).font(Tokens.fontLabel)
                         Spacer()
                     }
                 }
                 if !model.result.isEmpty {
                     HStack {
-                        Label(model.mode == .correction ? "Texte corrigé" : "Traduction", systemImage: model.mode.symbol)
+                        Label(resultTitle, systemImage: model.mode.symbol)
                             .foregroundStyle(Tokens.success)
                             .font(Tokens.fontLabel.weight(Tokens.weightLabel))
                         Spacer()
@@ -151,42 +168,20 @@ struct EditorView: View {
                         }
                     }
                     .buttonStyle(.borderless)
-                    Text(makeReadableText(model.result))
-                        .textSelection(.enabled)
-                        .lineSpacing(Tokens.sizeLineSpacing)
-                        .frame(maxWidth: .infinity, alignment: .leading)
                     if let revision = model.revision {
-                        if !revision.changes.isEmpty {
-                            VStack(alignment: .leading, spacing: Tokens.spaceInline) {
-                                ForEach(Array(revision.changes.enumerated()), id: \.offset) { _, change in
-                                    DisclosureGroup {
-                                        Text(change.reason).foregroundStyle(Tokens.textMuted)
-                                            .textSelection(.enabled).padding(.top, Tokens.spaceCompact)
-                                    } label: {
-                                        HStack(spacing: Tokens.spaceCompact) {
-                                            if !change.original.isEmpty { Text(change.original).strikethrough().foregroundStyle(Tokens.danger) }
-                                            Image(systemName: "arrow.right").foregroundStyle(Tokens.textMuted)
-                                            Text(change.replacement.isEmpty ? "Supprimé" : change.replacement).foregroundStyle(Tokens.success)
-                                        }
-                                    }
-                                    .font(Tokens.fontLabel)
-                                }
-                            }
-                        }
-                        Text(revision.explanation)
-                            .font(Tokens.fontLabel)
+                        RevisionView(revision: revision)
+                    } else {
+                        Text(makeReadableText(model.result))
                             .textSelection(.enabled)
-                            .padding(Tokens.spaceSection)
+                            .lineSpacing(Tokens.sizeLineSpacing)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .foregroundStyle(Tokens.variantExplanationText)
-                            .background(Tokens.variantExplanationBackground, in: RoundedRectangle(cornerRadius: Tokens.radiusCard))
                     }
                 } else if !model.isRunning {
                     VStack(alignment: .leading, spacing: Tokens.spaceInline) {
                         Text("Vos mots, plus clairs.").font(Tokens.fontTitle.weight(Tokens.weightLabel))
                         Text("Corrigez une phrase ou traduisez un passage. Le résultat reste ici jusqu’à votre prochaine action.")
                             .foregroundStyle(Tokens.textMuted)
-                        Button("Coller et \(model.mode == .correction ? "corriger" : "traduire")", systemImage: "clipboard") { model.pasteAndRun() }
+                        Button("Coller et \(model.mode.title.lowercased())", systemImage: "clipboard") { model.pasteAndRun() }
                             .buttonStyle(.bordered)
                         Text("Le texte est envoyé à \(model.configuration.provider.title), avec votre clé. Configurez le fournisseur dans les réglages.")
                             .font(Tokens.fontCaption).foregroundStyle(Tokens.textMuted)
@@ -198,6 +193,22 @@ struct EditorView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .frame(maxHeight: .infinity)
+    }
+
+    private var progressTitle: String {
+        switch model.mode {
+        case .correction: return "Vérification du texte…"
+        case .rephrasing: return "Reformulation en cours…"
+        case .translation: return "Traduction en cours…"
+        }
+    }
+
+    private var resultTitle: String {
+        switch model.mode {
+        case .correction: return "Texte corrigé"
+        case .rephrasing: return "Texte reformulé"
+        case .translation: return "Traduction"
+        }
     }
 
     private var refinement: some View {

@@ -16,6 +16,12 @@ ni `max_tokens`, ni option de JSON propre à un fournisseur. Il exige la fin du
 protocole et refuse un résultat interrompu. Les réponses de correction sont
 validées séparément du transport. Le texte progressif n'autorise aucun remplacement.
 
+Le client découpe lui-même les octets en lignes avec `LineDecoder`. Une ligne
+vide ferme un événement SSE. `URLSession.AsyncBytes.lines` saute ces lignes
+([forum Apple](https://developer.apple.com/forums/thread/725162)) : les
+événements fusionnent et le JSON devient illisible. Le texte progressif est
+transmis à l'affichage au plus toutes les 80 ms.
+
 Les URL n'acceptent ni identifiant intégré, ni paramètres, ni fragment. HTTP est
 réservé au loopback explicitement configuré. Le transport refuse les redirections.
 La clé reste associée à l'adresse configurée dans le trousseau ; modifier une

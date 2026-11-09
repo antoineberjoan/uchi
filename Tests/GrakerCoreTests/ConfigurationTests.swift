@@ -44,5 +44,33 @@ final class ConfigurationTests: XCTestCase {
         XCTAssertThrowsError(try configuration.validate())
         configuration.translationKey = "1"
         XCTAssertThrowsError(try configuration.validate())
+        configuration = Configuration()
+        configuration.rephrasingKey = configuration.translationKey
+        XCTAssertThrowsError(try configuration.validate())
+    }
+
+    func testEachProviderKeepsItsOwnEndpointAndModel() throws {
+        var configuration = Configuration()
+        XCTAssertEqual(configuration.model, "gemini-3.1-flash-lite")
+        configuration.model = "gemini-choisi"
+        configuration.provider = .custom
+        configuration.endpoint = "http://localhost:11434/v1"
+        configuration.model = "llama"
+        configuration.provider = .deepseek
+        XCTAssertEqual(configuration.model, "deepseek-chat")
+        configuration.provider = .gemini
+        XCTAssertEqual(configuration.model, "gemini-choisi")
+        XCTAssertEqual(configuration.endpoint, Provider.gemini.defaultProfile.endpoint)
+        XCTAssertEqual(configuration.readProfile(for: .custom),
+                       ProviderProfile(endpoint: "http://localhost:11434/v1", model: "llama"))
+        let data = try JSONEncoder().encode(configuration)
+        XCTAssertTrue(String(decoding: data, as: UTF8.self).contains(#""custom":{"#))
+        XCTAssertEqual(try JSONDecoder().decode(Configuration.self, from: data), configuration)
+    }
+
+    func testEveryModeHasItsOwnDefaultShortcut() throws {
+        let configuration = Configuration()
+        XCTAssertEqual(configuration.shortcutKeys, [.correction: "G", .rephrasing: "R", .translation: "T"])
+        XCTAssertNoThrow(try configuration.validate())
     }
 }

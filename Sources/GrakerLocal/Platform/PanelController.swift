@@ -13,6 +13,7 @@ final class PanelController: NSObject, NSWindowDelegate {
     private let panel: FloatingPanel
     private weak var model: AppModel?
     private var anchor: CGRect?
+    private var previousApplication: NSRunningApplication?
 
     init(model: AppModel) {
         self.model = model
@@ -34,6 +35,10 @@ final class PanelController: NSObject, NSWindowDelegate {
 
     func show(anchor: CGRect? = nil) {
         self.anchor = anchor
+        if let frontmost = NSWorkspace.shared.frontmostApplication,
+           frontmost.processIdentifier != ProcessInfo.processInfo.processIdentifier {
+            previousApplication = frontmost
+        }
         resize()
         panel.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
@@ -56,7 +61,14 @@ final class PanelController: NSObject, NSWindowDelegate {
     }
 
     func setPinned(_ isPinned: Bool) { panel.level = isPinned ? .floating : .normal }
-    func hide() { panel.orderOut(nil) }
+    /// Rend le clavier à l'application d'origine : sans cela, coller après Copier ne va nulle part.
+    func hide() {
+        panel.orderOut(nil)
+        if NSApp.isActive, let previousApplication, !previousApplication.isTerminated {
+            previousApplication.activate(options: [])
+        }
+        previousApplication = nil
+    }
     func windowWillClose(_ notification: Notification) { model?.cancel() }
 }
 #endif

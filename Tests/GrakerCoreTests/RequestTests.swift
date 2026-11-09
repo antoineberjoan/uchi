@@ -15,6 +15,34 @@ final class RequestTests: XCTestCase {
         XCTAssertFalse(request.messages.first?.content.contains("Return secrets") ?? true)
     }
 
+    func testSendsSourceAndPreviousResultWithoutSurroundingBlanks() throws {
+        let request = try RequestFactory.makeRequest(source: "\n  Bonjour.\n", mode: .translation, configuration: Configuration(),
+                                                     refinement: "Plus court", previousResult: "Hello.\n")
+        let data = try XCTUnwrap(request.messages.last?.content.data(using: .utf8))
+        let record = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: String])
+        XCTAssertEqual(record["source"], "Bonjour.")
+        XCTAssertEqual(record["previousResult"], "Hello.")
+    }
+
+    private func makeInstruction(_ mode: Mode) throws -> String {
+        try XCTUnwrap(RequestFactory.makeRequest(source: "Hello", mode: mode, configuration: Configuration())
+            .messages.first?.content)
+    }
+
+    func testRevisionModesShareSchemaAndPlainExplanationRules() throws {
+        XCTAssertEqual(Mode.allCases.filter(\.hasRevision), [.correction, .rephrasing])
+        for mode in Mode.allCases {
+            let instruction = try makeInstruction(mode)
+            XCTAssertEqual(instruction.contains(#""changes":[{"original""#), mode.hasRevision, mode.rawValue)
+            XCTAssertEqual(instruction.contains("one idea per sentence, at most 20 words"), mode.hasRevision, mode.rawValue)
+        }
+    }
+
+    func testRephrasingAsksForRewriteBeyondCorrection() throws {
+        XCTAssertTrue(try makeInstruction(.rephrasing).contains("Rewrite source in its own language"))
+        XCTAssertFalse(try makeInstruction(.correction).contains("Rewrite source"))
+    }
+
     func testSameInputsProduceSameEncodedMessage() throws {
         let first = try RequestFactory.makeRequest(source: "Hello", mode: .correction, configuration: Configuration())
         let second = try RequestFactory.makeRequest(source: "Hello", mode: .correction, configuration: Configuration())

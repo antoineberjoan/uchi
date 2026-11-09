@@ -106,20 +106,17 @@ struct SettingsView: View {
                     Picker("Fournisseur", selection: $draft.provider) {
                         ForEach(Provider.allCases) { provider in Text(provider.title).tag(provider) }
                     }
-                    .onChange(of: draft.provider) { _, provider in
-                        draft.endpoint = provider.endpoint
-                        draft.model = provider.model
+                    .onChange(of: draft.provider) { _, _ in
                         message = nil
-                        key = ""
+                        loadKey()
                     }
                     TextField("Adresse de base", text: $draft.endpoint)
                         .textContentType(.URL)
                         .disabled(draft.provider != .custom)
                         .onChange(of: draft.endpoint) { _, endpoint in
-                            if draft.provider != .custom ||
-                                (endpoint == model.configuration.endpoint && draft.provider == model.configuration.provider) {
-                                loadKey()
-                            } else { key = "" }
+                            // Une adresse en cours de saisie ne lit pas le trousseau : la clé reste liée à l'adresse enregistrée.
+                            if endpoint == model.configuration.readProfile(for: draft.provider).endpoint { loadKey() }
+                            else { key = "" }
                         }
                     SecureField("Clé API", text: $key)
                         .accessibilityLabel("Clé API, enregistrée dans le trousseau macOS")
@@ -156,6 +153,7 @@ struct SettingsView: View {
             GroupBox {
                 VStack(spacing: Tokens.spaceSection) {
                     shortcutPicker("Corriger la sélection", key: $draft.correctionKey)
+                    shortcutPicker("Reformuler la sélection", key: $draft.rephrasingKey)
                     shortcutPicker("Traduire la sélection", key: $draft.translationKey)
                 }
                 .padding(Tokens.spaceInline)
@@ -166,7 +164,12 @@ struct SettingsView: View {
                     catch { showMessage(error.localizedDescription, isError: true) }
                 }
                 .buttonStyle(.borderedProminent)
-                Button("Rétablir les lettres G et T") { draft.correctionKey = "G"; draft.translationKey = "T" }
+                Button("Rétablir les lettres G, R et T") {
+                    let defaults = Configuration()
+                    draft.correctionKey = defaults.correctionKey
+                    draft.rephrasingKey = defaults.rephrasingKey
+                    draft.translationKey = defaults.translationKey
+                }
             }
             if let error = model.shortcutError { Text(error).foregroundStyle(Tokens.danger) }
             Divider()

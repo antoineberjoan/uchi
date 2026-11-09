@@ -10,7 +10,7 @@ Les méthodes restent dans Sophos ; aucune copie dans ce projet. Lire le fichier
 | concevoir | 0.2.0 | Panneau discret, états complets, rôles visuels, contrôle à l'écran. |
 | construire | 0.3.4 | Noyau pur, effets isolés, vérifications avant livraison. |
 | fonder | 0.2.1 | Tokens uniques, grammaire, frontières, contrats et carte générée. |
-| expliquer | 0.2.1 | Interface et erreurs en français simple. |
+| expliquer | 0.2.1 | Interface, erreurs et explications du modèle en français simple. |
 
 ## Règles du projet
 
@@ -42,7 +42,8 @@ concept ; les rôles de types suivent aussi le concept : Client, Store, Controll
 View, Tests. Les dossiers de couches suivent les noms écrits dans le README.
 Scripts en kebab-case avec verbe en tête ; tokens en kebab-case avec couche en tête.
 Abréviations autorisées : API, URL, HTTP, JSON, SSE, AX, ID. Le reste s'écrit en entier.
-Lexique : source = texte d'origine ; revision = résultat structuré de correction ;
+Lexique : source = texte d'origine ; revision = résultat structuré de correction
+ou de reformulation ; rephrasing = reformulation ;
 refinement = instruction d'affinage ; selection = sélection macOS capturée ;
 provider = fournisseur ; endpoint = adresse de base de son API.
 

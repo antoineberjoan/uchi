@@ -23,6 +23,13 @@ final class RevisionTests: XCTestCase {
         }
     }
 
+    func testKeepsSelectionBlanksWhenModelTrimsThem() throws {
+        let unchanged = #"{"text":"Hello.","explanation":"La phrase est correcte.","changes":[]}"#
+        XCTAssertEqual(try Revision.parse(unchanged, source: "Hello.\n").text, "Hello.\n")
+        let corrected = #"{"text":"You are not alone.","explanation":"Ajout du verbe.","changes":[{"original":"You not","replacement":"You are not","reason":"Le verbe est nécessaire."}]}"#
+        XCTAssertEqual(try Revision.parse(corrected, source: "  You not alone.\n").text, "  You are not alone.\n")
+    }
+
     func testUnwrapsJSONFenceWithoutDroppingNewlinesInsideText() throws {
         let response = "```json\n{\"text\":\"A\\nB\",\"explanation\":\"Correct.\",\"changes\":[]}\n```"
         XCTAssertEqual(try Revision.parse(response, source: "A\nB").text, "A\nB")

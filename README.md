@@ -18,6 +18,11 @@ Ce projet vient d'une demande d'Antoine : reproduire l'outil présenté sur
 en appliquant les méthodes [Sophos](https://antoineberjoan.github.io/sophos/).
 L'objectif est de corriger et traduire un texte depuis l'application où il écrit,
 avec un raccourci, une explication et la possibilité de remplacer la sélection.
+La copie sert ensuite de base pour adapter l'outil à nos propres cas d'usage.
+
+L'interface est en français. Les langues d'interface chinoises de Graker ne
+sont pas reprises. Les fournisseurs proposés sont Google Gemini, DeepSeek et un
+service compatible OpenAI.
 
 Le périmètre accepté dans le chat est une application native SwiftUI, avec
 AppKit et les API macOS pour les fonctions système, et les clés API personnelles
@@ -29,6 +34,8 @@ l'application installée sur le Mac ; les traitements IA utilisent l'API choisie
 
 Un outil personnel natif, inspiré du fonctionnement public de Graker 1.6.3 :
 correction expliquée, traduction, affinage et panneau près de la sélection.
+La reformulation est un ajout : elle réécrit un texte, souvent en anglais, pour
+le rendre clair et naturel, puis explique les principaux changements.
 SwiftUI dessine l'interface. Les adaptateurs macOS utilisent AppKit, Accessibilité
 et Carbon pour les fonctions système. Aucun service intermédiaire.
 
@@ -68,14 +75,19 @@ l'application dans les réglages macOS.
 
 Choisir le fournisseur et le modèle dans Réglages → Fournisseur IA. Le bouton
 « Valider et enregistrer » envoie une requête de test au fournisseur affiché.
+Le menu du fournisseur, dans la barre d'outils du panneau, passe ensuite d'un
+fournisseur à l'autre. Chaque fournisseur garde son adresse et son modèle.
 Les frais éventuels sont ceux de son API. L'application ne demande pas de clé
 dans le chat et ne dispose d'aucune clé partagée.
 
-La correction de la sélection utilise ⇧⌘G ; la traduction utilise ⇧⌘T.
-Les raccourcis sont modifiables et suivent la disposition du clavier. Dans le
-panneau, ⌘Retour lance le traitement ; Retour garde la saisie sur plusieurs lignes.
-Le bouton « Coller et corriger/traduire » colle et lance ; un collage ordinaire
-dans la saisie ne lance pas de requête à lui seul. Les actions sur une sélection demandent
+La correction de la sélection utilise ⇧⌘G ; la reformulation utilise ⇧⌘R ;
+la traduction utilise ⇧⌘T. Les raccourcis sont modifiables et suivent la
+disposition du clavier. Un raccourci global prend la place du même raccourci
+dans les autres apps : ⇧⌘R recharge aussi une page dans Chrome, par exemple.
+Dans le panneau, Retour lance le traitement, comme dans Graker ; ⇧Retour va à
+la ligne. Un collage dans la saisie lance aussi le traitement, car un texte collé
+est souvent une phrase complète. Taper à la main ne lance jamais rien. Le bouton
+« Coller et corriger » (ou reformuler, ou traduire) colle et lance. Les actions sur une sélection demandent
 l'autorisation Accessibilité de macOS. La saisie manuelle fonctionne sans elle.
 Le remplacement refuse une sélection qui a changé ; Copier reste disponible.
 
@@ -170,22 +182,36 @@ critères de qualité, couches, tokens et contrats.
 raison du remplacement et conservation des deux historiques.
 [Décision de publication](Documentation/Decisions/2026-11-07-publication.md) :
 publication dans uchi et suppression de la branche de sauvegarde.
+[Décision de fiabilité](Documentation/Decisions/2026-11-08-reliability.md) :
+lecture du flux SSE, blancs de la sélection et retour du focus.
+[Décision des langues](Documentation/Decisions/2026-11-08-languages.md) :
+interface en français, sans langue chinoise, avec DeepSeek conservé.
+[Décision de reformulation](Documentation/Decisions/2026-11-08-rephrasing.md) :
+mode Reformuler et explications écrites selon `expliquer`.
+[Décision d'alignement](Documentation/Decisions/2026-11-08-alignment.md) :
+surlignage des changements, menu du fournisseur et écarts restants avec Graker.
 
-Le noyau compile sous Linux avec Swift 6.0.3 ; ses 22 tests XCTest passent.
-L'application complète compile aussi sur macOS 15 Apple Silicon : les 22 tests,
+Le noyau compile sous Linux avec Swift 6.0.3 ; ses 46 tests XCTest passent.
+L'application complète compile aussi sur macOS 15 Apple Silicon : les 46 tests,
 la construction release et la vérification de signature passent dans
-[GitHub Actions](https://github.com/antoineberjoan/uchi/actions/runs/42422431726).
+[GitHub Actions](https://github.com/antoineberjoan/uchi/actions/runs/42527505133).
 La vérification Python contrôle la fondation, la génération et les frontières.
 Les essais interactifs de permissions, raccourcis, placement multi-écrans et
 remplacement restent à effectuer sur un Mac. La compilation ne prouve pas ces
 comportements. Aucun appel à un fournisseur réel n'a été validé avec une clé API.
 
-Le rendu natif conserve les sauts de ligne et les styles Markdown en ligne.
+En correction et en reformulation, chaque passage modifié est surligné à sa
+place. Un clic sur un passage montre le changement et sa raison sous le texte.
+Ce texte ne se sélectionne pas : le bouton Copier le remplace.
+
+La traduction conserve les sauts de ligne et les styles Markdown en ligne.
 Les titres, tableaux et blocs complexes restent lisibles sous forme de texte
 Markdown ; leur rendu complet de Graker n'est pas encore reproduit.
 
 Le parcours manuel minimal est : régler un fournisseur → saisir une phrase →
-corriger → affiner → traduire → copier ; puis sélectionner dans TextEdit et dans
+corriger → cliquer un passage surligné → reformuler une phrase en anglais →
+affiner → changer de fournisseur depuis le panneau → traduire → copier ;
+appeler réellement le fournisseur avec sa clé ; puis sélectionner dans TextEdit et dans
 un navigateur → lancer le raccourci → remplacer ; enfin changer la sélection
 avant de remplacer, révoquer la permission, annuler une requête et simuler un
 fournisseur inaccessible. Chaque échec doit rester visible, sans perdre la saisie.

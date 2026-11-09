@@ -43,6 +43,15 @@ final class AppModel: ObservableObject {
     private var task: Task<Void, Never>?
     private var requestID = UUID()
 
+    /// Dernier texte placé par le code (sélection, presse-papiers, récent) : jamais traité comme une frappe ou un collage.
+    private(set) var programmaticSource: String?
+
+    private func setSource(_ text: String) {
+        programmaticSource = text
+        source = text
+    }
+
+    var canRun: Bool { !isRunning && !source.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
     var canReplace: Bool { selection != nil && hasCompleted && !isRunning }
     var hasAccessibilityPermission: Bool { selections.hasPermission }
 
@@ -52,8 +61,7 @@ final class AppModel: ObservableObject {
     }
 
     func start() {
-        shortcuts.onCorrection = { [weak self] in self?.processSelection(mode: .correction) }
-        shortcuts.onTranslation = { [weak self] in self?.processSelection(mode: .translation) }
+        shortcuts.onShortcut = { [weak self] mode in self?.processSelection(mode: mode) }
         shortcuts.onError = { [weak self] message in self?.shortcutError = message }
         do { try shortcuts.register(configuration) }
         catch { shortcutError = error.localizedDescription }
@@ -81,7 +89,7 @@ final class AppModel: ObservableObject {
         cancel()
         do {
             let snapshot = try selections.capture()
-            source = snapshot.text
+            setSource(snapshot.text)
             setMode(mode)
             selection = snapshot
             present()
@@ -99,7 +107,7 @@ final class AppModel: ObservableObject {
             errorMessage = "Le presse-papiers ne contient aucun texte. Copiez un texte, puis réessayez."
             return
         }
-        source = text
+        setSource(text)
         selection = nil
         present(mode: .translation)
         run()
@@ -110,7 +118,7 @@ final class AppModel: ObservableObject {
             errorMessage = "Le presse-papiers ne contient aucun texte."
             return
         }
-        source = text
+        setSource(text)
         selection = nil
         run()
     }
@@ -140,15 +148,15 @@ final class AppModel: ObservableObject {
                 let key = try keys.read(account: selectedConfiguration.makeKeyAccount()) ?? ""
                 let response = try await client.complete(request, configuration: selectedConfiguration, key: key) { [weak self] partial in
                     guard let self, self.requestID == identifier else { return }
-                    if selectedMode == .translation { self.result = partial }
+                    if !selectedMode.hasRevision { self.result = partial }
                 }
                 try Task.checkCancellation()
                 guard requestID == identifier else { return }
-                if selectedMode == .correction {
+                if selectedMode.hasRevision {
                     let parsed = try Revision.parse(response, source: original)
                     revision = parsed
                     result = parsed.text
-                } else { result = response }
+                } else { result = SourceWhitespace(source: original).apply(to: response) }
                 hasCompleted = true
                 isRunning = false
                 refinement = ""
@@ -207,7 +215,7 @@ final class AppModel: ObservableObject {
     }
 
     func reopen(_ recent: RecentResult) {
-        source = recent.source
+        setSource(recent.source)
         setMode(recent.mode)
         selection = nil
         result = recent.result
@@ -225,6 +233,17 @@ final class AppModel: ObservableObject {
             try preferences.save(next)
             configuration = next
             panelController?.resize()
+        } catch { errorMessage = error.localizedDescription }
+    }
+
+    /// Change de fournisseur sans ouvrir les réglages. Une clé absente reste une erreur visible au lancement.
+    func selectProvider(_ provider: Provider) {
+        guard provider != configuration.provider else { return }
+        var next = configuration
+        next.provider = provider
+        do {
+            try preferences.save(next)
+            configuration = next
         } catch { errorMessage = error.localizedDescription }
     }
 
@@ -258,6 +277,7 @@ final class AppModel: ObservableObject {
     func saveShortcuts(_ draft: Configuration) throws {
         var next = configuration
         next.correctionKey = draft.correctionKey
+        next.rephrasingKey = draft.rephrasingKey
         next.translationKey = draft.translationKey
         try shortcuts.register(next)
         do { try preferences.save(next) }
