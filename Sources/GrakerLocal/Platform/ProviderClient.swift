@@ -21,6 +21,11 @@ enum ProviderFailure: LocalizedError {
 
 /// Transport éphémère, sans cache ni cookies. Aucune redirection n'emporte la clé.
 final class ProviderClient {
+    /// Classes de protocole ajoutées à la session : les tests y branchent un faux fournisseur.
+    private let protocolClasses: [AnyClass]
+
+    init(protocolClasses: [AnyClass] = []) { self.protocolClasses = protocolClasses }
+
     private final class RedirectPolicy: NSObject, URLSessionTaskDelegate {
         func urlSession(_ session: URLSession, task: URLSessionTask,
                         willPerformHTTPRedirection response: HTTPURLResponse,
@@ -49,6 +54,7 @@ final class ProviderClient {
         options.timeoutIntervalForResource = 240
         options.urlCache = nil
         options.httpShouldSetCookies = false
+        if !protocolClasses.isEmpty { options.protocolClasses = protocolClasses }
         let session = URLSession(configuration: options, delegate: RedirectPolicy(), delegateQueue: nil)
         defer { session.invalidateAndCancel() }
         do {

@@ -67,6 +67,11 @@ bash Scripts/build-app.sh
 open "dist/Graker Local.app"
 ```
 
+Pour essayer l'application sans Xcode, `bash Scripts/download-app.sh` télécharge la
+dernière construction réussie de la branche principale. Il demande GitHub CLI
+(`brew install gh`, puis `gh auth login`) et ouvre le dossier de l'application.
+Le parcours de test sur un Mac est dans [Documentation/ManualTests.md](Documentation/ManualTests.md).
+
 Ouvrir aussi `Package.swift` dans Xcode pour développer. Pour l'usage quotidien,
 lancer le paquet `.app` construit, qui garde un identifiant stable pour le
 trousseau et les permissions. Une signature ad hoc locale ne vaut ni signature
@@ -191,14 +196,16 @@ mode Reformuler et explications écrites selon `expliquer`.
 [Décision d'alignement](Documentation/Decisions/2026-11-08-alignment.md) :
 surlignage des changements, menu du fournisseur et écarts restants avec Graker.
 
-Le noyau compile sous Linux avec Swift 6.0.3 ; ses 46 tests XCTest passent.
+Le noyau compile sous Linux avec Swift 6.0.3 ; ses 46 tests XCTest passent. Six tests de plus lisent un faux fournisseur et ne
+s'exécutent que sur macOS.
 L'application complète compile aussi sur macOS 15 Apple Silicon : les 46 tests,
 la construction release et la vérification de signature passent dans
 [GitHub Actions](https://github.com/antoineberjoan/uchi/actions/runs/42527505133).
 La vérification Python contrôle la fondation, la génération et les frontières.
 Les essais interactifs de permissions, raccourcis, placement multi-écrans et
 remplacement restent à effectuer sur un Mac. La compilation ne prouve pas ces
-comportements. Aucun appel à un fournisseur réel n'a été validé avec une clé API.
+comportements. Aucun appel à un fournisseur réel n'a été validé avec une clé API : le faux fournisseur
+des tests ne le remplace pas.
 
 En correction et en reformulation, chaque passage modifié est surligné à sa
 place. Un clic sur un passage montre le changement et sa raison sous le texte.

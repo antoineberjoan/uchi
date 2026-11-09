@@ -8,6 +8,7 @@ let package = Package(
     targets: [
         .target(name: "GrakerCore"),
         .executableTarget(name: "GrakerLocal", dependencies: ["GrakerCore"]),
-        .testTarget(name: "GrakerCoreTests", dependencies: ["GrakerCore"])
+        .testTarget(name: "GrakerCoreTests", dependencies: ["GrakerCore"]),
+        .testTarget(name: "GrakerLocalTests", dependencies: ["GrakerLocal", "GrakerCore"])
     ]
 )
