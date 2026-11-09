@@ -70,7 +70,8 @@ final class ProviderClientTests: XCTestCase {
     }
 
     func testStreamCutBeforeTheEndIsAnError() async {
-        let cut = String(stream.prefix(while: { $0 != "[" }))
+        // Trois événements complets sur cinq : la connexion s'arrête avant `finish_reason` et `[DONE]`.
+        let cut = stream.components(separatedBy: "\n\n").prefix(3).joined(separator: "\n\n") + "\n\n"
         StubProviderProtocol.reply = .init(chunks: split(cut, every: 9))
         do {
             _ = try await complete()
