@@ -198,9 +198,9 @@ surlignage des changements, menu du fournisseur et écarts restants avec Graker.
 
 Le noyau compile sous Linux avec Swift 6.0.3 ; ses 46 tests XCTest passent. Six tests de plus lisent un faux fournisseur et ne
 s'exécutent que sur macOS.
-L'application complète compile aussi sur macOS 15 Apple Silicon : les 46 tests,
+L'application complète compile aussi sur macOS 15 Apple Silicon : les 52 tests,
 la construction release et la vérification de signature passent dans
-[GitHub Actions](https://github.com/antoineberjoan/uchi/actions/runs/42527505133).
+[GitHub Actions](https://github.com/antoineberjoan/uchi/actions/runs/42600201337).
 La vérification Python contrôle la fondation, la génération et les frontières.
 Les essais interactifs de permissions, raccourcis, placement multi-écrans et
 remplacement restent à effectuer sur un Mac. La compilation ne prouve pas ces
