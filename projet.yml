@@ -1,13 +1,19 @@
-nom: Graker Local
+nom: imi
 depot: antoineberjoan/uchi
 role: Corriger et traduire un texte sans quitter son application.
+raison: Reproduire Graker pour un usage personnel sur Mac et iPhone, avec ses clés API et sans service intermédiaire.
 etat: actif
-sorte: application macOS personnelle
+sophos: 2
+sorte: application Apple personnelle
+skills: [penser, concevoir, construire, fonder, expliquer]
 liens:
   applique: [sophos]
 marque:
-  tokens: Design/tokens.css
-  icone-claire: Design/icon-light.svg
-  icone-sombre: Design/icon-dark.svg
-  clair: { fond: --role-background-light, texte: --role-text-light, accent: --role-accent-light }
-  sombre: { fond: --role-background-dark, texte: --role-text-dark, accent: --role-accent-dark }
+  tokens: Resources/Brand/tokens.json
+  icone-claire: Design/imi/svg/imi-mark.svg
+  icone-sombre: Design/imi/svg/imi-mark-dark.svg
+  clair: { fond: color.background, texte: color.text, accent: color.accent }
+  sombre: { fond: color.background, texte: color.text, accent: color.accent }
+politique:
+  defaut: orange
+  controle: ./controler.sh

@@ -1,0 +1,12 @@
+{
+  "name": "imi",
+  "direction": "A · Surligneur",
+  "font": "Sora SemiBold (600)",
+  "colors": {
+    "encre": "#121A2E",
+    "nuit": "#22304D",
+    "brume": "#E6EAF2",
+    "blanc": "#FFFFFF",
+    "surligneur": "#FFD43B"
+  }
+}

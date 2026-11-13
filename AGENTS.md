@@ -1,25 +1,30 @@
 # Skills Sophos actifs
 
-Référence : `antoineberjoan/sophos@2cda7ea91335cb3facdcf99c4d7d8b688ebe07e4`.
+Référence : `antoineberjoan/sophos@560b0d8359217339b6c9f5a643c2185b6afdb3ea`.
 Les méthodes restent dans Sophos ; aucune copie dans ce projet. Lire le fichier
 `skills/<nom>/SKILL.md` de ce commit via le dépôt connecté, ou son clone voisin.
 
-| Skill | Version | Application dans ce projet |
-|---|---|---|
-| penser | 1.3.1 | Décisions explicites, hypothèses et limites nommées. |
-| concevoir | 0.2.0 | Panneau discret, états complets, rôles visuels, contrôle à l'écran. |
-| construire | 0.3.4 | Noyau pur, effets isolés, vérifications avant livraison. |
-| fonder | 0.2.1 | Tokens uniques, grammaire, frontières, contrats et carte générée. |
-| expliquer | 0.2.1 | Interface, erreurs et explications du modèle en français simple. |
+<!-- carte:skills:debut — fabriqué depuis projet.yml par sophos/outils/carte.mjs ; ne pas modifier à la main -->
+| Skill | Version |
+| --- | --- |
+| [penser](https://antoineberjoan.github.io/sophos/skills/penser/SKILL.html) | 1.4.0 |
+| [concevoir](https://antoineberjoan.github.io/sophos/skills/concevoir/SKILL.html) | 0.5.0 |
+| [construire](https://antoineberjoan.github.io/sophos/skills/construire/SKILL.html) | 0.9.0 |
+| [fonder](https://antoineberjoan.github.io/sophos/skills/fonder/SKILL.html) | 0.8.8 |
+| [expliquer](https://antoineberjoan.github.io/sophos/skills/expliquer/SKILL.html) | 0.3.0 |
+<!-- carte:skills:fin -->
+
+Ce que chaque skill impose ici : le tableau des versions est fabriqué par `carte.mjs` ; les règles ci-dessous les appliquent au périmètre Graker (panneau discret, jetons DTCG, noyau pur, interface en français).
 
 ## Règles du projet
 
 - `Sources/GrakerCore` importe Foundation ; `PanelPlacement.swift` importe aussi
   CoreGraphics sur macOS pour la géométrie pure de CGRect. Aucun accès au réseau, au disque,
   au presse-papiers, au trousseau ni à l'horloge dans ce module.
-- `Sources/GrakerLocal/Platform` contient les effets macOS et réseau.
-- `Sources/GrakerLocal/Presentation` ne lit que des rôles de `Tokens`.
-  Ne pas modifier `Tokens.swift` à la main : il vient de `Design/tokens.css`.
+- `Sources/GrakerCore` : noyau pur. `Sources/GrakerDesign` : rôles fabriqués depuis `Resources/Brand/tokens.json`.
+- `Sources/GrakerUI` : SwiftUI et `EditorModel`. `Sources/GrakerPlatform` : trousseau, préférences, réseau.
+- `Sources/GrakerMac` : AppKit (panneau, sélection, raccourcis). `Sources/GrakerIOS` : application iPhone.
+- Ne pas modifier les `Design*.swift` ni `Tokens.swift` à la main : régénérer avec `jetons.mjs`.
 - Les clés restent dans le trousseau. Ni clé ni texte utilisateur dans les logs,
   le dépôt ou les préférences. L'historique reste en mémoire, dix résultats.
 - Une sélection périmée ne se remplace pas. Afficher l'erreur et proposer Copier.
@@ -27,8 +32,8 @@ Les méthodes restent dans Sophos ; aucune copie dans ce projet. Lire le fichier
   Seul le champ d'affinage fournit une instruction utilisateur.
 - L'absence de clé, de permission, de réponse valide ou de connexion est une
   erreur visible. Aucun fournisseur de secours et aucune réponse simulée.
-- Vérifier : `python3 Scripts/check-foundation.py`, puis `swift test` et
-  `bash Scripts/build-app.sh` sur macOS 15 ou plus avec Xcode 16 ou plus.
+- Vérifier : `./controler.sh`, ou `python3 scripts/check-foundation.py`, puis `swift test` et
+  `bash Scripts/build-app.sh` sur macOS 15 ou plus avec Xcode 16 ou plus (produits `GrakerLocal` et `GrakerIOS`).
 - Une vérification de syntaxe sous Linux ne prouve pas la compilation macOS.
 
 ## Grammaire des noms
