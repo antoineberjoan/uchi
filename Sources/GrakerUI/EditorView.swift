@@ -36,10 +36,6 @@ struct EditorView: View {
 
     private var header: some View {
         HStack(spacing: Tokens.spaceInline) {
-            Text("Graker Local").font(Tokens.fontLabel.weight(Tokens.weightTitle))
-            Spacer()
-            Button { openSettings() } label: { Image(systemName: "gearshape") }
-                .help("Réglages").accessibilityLabel("Réglages")
             if showsPanelChrome {
                 Button { model.isPinned.toggle() } label: {
                     Image(systemName: model.isPinned ? "pin.fill" : "pin")
@@ -47,13 +43,18 @@ struct EditorView: View {
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel(model.isPinned ? "Désépingler le panneau" : "Garder le panneau au-dessus")
+            }
+            Text("imi").font(Tokens.fontLabel.weight(Tokens.weightTitle))
+            Spacer()
+            if showsPanelChrome {
                 Button { model.toggleWidth() } label: {
-                    Image(systemName: model.configuration.isPanelWide ? "arrow.left.and.right.righttriangle.left.righttriangle.right" : "arrow.left.and.right")
+                    Image(systemName: model.configuration.isPanelWide ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right")
                 }
                 .help(model.configuration.isPanelWide ? "Réduire le panneau" : "Élargir le panneau")
                 .accessibilityLabel(model.configuration.isPanelWide ? "Réduire le panneau" : "Élargir le panneau")
-                Button { model.dismiss() } label: { Image(systemName: "xmark") }
-                    .help("Fermer · Échap").accessibilityLabel("Fermer le panneau")
+            } else {
+                Button { openSettings() } label: { Image(systemName: "gearshape") }
+                    .help("Réglages").accessibilityLabel("Réglages")
             }
         }
         .buttonStyle(.borderless)
@@ -65,7 +66,7 @@ struct EditorView: View {
         ZStack(alignment: .topLeading) {
             if model.source.isEmpty {
 #if os(iOS)
-                Text("Écrivez ou collez du texte ici, ou utilisez le clavier Graker dans une autre app.")
+                Text("Écrivez ou collez du texte ici, ou utilisez le clavier imi dans une autre app.")
 #else
                 Text("Sélectionnez un texte et pressez ⇧⌘\(model.configuration.correctionKey), ou écrivez ici.")
 #endif
@@ -108,12 +109,18 @@ struct EditorView: View {
     }
 
     private var modePicker: some View {
-        Picker("Mode", selection: Binding(get: { model.mode }, set: { model.setMode($0) })) {
-            ForEach(Mode.allCases) { mode in Label(mode.title, systemImage: mode.symbol).tag(mode) }
+        HStack(spacing: Tokens.spaceCompact) {
+            ForEach(Mode.allCases) { mode in
+                Button { model.setMode(mode) } label: {
+                    Image(systemName: mode.symbol)
+                        .frame(width: Tokens.sizeButton, height: Tokens.sizeButton)
+                        .background(model.mode == mode ? Tokens.selection : Color.clear, in: Capsule())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(mode.title)
+                .help(mode.title)
+            }
         }
-        .pickerStyle(.segmented)
-        .labelsHidden()
-        .fixedSize()
     }
 
     private var providerMenu: some View {

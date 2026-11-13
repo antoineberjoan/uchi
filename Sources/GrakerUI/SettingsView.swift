@@ -95,11 +95,11 @@ struct SettingsView: View {
 #if os(iOS)
     private var keyboardPage: some View {
         VStack(alignment: .leading, spacing: Tokens.spaceSection) {
-            Text("Activez le clavier Graker dans Réglages → Général → Clavier → Claviers → Ajouter. Choisissez « Graker », puis autorisez l’accès complet pour les appels au fournisseur.")
+            Text("Activez le clavier imi dans Réglages → Général → Clavier → Claviers → Ajouter. Choisissez « imi », puis autorisez l’accès complet pour les appels au fournisseur.")
                 .foregroundStyle(Tokens.textMuted)
             Text("Configurez d’abord le fournisseur et la clé dans cette app. Le clavier lit les mêmes réglages.")
                 .foregroundStyle(Tokens.textMuted)
-            Text("Sélectionnez du texte dans Mail ou un commentaire, basculez sur le clavier Graker, puis Corriger, Reformuler ou Traduire.")
+            Text("Sélectionnez du texte dans Mail ou un commentaire, basculez sur le clavier imi, puis Corriger, Reformuler ou Traduire.")
                 .foregroundStyle(Tokens.textMuted)
         }
     }
@@ -108,14 +108,30 @@ struct SettingsView: View {
     private var generalPage: some View {
         VStack(alignment: .leading, spacing: Tokens.spaceSection) {
             GroupBox {
-                VStack(spacing: Tokens.spaceSection) {
-                    Picker("Style d’écriture", selection: $draft.scene) {
-                        ForEach(GrakerCore.Scene.allCases) { scene in Text(scene.title).tag(scene) }
+                VStack(spacing: 0) {
+                    settingsRow("Langue de traduction", systemImage: "globe") {
+                        TextField("Langue", text: $draft.targetLanguage).multilineTextAlignment(.trailing)
                     }
-                    TextField("Langue de traduction", text: $draft.targetLanguage)
-                    TextField("Langue des explications", text: $draft.explanationLanguage)
+                    Divider()
+                    settingsRow("Scène", systemImage: "text.bubble") {
+                        Picker("Scène", selection: $draft.scene) {
+                            ForEach(GrakerCore.Scene.allCases) { scene in Text(scene.title).tag(scene) }
+                        }
+                        .labelsHidden()
+                        .fixedSize()
+                    }
+                    Divider()
+                    settingsRow("Explications", systemImage: "text.quote") {
+                        TextField("Langue", text: $draft.explanationLanguage).multilineTextAlignment(.trailing)
+                    }
+#if os(macOS)
+                    Divider()
+                    settingsRow(model.hasAccessibilityPermission ? "Accès à la sélection accordé" : "Accès à la sélection requis", systemImage: "accessibility") {
+                        Image(systemName: model.hasAccessibilityPermission ? "checkmark.circle.fill" : "exclamationmark.circle")
+                            .foregroundStyle(model.hasAccessibilityPermission ? Tokens.success : Tokens.danger)
+                    }
+#endif
                 }
-                .padding(Tokens.spaceInline)
             }
             Text("Le style décontracté conserve les contractions et les phrases courtes. Le style formel convient aux courriels et documents.")
                 .foregroundStyle(Tokens.textMuted)
@@ -210,17 +226,26 @@ struct SettingsView: View {
 
     private var aboutPage: some View {
         VStack(alignment: .leading, spacing: Tokens.spaceSection) {
-            Label("Graker Local", systemImage: "text.badge.checkmark")
-                .font(Tokens.fontTitle.weight(Tokens.weightTitle))
-            Text("Un outil personnel pour corriger et traduire sans quitter son application.")
-            Text("Interface SwiftUI. Fonctions système macOS isolées. Aucun compte Graker, aucune télémétrie, aucun serveur intermédiaire.")
+            Text("imi")
+                .font(Tokens.fontHeading.weight(Tokens.weightTitle))
+            Text("Le sens. Corriger, reformuler et traduire sans quitter l’application.")
+            Text("Marque : encre, brume, surligneur. Le logo porte le jaune vif ; les boutons utilisent la nuance d’accent qui reste lisible.")
                 .foregroundStyle(Tokens.textMuted)
-            Text("Dix résultats récents, conservés uniquement pendant cette session. Les clés restent dans le trousseau. L’application ne contient aucun modèle hors ligne.")
+            Text("Aucun compte, aucune télémétrie, aucun serveur intermédiaire. Les clés restent dans le trousseau.")
                 .foregroundStyle(Tokens.textMuted)
-            Link("Voir le projet Graker d’origine", destination: URL(string: "https://graker.fehey.com/")!)
-            Text("Réimplémentation personnelle indépendante. Pas de mise à jour automatique ni de garantie de conservation d’une mise en page HTML.")
+            Link("Référence de comportement", destination: URL(string: "https://graker.fehey.com/")!)
+            Text("imi n’est pas l’application Graker. Pas de mise à jour automatique.")
                 .font(Tokens.fontCaption).foregroundStyle(Tokens.textMuted)
         }
+    }
+
+    private func settingsRow<Trailing: View>(_ title: String, systemImage: String, @ViewBuilder trailing: () -> Trailing) -> some View {
+        HStack {
+            Label(title, systemImage: systemImage)
+            Spacer()
+            trailing()
+        }
+        .padding(Tokens.spaceInline)
     }
 
     private func shortcutPicker(_ title: String, key: Binding<String>) -> some View {

@@ -4,7 +4,7 @@ Ce document dit ce qu'est le projet, pour une personne qui ne l'a jamais vu.
 
 ## Nom
 
-**Graker Local** : application personnelle inspirée de Graker, intégrée dans le dépôt GitHub `antoineberjoan/uchi`.
+**imi** : application personnelle inspirée de Graker, intégrée dans le dépôt GitHub `antoineberjoan/uchi`. Le nom affiché est imi ; les modules Swift gardent le préfixe Graker.
 
 ## Raison d'être
 
@@ -24,12 +24,12 @@ Une source de jetons (`Resources/Brand/tokens.json`). Noyau pur sans réseau. Er
 
 ## Marque
 
-Discret, gris chaud, accent bleu unique. Icônes `Design/icon-*.svg`, palette nommée `Design/graker-couleurs.json`, rôles d’interface via `Resources/Brand/tokens.json` → `Sources/GrakerDesign/`. Décision : `docs/decisions/2026-11-13-marque-jetons.md`. Texte d'interface en français (`expliquer`).
+Marque imi : encre, brume, surligneur. Fichiers `Design/imi/`. Rôles d’interface via `Resources/Brand/tokens.json`. Décision : `docs/decisions/2026-11-13-marque-imi.md`. Texte d'interface en français (`expliquer`).
 
 ## Voix
 
 - **Montré** : oui, dépôt public `uchi` ; usage personnel.
-- **Signature** : Graker Local
+- **Signature** : imi
 - **Publics** : l'utilisateur qui rédige en français et corrige depuis d'autres applications.
 - **Ton** : direct, calme, erreurs explicites en français simple.
 - **Mots** : correction, reformulation, traduction, fournisseur, affinage ; pas de jargon marketing.

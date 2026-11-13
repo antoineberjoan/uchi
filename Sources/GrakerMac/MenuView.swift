@@ -36,7 +36,7 @@ struct MenuView: View {
         SettingsLink { Label("Réglages…", systemImage: "gearshape") }
             .keyboardShortcut(",")
         if let error = model.shortcutError { Text(error) }
-        Button("Quitter Graker Local") { model.quit() }.keyboardShortcut("q")
+        Button("Quitter imi") { model.quit() }.keyboardShortcut("q")
     }
 }
 #endif

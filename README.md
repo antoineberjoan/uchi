@@ -1,9 +1,9 @@
 <!-- carte:en-tete:debut — fabriqué depuis projet.yml par sophos/outils/carte.mjs ; ne pas modifier à la main -->
-# Graker Local
+# imi
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/carte/banniere-sombre.svg">
-  <img alt="Graker Local : Corriger et traduire un texte sans quitter son application." src=".github/carte/banniere-claire.svg" width="100%">
+  <img alt="imi : Corriger et traduire un texte sans quitter son application." src=".github/carte/banniere-claire.svg" width="100%">
 </picture>
 
 **Raison d'être** Reproduire Graker pour un usage personnel sur Mac et iPhone, avec ses clés API et sans service intermédiaire.
