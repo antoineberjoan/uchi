@@ -1,0 +1,30 @@
+/* Marque Pithos — fond sombre, gris acier, accent citron électrique. */
+:root {
+  /* Primitives nommées (marque). */
+  --pithos-graphite: #17181b;
+  --pithos-fer: #2b2d32;
+  --pithos-gris-acier: #e2e4e7;
+  --pithos-blanc-total: #ffffff;
+  --pithos-citron-electrique: #d4f25c;
+
+  /* Rôles — mode sombre (défaut). */
+  --pithos-fond: var(--pithos-graphite);
+  --pithos-surface: var(--pithos-fer);
+  --pithos-texte: var(--pithos-blanc-total);
+  --pithos-texte-discret: var(--pithos-gris-acier);
+  --pithos-accent: var(--pithos-citron-electrique);
+  --pithos-texte-sur-accent: var(--pithos-graphite);
+  --pithos-filet: color-mix(in srgb, var(--pithos-gris-acier) 28%, transparent);
+  --pithos-focus: var(--pithos-citron-electrique);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --pithos-fond: var(--pithos-blanc-total);
+    --pithos-surface: var(--pithos-gris-acier);
+    --pithos-texte: var(--pithos-graphite);
+    --pithos-texte-discret: color-mix(in srgb, var(--pithos-fer) 70%, var(--pithos-graphite));
+    --pithos-texte-sur-accent: var(--pithos-graphite);
+    --pithos-filet: color-mix(in srgb, var(--pithos-fer) 22%, transparent);
+  }
+}

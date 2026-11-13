@@ -1,0 +1,46 @@
+{
+  "$description": "Palette de marque Pithos — cinq teintes et rôles sémantiques pour fond sombre et clair.",
+  "primitives": {
+    "graphite": { "value": "#17181B", "usage": "Fond principal en mode sombre ; texte fort en mode clair." },
+    "fer": { "value": "#2B2D32", "usage": "Surfaces surélevées, anneau du logo, second plan." },
+    "grisAcier": { "value": "#E2E4E7", "usage": "Texte secondaire sombre, disque du logo en clair." },
+    "blancTotal": { "value": "#FFFFFF", "usage": "Texte principal sur fond sombre ; fond clair." },
+    "citronElectrique": { "value": "#D4F25C", "usage": "Seul accent : focus, action, intersection du logo." }
+  },
+  "roles": {
+    "dark": {
+      "background": "#17181B",
+      "surface": "#2B2D32",
+      "text": "#FFFFFF",
+      "textMuted": "#E2E4E7",
+      "accent": "#D4F25C",
+      "onAccent": "#17181B",
+      "rule": "rgba(226, 228, 231, 0.28)",
+      "focus": "#D4F25C"
+    },
+    "light": {
+      "background": "#FFFFFF",
+      "surface": "#E2E4E7",
+      "text": "#17181B",
+      "textMuted": "#2B2D32",
+      "accent": "#D4F25C",
+      "onAccent": "#17181B",
+      "rule": "rgba(43, 45, 50, 0.22)",
+      "focus": "#D4F25C"
+    }
+  },
+  "contrast": {
+    "textOnBackgroundDark": "≥ 4.5:1",
+    "accentOnBackgroundDark": "≥ 3:1 (non texte)",
+    "onAccentOnAccent": "≥ 4.5:1"
+  },
+  "logo": {
+    "markDescription": "Deux cercles qui se croisent ; l'intersection est le citron électrique.",
+    "assets": {
+      "iconDark": "Design/pithos-icon-dark.svg",
+      "iconLight": "Design/pithos-icon-light.svg",
+      "wordmarkDark": "Design/pithos-wordmark-dark.svg",
+      "wordmarkLight": "Design/pithos-wordmark-light.svg"
+    }
+  }
+}

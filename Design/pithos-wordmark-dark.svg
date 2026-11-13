@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="160" viewBox="0 0 640 160" fill="none">
+  <circle cx="80" cy="80" r="52" fill="#E2E4E7"/>
+  <circle cx="52" cy="108" r="52" stroke="#E2E4E7" stroke-width="12" fill="none"/>
+  <ellipse cx="66" cy="94" rx="22" ry="18" fill="#D4F25C"/>
+  <text x="152" y="102" fill="#FFFFFF" font-family="system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="64" font-weight="500" letter-spacing="-0.02em">pithos</text>
+</svg>
