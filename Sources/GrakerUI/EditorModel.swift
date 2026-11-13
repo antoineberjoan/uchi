@@ -140,7 +140,7 @@ open class EditorModel: ObservableObject {
                 result = ""
                 revision = nil
                 task = nil
-                if error is CancellationError || Task.isCancelled { notice = "Requête annulée. Votre texte est conservé." }
+                if error is CancellationError || Task.isCancelled { notice = "Annulé" }
                 else { errorMessage = error.localizedDescription }
             }
         }
@@ -155,7 +155,7 @@ open class EditorModel: ObservableObject {
         hasCompleted = false
         result = ""
         revision = nil
-        notice = "Requête annulée. Votre texte est conservé."
+        notice = "Annulé"
     }
 
     private func invalidateResult() {
@@ -170,7 +170,7 @@ open class EditorModel: ObservableObject {
 
     public func copyResult() {
         guard hasCompleted else { return }
-        if Pasteboard.writeString(result) { notice = "Résultat copié." }
+        if Pasteboard.writeString(result) { notice = "Copié" }
         else { errorMessage = "Le presse-papiers n’a pas accepté le texte. Réessayez." }
     }
 
@@ -183,7 +183,7 @@ open class EditorModel: ObservableObject {
         revision = recent.revision
         hasCompleted = true
         errorMessage = nil
-        notice = "Résultat récent. Copiez-le pour l’utiliser dans votre document."
+        notice = nil
         present()
     }
 

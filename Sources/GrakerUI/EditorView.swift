@@ -64,16 +64,6 @@ struct EditorView: View {
 
     private var sourceEditor: some View {
         ZStack(alignment: .topLeading) {
-            if model.source.isEmpty {
-#if os(iOS)
-                Text("Écrivez ou collez du texte ici, ou utilisez le clavier imi dans une autre app.")
-#else
-                Text("Sélectionnez un texte et pressez ⇧⌘\(model.configuration.correctionKey), ou écrivez ici.")
-#endif
-                    .foregroundStyle(Tokens.textMuted)
-                    .padding(Tokens.spaceInline)
-                    .allowsHitTesting(false)
-            }
             TextEditor(text: $model.source)
                 .font(Tokens.fontBody)
                 .scrollContentBackground(.hidden)
@@ -160,12 +150,7 @@ struct EditorView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: Tokens.spaceSection) {
                 if model.isRunning {
-                    HStack(spacing: Tokens.spaceInline) {
-                        ProgressView().controlSize(.small)
-                        Text(progressTitle)
-                            .foregroundStyle(Tokens.textMuted).font(Tokens.fontLabel)
-                        Spacer()
-                    }
+                    ProgressView().controlSize(.small)
                 }
                 if !model.result.isEmpty {
                     HStack {
@@ -190,17 +175,6 @@ struct EditorView: View {
                             .lineSpacing(Tokens.sizeLineSpacing)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                } else if !model.isRunning {
-                    VStack(alignment: .leading, spacing: Tokens.spaceInline) {
-                        Text("Vos mots, plus clairs.").font(Tokens.fontTitle.weight(Tokens.weightLabel))
-                        Text("Corrigez une phrase ou traduisez un passage. Le résultat reste ici jusqu’à votre prochaine action.")
-                            .foregroundStyle(Tokens.textMuted)
-                        Button("Coller et \(model.mode.title.lowercased())", systemImage: "clipboard") { model.pasteAndRun() }
-                            .buttonStyle(.bordered)
-                        Text("Le texte est envoyé à \(model.configuration.provider.title), avec votre clé. Configurez le fournisseur dans les réglages.")
-                            .font(Tokens.fontCaption).foregroundStyle(Tokens.textMuted)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
             .padding(Tokens.spaceSection)
@@ -209,25 +183,17 @@ struct EditorView: View {
         .frame(maxHeight: .infinity)
     }
 
-    private var progressTitle: String {
-        switch model.mode {
-        case .correction: return "Vérification du texte…"
-        case .rephrasing: return "Reformulation en cours…"
-        case .translation: return "Traduction en cours…"
-        }
-    }
-
     private var resultTitle: String {
         switch model.mode {
-        case .correction: return "Texte corrigé"
-        case .rephrasing: return "Texte reformulé"
+        case .correction: return "Corrigé"
+        case .rephrasing: return "Reformulé"
         case .translation: return "Traduction"
         }
     }
 
     private var refinement: some View {
         HStack(spacing: Tokens.spaceInline) {
-            TextField("Que souhaitez-vous ajuster ?", text: $model.refinement)
+            TextField("Ajuster", text: $model.refinement)
                 .textFieldStyle(.plain)
                 .focused($isRefinementFocused)
                 .onSubmit { model.run(isRefinement: true) }

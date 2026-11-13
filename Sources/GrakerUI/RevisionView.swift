@@ -29,7 +29,6 @@ struct RevisionView: View {
             }
             if !layout.unplacedChangeIndices.isEmpty {
                 VStack(alignment: .leading, spacing: Tokens.spaceInline) {
-                    Text("Autres changements").font(Tokens.fontCaption).foregroundStyle(Tokens.textMuted)
                     ForEach(layout.unplacedChangeIndices, id: \.self) { index in changeCard(revision.changes[index]) }
                 }
             }
@@ -79,8 +78,8 @@ struct RevisionView: View {
         removed.backgroundColor = Tokens.danger.opacity(Tokens.opacityTint)
         var added = AttributedString(change.replacement)
         added.backgroundColor = Tokens.success.opacity(Tokens.opacityTint)
-        if change.original.isEmpty { return AttributedString("Ajouté ") + added }
-        if change.replacement.isEmpty { return AttributedString("Supprimé ") + removed }
-        return AttributedString("Remplacé ") + removed + AttributedString(" par ") + added
+        if change.original.isEmpty { return added }
+        if change.replacement.isEmpty { return removed }
+        return removed + AttributedString(" ") + added
     }
 }
