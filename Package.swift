@@ -3,12 +3,19 @@ import PackageDescription
 
 let package = Package(
     name: "GrakerLocal",
-    platforms: [.macOS("15.0")],
-    products: [.executable(name: "GrakerLocal", targets: ["GrakerLocal"])],
+    platforms: [.macOS("15.0"), .iOS("18.0")],
+    products: [
+        .executable(name: "GrakerLocal", targets: ["GrakerMac"]),
+        .executable(name: "GrakerIOS", targets: ["GrakerIOS"])
+    ],
     targets: [
         .target(name: "GrakerCore"),
-        .executableTarget(name: "GrakerLocal", dependencies: ["GrakerCore"]),
+        .target(name: "GrakerDesign"),
+        .target(name: "GrakerPlatform", dependencies: ["GrakerCore"]),
+        .target(name: "GrakerUI", dependencies: ["GrakerCore", "GrakerDesign", "GrakerPlatform"]),
+        .executableTarget(name: "GrakerMac", dependencies: ["GrakerCore", "GrakerUI", "GrakerDesign"]),
+        .executableTarget(name: "GrakerIOS", dependencies: ["GrakerCore", "GrakerUI", "GrakerDesign"]),
         .testTarget(name: "GrakerCoreTests", dependencies: ["GrakerCore"]),
-        .testTarget(name: "GrakerLocalTests", dependencies: ["GrakerLocal", "GrakerCore"])
+        .testTarget(name: "GrakerPlatformTests", dependencies: ["GrakerPlatform", "GrakerCore"])
     ]
 )

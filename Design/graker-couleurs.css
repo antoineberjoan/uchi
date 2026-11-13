@@ -1,0 +1,31 @@
+/* Marque Graker — graphite chaud, pierre, accent bleu (hors jetons d’interface). */
+:root {
+  --graker-graphite: #141210;
+  --graker-fer: #2e2a26;
+  --graker-pierre: #e4dfd6;
+  --graker-papier: #faf8f4;
+  --graker-bleu: #3b82d6;
+  --graker-bleu-clair: #5ba3e8;
+
+  --graker-fond: var(--graker-graphite);
+  --graker-surface: var(--graker-fer);
+  --graker-texte: var(--graker-papier);
+  --graker-texte-discret: var(--graker-pierre);
+  --graker-accent: var(--graker-bleu-clair);
+  --graker-texte-sur-accent: var(--graker-graphite);
+  --graker-filet: color-mix(in srgb, var(--graker-pierre) 28%, transparent);
+  --graker-focus: var(--graker-bleu-clair);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --graker-fond: var(--graker-papier);
+    --graker-surface: var(--graker-pierre);
+    --graker-texte: var(--graker-graphite);
+    --graker-texte-discret: color-mix(in srgb, var(--graker-fer) 65%, var(--graker-graphite));
+    --graker-accent: var(--graker-bleu);
+    --graker-texte-sur-accent: var(--graker-papier);
+    --graker-filet: color-mix(in srgb, var(--graker-fer) 22%, transparent);
+    --graker-focus: var(--graker-bleu);
+  }
+}

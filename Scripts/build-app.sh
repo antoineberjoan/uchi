@@ -5,10 +5,10 @@ if [[ "$(uname -s)" != "Darwin" ]]; then
   echo "La construction de Graker Local nécessite macOS 15 ou plus et Xcode 16 ou plus." >&2
   exit 1
 fi
-python3 Scripts/check-foundation.py
+python3 scripts/check-foundation.py
 swift test
 swift build -c release
-graker_binary_directory="$(swift build -c release --show-bin-path)"
+graker_binary_directory="$(swift build -c release --product GrakerLocal --show-bin-path)"
 graker_application="$(pwd)/dist/Graker Local.app"
 mkdir -p "$graker_application/Contents/MacOS"
 cp "$graker_binary_directory/GrakerLocal" "$graker_application/Contents/MacOS/GrakerLocal"
