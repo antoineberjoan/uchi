@@ -185,9 +185,9 @@ struct EditorView: View {
 
     private var resultTitle: String {
         switch model.mode {
-        case .correction: return "Corrected"
-        case .rephrasing: return "Rephrased"
-        case .translation: return "Translation"
+        case .correction: return "Corrigé"
+        case .rephrasing: return "Reformulé"
+        case .translation: return "Traduit"
         }
     }
 
