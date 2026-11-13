@@ -3,13 +3,14 @@ import GrakerCore
 import GrakerDesign
 
 private enum SettingsPage: String, CaseIterable, Identifiable {
-    case general, provider, shortcuts, about
+    case general, provider, shortcuts, keyboard, about
     var id: String { rawValue }
     var title: String {
         switch self {
         case .general: return "Général"
         case .provider: return "Fournisseur IA"
         case .shortcuts: return "Raccourcis"
+        case .keyboard: return "Clavier iOS"
         case .about: return "À propos"
         }
     }
@@ -18,6 +19,7 @@ private enum SettingsPage: String, CaseIterable, Identifiable {
         case .general: return "gearshape"
         case .provider: return "sparkles"
         case .shortcuts: return "keyboard"
+        case .keyboard: return "keyboard.badge.ellipsis"
         case .about: return "info.circle"
         }
     }
@@ -36,7 +38,7 @@ struct SettingsView: View {
 
     private var availablePages: [SettingsPage] {
 #if os(macOS)
-        SettingsPage.allCases
+        SettingsPage.allCases.filter { $0 != .keyboard }
 #else
         SettingsPage.allCases.filter { $0 != .shortcuts }
 #endif
@@ -56,6 +58,9 @@ struct SettingsView: View {
                 case .general: generalPage
                 case .provider: providerPage
                 case .shortcuts: shortcutsPage
+#if os(iOS)
+                case .keyboard: keyboardPage
+#endif
                 case .about: aboutPage
                 }
                 if let message {
@@ -86,6 +91,19 @@ struct SettingsView: View {
             message = nil
         }
     }
+
+#if os(iOS)
+    private var keyboardPage: some View {
+        VStack(alignment: .leading, spacing: Tokens.spaceSection) {
+            Text("Activez le clavier Graker dans Réglages → Général → Clavier → Claviers → Ajouter. Choisissez « Graker », puis autorisez l’accès complet pour les appels au fournisseur.")
+                .foregroundStyle(Tokens.textMuted)
+            Text("Configurez d’abord le fournisseur et la clé dans cette app. Le clavier lit les mêmes réglages.")
+                .foregroundStyle(Tokens.textMuted)
+            Text("Sélectionnez du texte dans Mail ou un commentaire, basculez sur le clavier Graker, puis Corriger, Reformuler ou Traduire.")
+                .foregroundStyle(Tokens.textMuted)
+        }
+    }
+#endif
 
     private var generalPage: some View {
         VStack(alignment: .leading, spacing: Tokens.spaceSection) {

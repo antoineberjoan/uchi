@@ -111,21 +111,22 @@ open class EditorModel: ObservableObject {
         task = Task { [weak self] in
             guard let self else { return }
             do {
-                let request = try RequestFactory.makeRequest(source: original, mode: selectedMode,
-                                                            configuration: selectedConfiguration,
-                                                            refinement: instruction, previousResult: previous)
-                let key = try keys.read(account: selectedConfiguration.makeKeyAccount()) ?? ""
-                let response = try await client.complete(request, configuration: selectedConfiguration, key: key) { [weak self] partial in
+                let output = try await TextSessionRunner.run(
+                    source: original,
+                    mode: selectedMode,
+                    configuration: selectedConfiguration,
+                    refinement: instruction,
+                    previousResult: previous,
+                    keys: keys,
+                    client: client
+                ) { [weak self] partial in
                     guard let self, self.requestID == identifier else { return }
-                    if !selectedMode.hasRevision { self.result = partial }
+                    self.result = partial
                 }
                 try Task.checkCancellation()
                 guard requestID == identifier else { return }
-                if selectedMode.hasRevision {
-                    let parsed = try Revision.parse(response, source: original)
-                    revision = parsed
-                    result = parsed.text
-                } else { result = SourceWhitespace(source: original).apply(to: response) }
+                revision = output.revision
+                result = output.text
                 hasCompleted = true
                 isRunning = false
                 refinement = ""

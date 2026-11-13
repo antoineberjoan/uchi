@@ -16,7 +16,7 @@ Pour Antoine, usage personnel sur Mac et iPhone. Pas pour une redistribution ni 
 
 ## Périmètre
 
-Dedans : noyau pur de requêtes et révisions, interface SwiftUI commune, coquilles macOS (sélection, raccourcis, panneau) et iOS (éditeur intégré). Dehors : capture système de sélection sur iOS, modèles hors ligne, serveur relais.
+Dedans : noyau pur de requêtes et révisions, interface SwiftUI commune, coquilles macOS (sélection, raccourcis, panneau) et iOS (éditeur intégré + **clavier** pour agir dans d’autres apps). Dehors : capture système de sélection sur iOS, modèles hors ligne, serveur relais.
 
 ## Principes
 

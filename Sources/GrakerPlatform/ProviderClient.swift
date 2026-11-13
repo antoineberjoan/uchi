@@ -1,10 +1,9 @@
-#if os(macOS)
 import Foundation
 import GrakerCore
 
-enum ProviderFailure: LocalizedError {
+public enum ProviderFailure: LocalizedError {
     case missingKey, status(Int), unsupportedStream, responseTooLarge, timeout, connection
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .missingKey: return "Ajoutez votre clé dans Réglages → Fournisseur IA."
         case .status(401), .status(403): return "Le fournisseur refuse cette clé ou ce modèle. Vérifiez les réglages et les droits de votre compte."
@@ -20,11 +19,10 @@ enum ProviderFailure: LocalizedError {
 }
 
 /// Transport éphémère, sans cache ni cookies. Aucune redirection n'emporte la clé.
-final class ProviderClient {
-    /// Classes de protocole ajoutées à la session : les tests y branchent un faux fournisseur.
+public final class ProviderClient: @unchecked Sendable {
     private let protocolClasses: [AnyClass]
 
-    init(protocolClasses: [AnyClass] = []) { self.protocolClasses = protocolClasses }
+    public init(protocolClasses: [AnyClass] = []) { self.protocolClasses = protocolClasses }
 
     private final class RedirectPolicy: NSObject, URLSessionTaskDelegate {
         func urlSession(_ session: URLSession, task: URLSessionTask,
@@ -35,8 +33,8 @@ final class ProviderClient {
         }
     }
 
-    func complete(_ completion: CompletionRequest, configuration: Configuration, key: String,
-                  onText: @escaping @MainActor (String) -> Void) async throws -> String {
+    public func complete(_ completion: CompletionRequest, configuration: Configuration, key: String,
+                         onText: @escaping @MainActor (String) -> Void) async throws -> String {
         let url = try configuration.makeCompletionURL()
         guard !key.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || configuration.isLoopback else {
             throw ProviderFailure.missingKey
@@ -64,8 +62,6 @@ final class ProviderClient {
             guard response.value(forHTTPHeaderField: "Content-Type")?.lowercased().contains("text/event-stream") == true else {
                 throw ProviderFailure.unsupportedStream
             }
-            // `bytes.lines` saute les lignes vides, qui ferment les événements SSE.
-            // Le découpage se fait donc octet par octet.
             var lines = LineDecoder()
             var decoder = StreamDecoder()
             var result = ""
@@ -83,7 +79,6 @@ final class ProviderClient {
                     result += piece
                     resultCharacterCount += piece.count
                     guard resultCharacterCount <= 200_000 else { throw ProviderFailure.responseTooLarge }
-                    // L'affichage relit tout le texte : une mise à jour toutes les 80 ms au plus.
                     if clock.now - lastDelivery >= .milliseconds(80) {
                         lastDelivery = clock.now
                         await onText(result)
@@ -104,11 +99,10 @@ final class ProviderClient {
         }
     }
 
-    func validate(configuration: Configuration, key: String) async throws {
+    public func validate(configuration: Configuration, key: String) async throws {
         let request = CompletionRequest(model: configuration.model, messages: [
-            Message(role: "user", content: "Reply with the single word OK.")
+            Message(role: "user", content: "Reply with the single word OK."),
         ])
         _ = try await complete(request, configuration: configuration, key: key, onText: { _ in })
     }
 }
-#endif

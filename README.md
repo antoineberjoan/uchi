@@ -77,7 +77,9 @@ Sources/GrakerDesign/                  rôles SwiftUI fabriqués et pont Tokens
 Sources/GrakerUI/                      vues SwiftUI et EditorModel partagé
 Sources/GrakerPlatform/                trousseau, préférences, client réseau
 Sources/GrakerMac/                     coquille macOS (AppKit) et exécutable menu bar
-Sources/GrakerIOS/                     application iPhone (éditeur intégré)
+Sources/GrakerIOS/                     éditeur SwiftPM (hors bundle)
+Sources/GrakerKeyboard/                logique clavier iOS
+ios/                                   Graker.xcodeproj (app + extension clavier)
 Tests/                                 GrakerCoreTests et GrakerPlatformTests
 scripts/ et controler.sh               cliquets Sophos et lanceur unique
 docs/                                  fondation, lexique, décisions datées

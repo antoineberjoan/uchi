@@ -21,9 +21,9 @@ Partager `GrakerCore`, `GrakerDesign`, `GrakerUI` et `GrakerPlatform` entre les 
 
 ## Conséquences
 
-Le remplacement de sélection hors application reste macOS. iOS utilise collage, saisie et copie. `Tokens.swift` dans `GrakerDesign` assure la transition depuis l’ancien pont CSS.
+Le remplacement de sélection hors application reste macOS. iOS utilise collage, saisie, copie et **clavier** (sélection prioritaire quand l’hôte coopère). `Tokens.swift` dans `GrakerDesign` assure la transition depuis l’ancien pont CSS.
 
 ## Trace
 
 - Fichiers : `Package.swift`, modules `GrakerMac` / `GrakerIOS`.
-- Décision liée : [marque et jetons](2026-11-13-marque-jetons.md).
+- Décisions liées : [marque et jetons](2026-11-13-marque-jetons.md), [clavier iOS](2026-11-13-clavier-ios.md).

@@ -64,7 +64,11 @@ struct EditorView: View {
     private var sourceEditor: some View {
         ZStack(alignment: .topLeading) {
             if model.source.isEmpty {
+#if os(iOS)
+                Text("Écrivez ou collez du texte ici, ou utilisez le clavier Graker dans une autre app.")
+#else
                 Text("Sélectionnez un texte et pressez ⇧⌘\(model.configuration.correctionKey), ou écrivez ici.")
+#endif
                     .foregroundStyle(Tokens.textMuted)
                     .padding(Tokens.spaceInline)
                     .allowsHitTesting(false)

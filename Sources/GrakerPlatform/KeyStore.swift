@@ -1,17 +1,25 @@
-#if os(macOS)
 import Foundation
 import Security
 
-struct KeyStore {
+public struct KeyStore {
     private let service = "local.graker.personnel"
 
+    public init() {}
+
     private func makeQuery(account: String) -> [String: Any] {
-        [kSecClass as String: kSecClassGenericPassword,
-         kSecAttrService as String: service, kSecAttrAccount as String: account,
-         kSecAttrSynchronizable as String: false]
+        var query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: account,
+            kSecAttrSynchronizable as String: false,
+        ]
+        #if os(iOS)
+        query[kSecAttrAccessGroup as String] = AppGroup.identifier
+        #endif
+        return query
     }
 
-    func read(account: String) throws -> String? {
+    public func read(account: String) throws -> String? {
         var query = makeQuery(account: account)
         query[kSecReturnData as String] = true
         query[kSecMatchLimit as String] = kSecMatchLimitOne
@@ -23,7 +31,7 @@ struct KeyStore {
         return key
     }
 
-    func save(_ key: String, account: String) throws {
+    public func save(_ key: String, account: String) throws {
         let query = makeQuery(account: account)
         let data = Data(key.utf8)
         let status = SecItemUpdate(query as CFDictionary, [kSecValueData as String: data] as CFDictionary)
@@ -37,10 +45,9 @@ struct KeyStore {
     }
 }
 
-struct KeyFailure: LocalizedError {
-    let status: OSStatus
-    var errorDescription: String? {
-        "Le trousseau n’a pas autorisé l’opération (\(status)). Déverrouillez la session et autorisez Graker Local, puis réessayez."
+public struct KeyFailure: LocalizedError {
+    public let status: OSStatus
+    public var errorDescription: String? {
+        "Le trousseau n’a pas autorisé l’opération (\(status)). Déverrouillez l’appareil et autorisez Graker, puis réessayez."
     }
 }
-#endif
