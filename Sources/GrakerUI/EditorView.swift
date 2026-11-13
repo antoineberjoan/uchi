@@ -1,9 +1,10 @@
-#if os(macOS)
 import SwiftUI
 import GrakerCore
+import GrakerDesign
 
 struct EditorView: View {
-    @ObservedObject var model: AppModel
+    @ObservedObject var model: EditorModel
+    var showsPanelChrome = true
     @Environment(\.openSettings) private var openSettings
     @FocusState private var isRefinementFocused: Bool
 
@@ -30,28 +31,30 @@ struct EditorView: View {
         .background(.regularMaterial, in: RoundedRectangle(cornerRadius: Tokens.radiusPanel))
         .overlay(RoundedRectangle(cornerRadius: Tokens.radiusPanel).strokeBorder(Tokens.border, lineWidth: Tokens.sizeBorder))
         .clipShape(RoundedRectangle(cornerRadius: Tokens.radiusPanel))
-        .onExitCommand { model.dismiss() }
+        .modifier(EditorDismissAction { model.dismiss() })
     }
 
     private var header: some View {
         HStack(spacing: Tokens.spaceInline) {
-            Button { model.isPinned.toggle() } label: {
-                Image(systemName: model.isPinned ? "pin.fill" : "pin")
-                    .foregroundStyle(model.isPinned ? Tokens.accent : Tokens.textMuted)
-            }
-            .buttonStyle(.plain)
-            .accessibilityLabel(model.isPinned ? "Désépingler le panneau" : "Garder le panneau au-dessus")
             Text("Graker Local").font(Tokens.fontLabel.weight(Tokens.weightTitle))
             Spacer()
             Button { openSettings() } label: { Image(systemName: "gearshape") }
                 .help("Réglages").accessibilityLabel("Réglages")
-            Button { model.toggleWidth() } label: {
-                Image(systemName: model.configuration.isPanelWide ? "arrow.left.and.right.righttriangle.left.righttriangle.right" : "arrow.left.and.right")
+            if showsPanelChrome {
+                Button { model.isPinned.toggle() } label: {
+                    Image(systemName: model.isPinned ? "pin.fill" : "pin")
+                        .foregroundStyle(model.isPinned ? Tokens.accent : Tokens.textMuted)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(model.isPinned ? "Désépingler le panneau" : "Garder le panneau au-dessus")
+                Button { model.toggleWidth() } label: {
+                    Image(systemName: model.configuration.isPanelWide ? "arrow.left.and.right.righttriangle.left.righttriangle.right" : "arrow.left.and.right")
+                }
+                .help(model.configuration.isPanelWide ? "Réduire le panneau" : "Élargir le panneau")
+                .accessibilityLabel(model.configuration.isPanelWide ? "Réduire le panneau" : "Élargir le panneau")
+                Button { model.dismiss() } label: { Image(systemName: "xmark") }
+                    .help("Fermer · Échap").accessibilityLabel("Fermer le panneau")
             }
-            .help(model.configuration.isPanelWide ? "Réduire le panneau" : "Élargir le panneau")
-            .accessibilityLabel(model.configuration.isPanelWide ? "Réduire le panneau" : "Élargir le panneau")
-            Button { model.dismiss() } label: { Image(systemName: "xmark") }
-                .help("Fermer · Échap").accessibilityLabel("Fermer le panneau")
         }
         .buttonStyle(.borderless)
         .padding(.horizontal, Tokens.spaceInline)
@@ -249,4 +252,14 @@ struct EditorView: View {
         catch { return AttributedString(value) }
     }
 }
+
+private struct EditorDismissAction: ViewModifier {
+    let action: () -> Void
+    func body(content: Content) -> some View {
+#if os(macOS)
+        content.onExitCommand(perform: action)
+#else
+        content
 #endif
+    }
+}

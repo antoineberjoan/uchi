@@ -2,6 +2,8 @@
 import AppKit
 import SwiftUI
 import GrakerCore
+import GrakerUI
+import GrakerDesign
 
 private final class FloatingPanel: NSPanel {
     override var canBecomeKey: Bool { true }
@@ -11,11 +13,11 @@ private final class FloatingPanel: NSPanel {
 @MainActor
 final class PanelController: NSObject, NSWindowDelegate {
     private let panel: FloatingPanel
-    private weak var model: AppModel?
+    private weak var model: MacEditorModel?
     private var anchor: CGRect?
     private var previousApplication: NSRunningApplication?
 
-    init(model: AppModel) {
+    init(model: MacEditorModel) {
         self.model = model
         panel = FloatingPanel(contentRect: .zero, styleMask: [.borderless, .nonactivatingPanel, .resizable],
                               backing: .buffered, defer: false)

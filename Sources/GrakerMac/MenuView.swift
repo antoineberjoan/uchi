@@ -1,9 +1,10 @@
 #if os(macOS)
 import SwiftUI
 import GrakerCore
+import GrakerUI
 
 struct MenuView: View {
-    @ObservedObject var model: AppModel
+    @ObservedObject var model: MacEditorModel
 
     var body: some View {
         Button("Corriger la sélection", systemImage: Mode.correction.symbol) { model.processSelection(mode: .correction) }

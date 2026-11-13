@@ -1,11 +1,11 @@
 #if os(macOS)
 import SwiftUI
 import AppKit
-import GrakerCore
+import GrakerUI
 
 @MainActor
 final class ApplicationDelegate: NSObject, NSApplicationDelegate {
-    let model = AppModel()
+    let model = MacEditorModel()
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
         model.start()

@@ -1,6 +1,6 @@
-#if os(macOS)
 import SwiftUI
 import GrakerCore
+import GrakerDesign
 
 private enum SettingsPage: String, CaseIterable, Identifiable {
     case general, provider, shortcuts, about
@@ -24,7 +24,7 @@ private enum SettingsPage: String, CaseIterable, Identifiable {
 }
 
 struct SettingsView: View {
-    @ObservedObject var model: AppModel
+    @ObservedObject var model: EditorModel
     @State private var page: SettingsPage? = .provider
     @State private var draft = Configuration()
     @State private var key = ""
@@ -34,9 +34,17 @@ struct SettingsView: View {
     @State private var validationTask: Task<Void, Never>?
     @State private var validationID = UUID()
 
+    private var availablePages: [SettingsPage] {
+#if os(macOS)
+        SettingsPage.allCases
+#else
+        SettingsPage.allCases.filter { $0 != .shortcuts }
+#endif
+    }
+
     var body: some View {
         NavigationSplitView {
-            List(SettingsPage.allCases, selection: $page) { page in
+            List(availablePages, selection: $page) { page in
                 Label(page.title, systemImage: page.symbol).tag(page)
             }
             .listStyle(.sidebar)
@@ -60,7 +68,9 @@ struct SettingsView: View {
             }
             .padding(Tokens.spacePanel)
         }
+#if os(macOS)
         .frame(width: Tokens.sizeSettingsWidth, height: Tokens.sizeSettingsHeight)
+#endif
         .font(Tokens.fontLabel)
         .foregroundStyle(Tokens.text)
         .tint(Tokens.accent)
@@ -247,4 +257,3 @@ struct SettingsView: View {
         isMessageError = isError
     }
 }
-#endif

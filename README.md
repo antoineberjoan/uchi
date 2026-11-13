@@ -138,16 +138,19 @@ contrôles automatiques.
 ## Organisation du dépôt
 
 ```text
-Design/                              source unique des tokens et icônes vectorielles
-Sources/GrakerCore/                   types, contrats, requêtes, SSE, révisions, placement
-Sources/GrakerLocal/                  point d'entrée de l'application
-Sources/GrakerLocal/Platform/         réseau, trousseau, sélection, raccourcis, fenêtres
-Sources/GrakerLocal/Presentation/     vues SwiftUI, état observable et tokens générés
-Tests/GrakerCoreTests/                contrats et cas limites du noyau
-Scripts/                             génération, contrôles et construction de l'app
-Documentation/Decisions/              décisions datées et contrats
-.github/carte/                       bannières produites par le script central Sophos
-.github/workflows/                   compilation, tests macOS et archive de l'application
+Resources/Brand/tokens.json          source unique des jetons (DTCG) ; sorties fabriquées
+Design/                              jetons CSS, icônes vectorielles
+Sources/GrakerCore/                    noyau pur : contrats, requêtes, SSE, révisions
+Sources/GrakerDesign/                  rôles SwiftUI fabriqués et pont Tokens
+Sources/GrakerUI/                      vues SwiftUI et EditorModel partagé
+Sources/GrakerPlatform/                trousseau, préférences, client réseau
+Sources/GrakerMac/                     coquille macOS (AppKit) et exécutable menu bar
+Sources/GrakerIOS/                     application iPhone (éditeur intégré)
+Tests/                                 GrakerCoreTests et GrakerPlatformTests
+scripts/ et controler.sh               cliquets Sophos et lanceur unique
+docs/                                  fondation, lexique, décisions datées
+.github/carte/                         bannières fabriquées par carte.mjs
+.github/workflows/                     contrôles Sophos et preuve macOS (écart public)
 ```
 
 Cette carte fixe les emplacements ; un dossier ne naît qu'avec son premier fichier.
@@ -181,7 +184,7 @@ et son [journal](https://graker.fehey.com/changelog), consultés le 7 novembre 2
 ## Règles et décisions
 
 [AGENTS.md](AGENTS.md) active les méthodes Sophos sans les recopier.
-[Décision de fondation](Documentation/Decisions/2026-11-07-foundation.md) : options,
+[Décision de fondation](docs/decisions/2026-11-07-foundation.md), [plateformes Apple](docs/decisions/2026-11-13-plateformes-apple.md), [fondation du dépôt](docs/fondation.md) : options,
 critères de qualité, couches, tokens et contrats.
 [Décision d'import dans uchi](Documentation/Decisions/2026-11-07-repository.md) :
 raison du remplacement et conservation des deux historiques.

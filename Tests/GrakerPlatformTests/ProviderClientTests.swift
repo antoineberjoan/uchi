@@ -2,7 +2,7 @@
 import Foundation
 import XCTest
 import GrakerCore
-@testable import GrakerLocal
+@testable import GrakerPlatform
 
 /// Faux fournisseur : renvoie une réponse HTTP fixe, en morceaux d'octets choisis par le test.
 private final class StubProviderProtocol: URLProtocol {

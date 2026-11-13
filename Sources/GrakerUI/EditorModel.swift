@@ -1,129 +1,98 @@
-#if os(macOS)
-import AppKit
 import SwiftUI
 import GrakerCore
+import GrakerPlatform
 
-struct RecentResult: Identifiable {
-    let id = UUID()
-    let source: String
-    let mode: Mode
-    let result: String
-    let revision: Revision?
+public struct RecentResult: Identifiable, Sendable {
+    public let id = UUID()
+    public let source: String
+    public let mode: Mode
+    public let result: String
+    public let revision: Revision?
 }
 
+/// État partagé de l’éditeur : réseau, préférences et historique. Les effets système restent dans les coquilles plateforme.
 @MainActor
-final class AppModel: ObservableObject {
-    @Published private(set) var configuration = Configuration()
-    @Published var source = "" {
+open class EditorModel: ObservableObject {
+    @Published public private(set) var configuration = Configuration()
+    @Published public var source = "" {
         didSet {
             guard source != oldValue else { return }
             invalidateResult()
-            selection = nil
+            clearCapturedSelection()
         }
     }
-    @Published private(set) var mode: Mode = .correction
-    @Published var refinement = ""
-    @Published private(set) var result = ""
-    @Published private(set) var revision: Revision?
-    @Published private(set) var isRunning = false
-    @Published private(set) var hasCompleted = false
-    @Published private(set) var errorMessage: String?
-    @Published private(set) var notice: String?
-    @Published private(set) var recentResults: [RecentResult] = []
-    @Published private(set) var shortcutError: String?
-    @Published var isPinned = true { didSet { panelController?.setPinned(isPinned) } }
+    @Published public private(set) var mode: Mode = .correction
+    @Published public var refinement = ""
+    @Published public private(set) var result = ""
+    @Published public private(set) var revision: Revision?
+    @Published public private(set) var isRunning = false
+    @Published public private(set) var hasCompleted = false
+    @Published public private(set) var errorMessage: String?
+    @Published public private(set) var notice: String?
+    @Published public private(set) var recentResults: [RecentResult] = []
+    @Published public var isPinned = true {
+        didSet { onPinnedChanged(isPinned) }
+    }
 
     private let preferences = PreferencesStore()
+
+    func saveConfiguration(_ configuration: Configuration) throws {
+        try preferences.save(configuration)
+        self.configuration = configuration
+    }
     private let keys = KeyStore()
     private let client = ProviderClient()
-    private let selections = SelectionController()
-    private let shortcuts = ShortcutController()
-    private var panelController: PanelController?
-    private var selection: SelectionSnapshot?
     private var task: Task<Void, Never>?
     private var requestID = UUID()
 
-    /// Dernier texte placé par le code (sélection, presse-papiers, récent) : jamais traité comme une frappe ou un collage.
-    private(set) var programmaticSource: String?
+  /// Dernier texte placé par le code : jamais traité comme une frappe ou un collage.
+    public private(set) var programmaticSource: String?
 
-    private func setSource(_ text: String) {
-        programmaticSource = text
-        source = text
-    }
+    public var canRun: Bool { !isRunning && !source.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+    open var canReplace: Bool { false }
+    open var hasAccessibilityPermission: Bool { false }
+    @Published public var shortcutError: String?
 
-    var canRun: Bool { !isRunning && !source.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
-    var canReplace: Bool { selection != nil && hasCompleted && !isRunning }
-    var hasAccessibilityPermission: Bool { selections.hasPermission }
-
-    init() {
+    public init() {
         do { configuration = try preferences.load() }
         catch { errorMessage = "Les préférences enregistrées sont illisibles. Vérifiez et enregistrez à nouveau les réglages." }
     }
 
-    func start() {
-        shortcuts.onShortcut = { [weak self] mode in self?.processSelection(mode: mode) }
-        shortcuts.onError = { [weak self] message in self?.shortcutError = message }
-        do { try shortcuts.register(configuration) }
-        catch { shortcutError = error.localizedDescription }
-        if UserDefaults.standard.data(forKey: "configuration") == nil { present() }
-    }
+    open func onPinnedChanged(_ pinned: Bool) {}
+    open func start() {}
+    open func present(mode: Mode? = nil) { if let mode { setMode(mode) } }
+    open func dismiss() { cancel() }
+    open func quit() { cancel() }
+    open func activateSettings() {}
+    open func requestAccessibilityPermission() {}
 
-    func present(mode: Mode? = nil) {
-        if let mode { setMode(mode) }
-        if panelController == nil { panelController = PanelController(model: self) }
-        panelController?.show(anchor: selection?.anchor)
-    }
-
-    func dismiss() { cancel(); panelController?.hide() }
-    func quit() { cancel(); NSApp.terminate(nil) }
-    func activateSettings() { NSApp.activate(ignoringOtherApps: true) }
-    func requestAccessibilityPermission() { selections.requestPermission() }
-
-    func setMode(_ mode: Mode) {
+    public func setMode(_ mode: Mode) {
         guard self.mode != mode else { return }
         invalidateResult()
         self.mode = mode
     }
 
-    func processSelection(mode: Mode) {
-        cancel()
-        do {
-            let snapshot = try selections.capture()
-            setSource(snapshot.text)
-            setMode(mode)
-            selection = snapshot
-            present()
-            run()
-        } catch {
-            selection = nil
-            present(mode: mode)
-            errorMessage = error.localizedDescription
-        }
-    }
-
-    func processClipboard() {
-        guard let text = NSPasteboard.general.string(forType: .string), !text.isEmpty else {
+    public func processClipboard() {
+        guard let text = Pasteboard.readString(), !text.isEmpty else {
             present(mode: .translation)
             errorMessage = "Le presse-papiers ne contient aucun texte. Copiez un texte, puis réessayez."
             return
         }
-        setSource(text)
-        selection = nil
+        applySource(text)
         present(mode: .translation)
         run()
     }
 
-    func pasteAndRun() {
-        guard let text = NSPasteboard.general.string(forType: .string), !text.isEmpty else {
+    public func pasteAndRun() {
+        guard let text = Pasteboard.readString(), !text.isEmpty else {
             errorMessage = "Le presse-papiers ne contient aucun texte."
             return
         }
-        setSource(text)
-        selection = nil
+        applySource(text)
         run()
     }
 
-    func run(isRefinement: Bool = false) {
+    public func run(isRefinement: Bool = false) {
         if isRefinement && refinement.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { return }
         task?.cancel()
         let identifier = UUID()
@@ -176,7 +145,7 @@ final class AppModel: ObservableObject {
         }
     }
 
-    func cancel() {
+    public func cancel() {
         guard isRunning else { return }
         task?.cancel()
         task = nil
@@ -198,26 +167,17 @@ final class AppModel: ObservableObject {
         refinement = ""
     }
 
-    func copyResult() {
+    public func copyResult() {
         guard hasCompleted else { return }
-        NSPasteboard.general.clearContents()
-        if NSPasteboard.general.setString(result, forType: .string) { notice = "Résultat copié." }
+        if Pasteboard.writeString(result) { notice = "Résultat copié." }
         else { errorMessage = "Le presse-papiers n’a pas accepté le texte. Réessayez." }
     }
 
-    func replaceSelection() {
-        guard canReplace, let selection else { return }
-        do {
-            try selections.replace(selection, with: result)
-            self.selection = nil
-            panelController?.hide()
-        } catch { errorMessage = error.localizedDescription }
-    }
+    open func replaceSelection() {}
 
-    func reopen(_ recent: RecentResult) {
-        setSource(recent.source)
+    public func reopen(_ recent: RecentResult) {
+        applySource(recent.source)
         setMode(recent.mode)
-        selection = nil
         result = recent.result
         revision = recent.revision
         hasCompleted = true
@@ -226,18 +186,16 @@ final class AppModel: ObservableObject {
         present()
     }
 
-    func toggleWidth() {
+    open func toggleWidth() {
         var next = configuration
         next.isPanelWide.toggle()
         do {
             try preferences.save(next)
             configuration = next
-            panelController?.resize()
         } catch { errorMessage = error.localizedDescription }
     }
 
-    /// Change de fournisseur sans ouvrir les réglages. Une clé absente reste une erreur visible au lancement.
-    func selectProvider(_ provider: Provider) {
+    public func selectProvider(_ provider: Provider) {
         guard provider != configuration.provider else { return }
         var next = configuration
         next.provider = provider
@@ -247,11 +205,11 @@ final class AppModel: ObservableObject {
         } catch { errorMessage = error.localizedDescription }
     }
 
-    func loadKey(for configuration: Configuration) throws -> String {
+    public func loadKey(for configuration: Configuration) throws -> String {
         try keys.read(account: configuration.makeKeyAccount()) ?? ""
     }
 
-    func validateAndSaveProvider(_ draft: Configuration, key: String) async throws {
+    public func validateAndSaveProvider(_ draft: Configuration, key: String) async throws {
         var next = configuration
         next.provider = draft.provider
         next.endpoint = draft.endpoint.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -265,7 +223,7 @@ final class AppModel: ObservableObject {
         configuration = next
     }
 
-    func saveGeneral(_ draft: Configuration) throws {
+    public func saveGeneral(_ draft: Configuration) throws {
         var next = configuration
         next.scene = draft.scene
         next.targetLanguage = draft.targetLanguage.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -274,20 +232,25 @@ final class AppModel: ObservableObject {
         configuration = next
     }
 
-    func saveShortcuts(_ draft: Configuration) throws {
+    open func saveShortcuts(_ draft: Configuration) throws {
         var next = configuration
         next.correctionKey = draft.correctionKey
         next.rephrasingKey = draft.rephrasingKey
         next.translationKey = draft.translationKey
-        try shortcuts.register(next)
-        do { try preferences.save(next) }
-        catch {
-            do { try shortcuts.register(configuration) }
-            catch { shortcutError = error.localizedDescription }
-            throw error
-        }
+        try preferences.save(next)
         configuration = next
-        shortcutError = nil
     }
+
+    open func processSelection(mode: Mode) {
+        setMode(mode)
+        errorMessage = "La capture de sélection n’est disponible que sur macOS."
+        present(mode: mode)
+    }
+
+    public func applySource(_ text: String) {
+        programmaticSource = text
+        source = text
+    }
+
+    open func clearCapturedSelection() {}
 }
-#endif

@@ -1,6 +1,6 @@
-#if os(macOS)
 import SwiftUI
 import GrakerCore
+import GrakerDesign
 
 /// Texte révisé, avec chaque passage modifié surligné à sa place.
 /// Un clic sur un passage affiche le changement et sa raison sous le texte.
@@ -84,4 +84,3 @@ struct RevisionView: View {
         return AttributedString("Remplacé ") + removed + AttributedString(" par ") + added
     }
 }
-#endif
