@@ -7,6 +7,6 @@
 <text font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="28" fill="#121a2e" fill-opacity="0.8"><tspan x="272" y="202">Corriger et traduire un texte sans quitter son</tspan><tspan x="272" y="238">application.</tspan></text>
 <rect x="1080" y="56" width="32" height="32" rx="8" fill="#ffffff" stroke="#121a2e" stroke-opacity="0.2"/>
 <rect x="1124" y="56" width="32" height="32" rx="8" fill="#121a2e" stroke="#121a2e" stroke-opacity="0.2"/>
-<rect x="1168" y="56" width="32" height="32" rx="8" fill="#896f00" stroke="#121a2e" stroke-opacity="0.2"/>
-<rect y="312" width="1280" height="8" fill="#896f00"/>
+<rect x="1168" y="56" width="32" height="32" rx="8" fill="#ffd43b" stroke="#121a2e" stroke-opacity="0.2"/>
+<rect y="312" width="1280" height="8" fill="#ffd43b"/>
 </svg>

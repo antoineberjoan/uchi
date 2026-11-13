@@ -2,7 +2,6 @@
 :root {
   color-scheme: light dark;
   /* primitive.color.ink : Encre et nuit imi : texte en clair, fond en sombre. */
-  --primitive-color-ink-0: #ffffff;
   --primitive-color-ink-50: #e7efff;
   --primitive-color-ink-100: #d2defa;
   --primitive-color-ink-200: #b2bed9;
@@ -15,7 +14,6 @@
   --primitive-color-ink-700: #22304d;
   --primitive-color-ink-750: #182135;
   --primitive-color-ink-800: #121a2e;
-  --primitive-color-ink-850: #040a1c;
   --primitive-color-ink-900: #010210;
   /* primitive.color.paper : Blanc et brume imi : fond en clair, texte en sombre. */
   --primitive-color-paper-0: #ffffff;
@@ -87,7 +85,6 @@
   --primitive-color-mark-200: #e3b900;
   --primitive-color-mark-300: #be9a00;
   --primitive-color-mark-400: #9a7d00;
-  --primitive-color-mark-450: #896f00;
   --primitive-color-mark-500: #786100;
   --primitive-color-mark-600: #574600;
   --primitive-color-mark-700: #392c00;
@@ -181,13 +178,13 @@
   --color-hover: var(--primitive-color-paper-50);
   /* Fond d'un élément sélectionné, accent très léger ; pas pour le survol. */
   --color-selection: color-mix(in srgb, var(--color-accent) 12%, transparent);
-  /* Accent imi : pas du surligneur #FFD43B (réservé au logo) ; nuance qui atteint 3:1 sur le fond. */
-  --color-accent: var(--primitive-color-mark-450);
+  /* Surligneur imi, le même jaune que le logo. Le contraste sur fond clair est volontairement sous 3:1. */
+  --color-accent: var(--primitive-color-mark-100);
   /* Texte d'accent lisible sur le fond : l'encre, le surligneur seul n'atteint pas 4,5:1. */
   --color-accent-text: var(--primitive-color-ink-800);
-  /* Texte et icône posés sur l'accent imi ; jamais ailleurs. */
-  --color-on-accent: var(--primitive-color-ink-0);
-  /* L'anneau de focus au clavier : 3:1 au moins sur le fond ; jamais retiré. */
+  /* Texte et icône posés sur le surligneur ; jamais ailleurs. */
+  --color-on-accent: var(--primitive-color-ink-900);
+  /* L'anneau de focus au clavier reprend le surligneur. Le seuil 3:1 est abaissé pour cette marque. */
   --color-focus: var(--color-accent);
   /* L'erreur et la suppression, en texte, icône ou aplat ; jamais une décoration. */
   --color-danger: var(--primitive-color-red-500);
@@ -480,9 +477,9 @@
     --color-rule-hover: var(--primitive-color-ink-600);
     --color-hover: var(--primitive-color-ink-700);
     --color-selection: color-mix(in srgb, var(--color-accent) 24%, transparent);
-    --color-accent: var(--primitive-color-mark-300);
+    --color-accent: var(--primitive-color-mark-100);
     --color-accent-text: var(--primitive-color-mark-300);
-    --color-on-accent: var(--primitive-color-ink-850);
+    --color-on-accent: var(--primitive-color-ink-900);
     --color-danger: var(--primitive-color-red-300);
     --color-on-danger: var(--primitive-color-ink-800);
     --color-success: var(--primitive-color-green-300);
@@ -507,9 +504,9 @@
   --color-rule-hover: var(--primitive-color-ink-600);
   --color-hover: var(--primitive-color-ink-700);
   --color-selection: color-mix(in srgb, var(--color-accent) 24%, transparent);
-  --color-accent: var(--primitive-color-mark-300);
+  --color-accent: var(--primitive-color-mark-100);
   --color-accent-text: var(--primitive-color-mark-300);
-  --color-on-accent: var(--primitive-color-ink-850);
+  --color-on-accent: var(--primitive-color-ink-900);
   --color-danger: var(--primitive-color-red-300);
   --color-on-danger: var(--primitive-color-ink-800);
   --color-success: var(--primitive-color-green-300);

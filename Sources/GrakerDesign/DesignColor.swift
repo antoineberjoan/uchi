@@ -25,15 +25,15 @@ public enum DesignColor {
     /// Fond d'une ligne ou d'un contrôle au survol ; pas pour la sélection.
     public static let hover: Color = makeAdaptive(light: DesignPrimitive.paper50, dark: DesignPrimitive.ink700)
     /// Fond d'un élément sélectionné, accent très léger ; pas pour le survol.
-    public static let selection: Color = makeAdaptive(light: DesignPrimitive.mark450, dark: DesignPrimitive.mark300, lightOpacity: 0.12, darkOpacity: 0.24)
-    /// Accent imi : pas du surligneur #FFD43B (réservé au logo) ; nuance qui atteint 3:1 sur le fond.
-    public static let accent: Color = makeAdaptive(light: DesignPrimitive.mark450, dark: DesignPrimitive.mark300)
+    public static let selection: Color = makeAdaptive(light: DesignPrimitive.mark100, dark: DesignPrimitive.mark100, lightOpacity: 0.12, darkOpacity: 0.24)
+    /// Surligneur imi, le même jaune que le logo. Le contraste sur fond clair est volontairement sous 3:1.
+    public static let accent: Color = makeColor(DesignPrimitive.mark100)
     /// Texte d'accent lisible sur le fond : l'encre, le surligneur seul n'atteint pas 4,5:1.
     public static let accentText: Color = makeAdaptive(light: DesignPrimitive.ink800, dark: DesignPrimitive.mark300)
-    /// Texte et icône posés sur l'accent imi ; jamais ailleurs.
-    public static let onAccent: Color = makeAdaptive(light: DesignPrimitive.ink0, dark: DesignPrimitive.ink850)
-    /// L'anneau de focus au clavier : 3:1 au moins sur le fond ; jamais retiré.
-    public static let focus: Color = makeAdaptive(light: DesignPrimitive.mark450, dark: DesignPrimitive.mark300)
+    /// Texte et icône posés sur le surligneur ; jamais ailleurs.
+    public static let onAccent: Color = makeColor(DesignPrimitive.ink900)
+    /// L'anneau de focus au clavier reprend le surligneur. Le seuil 3:1 est abaissé pour cette marque.
+    public static let focus: Color = makeColor(DesignPrimitive.mark100)
     /// L'erreur et la suppression, en texte, icône ou aplat ; jamais une décoration.
     public static let danger: Color = makeAdaptive(light: DesignPrimitive.red500, dark: DesignPrimitive.red300, lightHigh: DesignPrimitive.red600, darkHigh: DesignPrimitive.red150)
     /// Texte posé sur un aplat danger.

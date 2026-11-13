@@ -1,17 +1,6 @@
 {
   "$description": "fabriqué depuis tokens.json par sophos/outils/jetons.mjs ; ne pas modifier à la main (patron 1.2.0).",
   "tokens": {
-    "primitive.color.ink.0": {
-      "type": "color",
-      "light": {
-        "hex": "#FFFFFF",
-        "alpha": 1
-      },
-      "dark": {
-        "hex": "#FFFFFF",
-        "alpha": 1
-      }
-    },
     "primitive.color.ink.50": {
       "type": "color",
       "light": {
@@ -141,17 +130,6 @@
       },
       "dark": {
         "hex": "#121A2E",
-        "alpha": 1
-      }
-    },
-    "primitive.color.ink.850": {
-      "type": "color",
-      "light": {
-        "hex": "#040A1C",
-        "alpha": 1
-      },
-      "dark": {
-        "hex": "#040A1C",
         "alpha": 1
       }
     },
@@ -870,17 +848,6 @@
         "alpha": 1
       }
     },
-    "primitive.color.mark.450": {
-      "type": "color",
-      "light": {
-        "hex": "#896F00",
-        "alpha": 1
-      },
-      "dark": {
-        "hex": "#896F00",
-        "alpha": 1
-      }
-    },
     "primitive.color.mark.500": {
       "type": "color",
       "light": {
@@ -1425,22 +1392,22 @@
     "color.selection": {
       "type": "color",
       "light": {
-        "hex": "#896F00",
+        "hex": "#FFD43B",
         "alpha": 0.12
       },
       "dark": {
-        "hex": "#BE9A00",
+        "hex": "#FFD43B",
         "alpha": 0.24
       }
     },
     "color.accent": {
       "type": "color",
       "light": {
-        "hex": "#896F00",
+        "hex": "#FFD43B",
         "alpha": 1
       },
       "dark": {
-        "hex": "#BE9A00",
+        "hex": "#FFD43B",
         "alpha": 1
       }
     },
@@ -1458,22 +1425,22 @@
     "color.on-accent": {
       "type": "color",
       "light": {
-        "hex": "#FFFFFF",
+        "hex": "#010210",
         "alpha": 1
       },
       "dark": {
-        "hex": "#040A1C",
+        "hex": "#010210",
         "alpha": 1
       }
     },
     "color.focus": {
       "type": "color",
       "light": {
-        "hex": "#896F00",
+        "hex": "#FFD43B",
         "alpha": 1
       },
       "dark": {
-        "hex": "#BE9A00",
+        "hex": "#FFD43B",
         "alpha": 1
       }
     },

@@ -3,8 +3,6 @@
 import SwiftUI
 
 enum DesignPrimitive {
-    /// oklch(1.0000 0.0000 none) · Encre et nuit imi : texte en clair, fond en sombre.
-    static let ink0: UInt32 = 0xFFFFFF
     /// oklch(0.9508 0.0232 264.5) · Encre et nuit imi : texte en clair, fond en sombre.
     static let ink50: UInt32 = 0xE7EFFF
     /// oklch(0.9003 0.0406 267.1) · Encre et nuit imi : texte en clair, fond en sombre.
@@ -29,8 +27,6 @@ enum DesignPrimitive {
     static let ink750: UInt32 = 0x182135
     /// oklch(0.2212 0.0411 266.5) · Encre et nuit imi : texte en clair, fond en sombre.
     static let ink800: UInt32 = 0x121A2E
-    /// oklch(0.1499 0.0405 264.7) · Encre et nuit imi : texte en clair, fond en sombre.
-    static let ink850: UInt32 = 0x040A1C
     /// oklch(0.0985 0.0409 269.5) · Encre et nuit imi : texte en clair, fond en sombre.
     static let ink900: UInt32 = 0x010210
     /// oklch(1.0000 0.0000 none) · Blanc et brume imi : fond en clair, texte en sombre.
@@ -161,8 +157,6 @@ enum DesignPrimitive {
     static let mark300: UInt32 = 0xBE9A00
     /// oklch(0.5998 0.1228 92.5) · Surligneur imi : accent d'action, jamais un état d'erreur.
     static let mark400: UInt32 = 0x9A7D00
-    /// oklch(0.5509 0.1127 92.5) · Surligneur imi : accent d'action, jamais un état d'erreur.
-    static let mark450: UInt32 = 0x896F00
     /// oklch(0.5009 0.1025 92.6) · Surligneur imi : accent d'action, jamais un état d'erreur.
     static let mark500: UInt32 = 0x786100
     /// oklch(0.4003 0.0820 93.0) · Surligneur imi : accent d'action, jamais un état d'erreur.

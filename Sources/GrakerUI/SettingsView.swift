@@ -229,7 +229,7 @@ struct SettingsView: View {
             Text("imi")
                 .font(Tokens.fontHeading.weight(Tokens.weightTitle))
             Text("Le sens. Corriger, reformuler et traduire sans quitter l’application.")
-            Text("Marque : encre, brume, surligneur. Le logo porte le jaune vif ; les boutons utilisent la nuance d’accent qui reste lisible.")
+            Text("Marque : encre, brume, surligneur. Les boutons portent le même jaune que le logo. Le texte sur le bouton reste foncé.")
                 .foregroundStyle(Tokens.textMuted)
             Text("Aucun compte, aucune télémétrie, aucun serveur intermédiaire. Les clés restent dans le trousseau.")
                 .foregroundStyle(Tokens.textMuted)
