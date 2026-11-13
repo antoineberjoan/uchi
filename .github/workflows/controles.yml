@@ -39,11 +39,19 @@ jobs:
           fetch-depth: 0
       # projet:debut — l'installation propre au projet (langage, dépendances, clone de Sophos)
       - name: Cloner Sophos
+        env:
+          JETON: ${{ secrets.SOPHOS_READ_TOKEN }}
         run: |
+          if [ -z "$JETON" ]; then
+            echo "Sophos est privé. Le jeton d'Actions de ce dépôt ne peut pas le lire."
+            echo "Ajouter le secret SOPHOS_READ_TOKEN : un jeton à lecture seule sur antoineberjoan/sophos."
+            exit 1
+          fi
           git init "$RUNNER_TEMP/sophos"
           git -C "$RUNNER_TEMP/sophos" remote add origin https://github.com/antoineberjoan/sophos.git
-          # Le jeton du dépôt uchi ne doit pas servir ici : un dépôt public se lit sans identifiant.
-          git -C "$RUNNER_TEMP/sophos" -c credential.helper= -c http.extraheader= \
+          autorisation="$(printf 'x-access-token:%s' "$JETON" | base64 -w0)"
+          git -C "$RUNNER_TEMP/sophos" -c credential.helper= \
+            -c "http.https://github.com/.extraheader=AUTHORIZATION: basic ${autorisation}" \
             fetch --depth 1 origin 560b0d8359217339b6c9f5a643c2185b6afdb3ea
           git -C "$RUNNER_TEMP/sophos" checkout --detach FETCH_HEAD
           echo "SOPHOS_ROOT=$RUNNER_TEMP/sophos" >> "$GITHUB_ENV"
