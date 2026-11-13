@@ -42,7 +42,9 @@ jobs:
         run: |
           git init "$RUNNER_TEMP/sophos"
           git -C "$RUNNER_TEMP/sophos" remote add origin https://github.com/antoineberjoan/sophos.git
-          git -C "$RUNNER_TEMP/sophos" fetch --depth 1 origin 560b0d8359217339b6c9f5a643c2185b6afdb3ea
+          # Le jeton du dépôt uchi ne doit pas servir ici : un dépôt public se lit sans identifiant.
+          git -C "$RUNNER_TEMP/sophos" -c credential.helper= -c http.extraheader= \
+            fetch --depth 1 origin 560b0d8359217339b6c9f5a643c2185b6afdb3ea
           git -C "$RUNNER_TEMP/sophos" checkout --detach FETCH_HEAD
           echo "SOPHOS_ROOT=$RUNNER_TEMP/sophos" >> "$GITHUB_ENV"
       # projet:fin
