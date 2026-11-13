@@ -4,7 +4,7 @@ Ce document dit ce qu'est le projet, pour une personne qui ne l'a jamais vu.
 
 ## Nom
 
-**imi** : application personnelle inspirée de Graker, intégrée dans le dépôt GitHub `antoineberjoan/uchi`. Le nom affiché est imi ; les modules Swift gardent le préfixe Graker.
+**imi** : application personnelle, intégrée dans le dépôt GitHub `antoineberjoan/uchi`. Le nom affiché est imi ; les modules Swift gardent le préfixe Imi.
 
 ## Raison d'être
 
@@ -33,4 +33,4 @@ Marque imi : encre, brume, surligneur. Fichiers `Design/imi/`. Rôles d’interf
 - **Publics** : l'utilisateur qui rédige en français et corrige depuis d'autres applications.
 - **Ton** : direct, calme, erreurs explicites en français simple.
 - **Mots** : correction, reformulation, traduction, fournisseur, affinage ; pas de jargon marketing.
-- **Jamais** : promesse de fidélité parfaite à Graker public ; pas de clé partagée ni de secours simulé.
+- **Jamais** : promesse de copie parfaite d'un autre produit ; pas de clé partagée ni de secours simulé.

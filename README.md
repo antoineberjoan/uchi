@@ -6,23 +6,23 @@
   <img alt="imi : Corriger et traduire un texte sans quitter son application." src=".github/carte/banniere-claire.svg" width="100%">
 </picture>
 
-**Raison d'être** Reproduire Graker pour un usage personnel sur Mac et iPhone, avec ses clés API et sans service intermédiaire.
+**Raison d'être** Usage personnel sur Mac et iPhone, avec ses clés API et sans service intermédiaire.
 
 **État** actif · **Sorte** application Apple personnelle
 <!-- carte:en-tete:fin -->
 
 ## Ce que c'est
 
-Graker Local reproduit [Graker](https://graker.fehey.com/) pour un usage personnel sur Mac et iPhone, avec les méthodes [Sophos](https://antoineberjoan.github.io/sophos/) : correction, reformulation, traduction et affinage depuis l'application où l'on écrit, avec explication et copie ou remplacement (macOS). Interface en français ; fournisseurs Gemini, DeepSeek et compatible OpenAI ; clés dans le trousseau, pas de service intermédiaire. Le [guide propriétaire](docs/fondation.md) pose le périmètre, les principes et les [décisions](docs/decisions/) datées (marque, jetons, plateformes).
+imi sert pour un usage personnel sur Mac et iPhone, avec les méthodes [Sophos](https://antoineberjoan.github.io/sophos/) : correction, reformulation, traduction et affinage depuis l'application où l'on écrit, avec explication et copie ou remplacement (macOS). Interface en français ; fournisseurs Gemini, DeepSeek et compatible OpenAI ; clés dans le trousseau, pas de service intermédiaire. Le [guide propriétaire](docs/fondation.md) pose le périmètre, les principes et les [décisions](docs/decisions/) datées (marque, jetons, plateformes).
 
-Application native SwiftUI et adaptateurs système (macOS : panneau, raccourcis, sélection ; iOS : éditeur intégré). `Resources/Brand/tokens.json` alimente l'interface ; `Design/` tient la marque validée. Dix résultats en mémoire à la fermeture. Réimplémentation sans affiliation ; comportements à valider sur un Mac. Voir le [journal public](https://graker.fehey.com/changelog) et la [décision de fondation](docs/decisions/2026-11-07-foundation.md) pour le détail des choix.
+Application native SwiftUI et adaptateurs système (macOS : panneau, raccourcis, sélection ; iOS : éditeur intégré). `Resources/Brand/tokens.json` alimente l'interface ; `Design/` tient la marque validée. Dix résultats en mémoire à la fermeture. Réimplémentation sans affiliation ; comportements à valider sur un Mac. Voir la [décision de fondation](docs/decisions/2026-11-07-foundation.md) pour le détail des choix.
 
 ## Démarrer
 
 Mac sous macOS 15 ou plus, Xcode 16 ou plus, Python 3 et Node.js pour les
 vérifications et les fichiers générés. Aucune dépendance Swift externe.
 
-Le workflow GitHub produit aussi `Graker-Local-macOS.zip`, contenant une `.app`
+Le workflow GitHub produit aussi `imi-macOS.zip`, contenant une `.app`
 signée localement (ad hoc). Le runner actuel utilise Apple Silicon ; cette
 archive vise donc les Mac Apple Silicon. Sur Intel, le script ci-dessous
 construit l'application pour le Mac qui l'exécute.
@@ -31,7 +31,7 @@ construit l'application pour le Mac qui l'exécute.
 python3 Scripts/check-foundation.py
 swift test
 bash Scripts/build-app.sh
-open "dist/Graker Local.app"
+open "dist/imi.app"
 ```
 
 Pour essayer l'application sans Xcode, `bash Scripts/download-app.sh` télécharge la
@@ -56,7 +56,7 @@ La correction de la sélection utilise ⇧⌘G ; la reformulation utilise ⇧⌘
 la traduction utilise ⇧⌘T. Les raccourcis sont modifiables et suivent la
 disposition du clavier. Un raccourci global prend la place du même raccourci
 dans les autres apps : ⇧⌘R recharge aussi une page dans Chrome, par exemple.
-Dans le panneau, Retour lance le traitement, comme dans Graker ; ⇧Retour va à
+Dans le panneau, Retour lance le traitement, dès que la phrase est prête ; ⇧Retour va à
 la ligne. Un collage dans la saisie lance aussi le traitement, car un texte collé
 est souvent une phrase complète. Taper à la main ne lance jamais rien. Le bouton
 « Coller et corriger » (ou reformuler, ou traduire) colle et lance. Les actions sur une sélection demandent
@@ -72,15 +72,15 @@ Pour exporter le dépôt et le reprendre dans une autre session : [guide de repr
 ```text
 Resources/Brand/tokens.json          source unique des jetons (DTCG) ; sorties fabriquées
 Design/                              jetons CSS, icônes vectorielles
-Sources/GrakerCore/                    noyau pur : contrats, requêtes, SSE, révisions
-Sources/GrakerDesign/                  rôles SwiftUI fabriqués et pont Tokens
-Sources/GrakerUI/                      vues SwiftUI et EditorModel partagé
-Sources/GrakerPlatform/                trousseau, préférences, client réseau
-Sources/GrakerMac/                     coquille macOS (AppKit) et exécutable menu bar
-Sources/GrakerIOS/                     éditeur SwiftPM (hors bundle)
-Sources/GrakerKeyboard/                logique clavier iOS
-ios/                                   Graker.xcodeproj (app + extension clavier)
-Tests/                                 GrakerCoreTests et GrakerPlatformTests
+Sources/ImiCore/                    noyau pur : contrats, requêtes, SSE, révisions
+Sources/ImiDesign/                  rôles SwiftUI fabriqués et pont Tokens
+Sources/ImiUI/                      vues SwiftUI et EditorModel partagé
+Sources/ImiPlatform/                trousseau, préférences, client réseau
+Sources/ImiMac/                     coquille macOS (AppKit) et exécutable menu bar
+Sources/ImiIOS/                     éditeur SwiftPM (hors bundle)
+Sources/ImiKeyboard/                logique clavier iOS
+ios/                                   Imi.xcodeproj (app + extension clavier)
+Tests/                                 ImiCoreTests et ImiPlatformTests
 scripts/ et controler.sh               cliquets Sophos et lanceur unique
 docs/                                  fondation, lexique, décisions datées
 .github/carte/                         bannières fabriquées par carte.mjs
@@ -101,20 +101,17 @@ Le [contrat réseau](Documentation/Network.md) cite les exemples officiels des A
 <!-- carte:liens:fin -->
 
 Le dépôt choisi est [antoineberjoan/uchi](https://github.com/antoineberjoan/uchi).
-Son nom GitHub est conservé ; le produit intégré s'appelle Graker Local.
+Son nom GitHub est conservé ; le produit intégré s'appelle imi.
 Les sources, images et workflows du précédent Scratch (Tauri/React) sont
 remplacés par le projet Swift. Sa branche de sauvegarde est supprimée à la
 demande de l'utilisateur. L'historique Git existant n'est pas réécrit.
-Les cinq commits du projet Graker préparé localement sont également conservés
+Les cinq commits préparés localement sont également conservés
 comme ascendance de l'import. La suppression des fichiers n'efface donc pas
 l'ancien projet de l'historique Git.
 
-La PR de `feat/graker-local` porte le remplacement. Après sa fusion, une autre
+La PR d'import porte le remplacement. Après sa fusion, une autre
 session peut repartir de `main` et lire ces documents. L'utilisateur autorise
 la publication dans le dépôt public fourni ; sa visibilité ne change pas.
-Référence fonctionnelle : [Graker](https://graker.fehey.com/)
-et son [journal](https://graker.fehey.com/changelog), consultés le 7 novembre 2026.
-
 ## Règles et décisions
 
 [AGENTS.md](AGENTS.md) active les méthodes Sophos sans les recopier.
@@ -131,7 +128,7 @@ interface en français, sans langue chinoise, avec DeepSeek conservé.
 [Décision de reformulation](Documentation/Decisions/2026-11-08-rephrasing.md) :
 mode Reformuler et explications écrites selon `expliquer`.
 [Décision d'alignement](Documentation/Decisions/2026-11-08-alignment.md) :
-surlignage des changements, menu du fournisseur et écarts restants avec Graker.
+surlignage des changements, menu du fournisseur et écarts restants.
 
 Le noyau compile sous Linux avec Swift 6.0.3 ; ses 46 tests XCTest passent. Six tests de plus lisent un faux fournisseur et ne
 s'exécutent que sur macOS.
@@ -150,7 +147,7 @@ Ce texte ne se sélectionne pas : le bouton Copier le remplace.
 
 La traduction conserve les sauts de ligne et les styles Markdown en ligne.
 Les titres, tableaux et blocs complexes restent lisibles sous forme de texte
-Markdown ; leur rendu complet de Graker n'est pas encore reproduit.
+Markdown ; leur rendu complet n'est pas encore reproduit.
 
 Le parcours manuel minimal est : régler un fournisseur → saisir une phrase →
 corriger → cliquer un passage surligné → reformuler une phrase en anglais →
@@ -163,6 +160,6 @@ fournisseur inaccessible. Chaque échec doit rester visible, sans perdre la sais
 ## Licence
 
 Usage personnel demandé. Aucune licence de redistribution n'est accordée ici.
-Les éléments de marque et captures de Graker ne sont pas inclus. Les méthodes
+Les éléments de marque d'un autre produit ne sont pas inclus. Les méthodes
 Sophos sont seulement référencées ; leur licence et leurs restrictions restent
 dans leur dépôt d'origine.

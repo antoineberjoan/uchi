@@ -3,7 +3,7 @@
 ## Décision
 
 Antoine propose un outil pour reformuler son anglais, avec une formulation et
-une explication qui suivent le skill `expliquer` de Sophos. Graker ne propose
+une explication qui suivent le skill `expliquer` de Sophos. Le modèle de départ ne propose
 que la correction et la traduction : la reformulation est un ajout.
 
 1. **Mode Reformuler.** Un troisième mode, entre Corriger et Traduire, avec le

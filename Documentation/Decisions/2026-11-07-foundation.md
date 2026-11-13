@@ -33,7 +33,7 @@ focus. Rouge et vert servent aux états, pas à une seconde marque.
 Source unique : `Design/tokens.css`. Primitives en OKLCH, gris chaud et bleu,
 échelles de clarté ; chaque rôle est défini en clair et en sombre. Base d'espace
 de 4 points, rayons en peu de pas, typographie système, dimensions de panneau
-440 et 840 points comme le journal de Graker. Les points SwiftUI reprennent
+440 et 840 points, d'après les captures du 7 novembre 2026. Les points SwiftUI reprennent
 les valeurs logiques du fichier CSS ; aucune page web ni Tailwind à l'exécution.
 Le générateur convertit les couleurs en sRGB et fabrique les rôles SwiftUI.
 Les primitives restent privées au générateur. Les variantes n'apparaissent
@@ -67,7 +67,7 @@ officiels consultés sont cités dans le README de `Platform` lors de l'impléme
 
 ## Limites assumées
 
-Aucun accès au code source de Graker. Pas de promesse d'identité interne.
+Aucun accès au code source d'un autre produit. Pas de promesse d'identité interne.
 La fidélité se juge par observation sur Mac. Pas de mise à jour automatique
 depuis un serveur pour cet outil local. Pas de conservation garantie des images
 et styles internes d'une sélection HTML. Pas de dépôt distant, issue ou PR

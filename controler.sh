@@ -1,5 +1,5 @@
 #!/bin/sh
-# Lanceur unique des contrôles Graker (fonder § 6.5).
+# Lanceur unique des contrôles imi (fonder § 6.5).
 set -eu
 cd "$(dirname "$0")"
 SOPHOS="${SOPHOS_ROOT:-/agent/repos/sophos}"

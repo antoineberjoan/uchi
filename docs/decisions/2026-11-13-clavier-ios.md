@@ -9,7 +9,7 @@ Sur iOS, pas d’équivalent Accessibilité pour lire la sélection dans Mail ou
 
 ## Décision
 
-Ajouter une **extension clavier** iOS. Actions **Corriger**, **Reformuler**, **Traduire** sur **`selectedText`** quand l’app hôte l’expose ; sinon message explicite sans appel API. Résultat par **`insertText`**. Préférences et trousseau via **App Group** `group.local.graker.personnel` ; clés saisies dans l’app hôte seulement. **Accès complet** au clavier requis pour le réseau. Projet Xcode sous `ios/` pour install sur appareil développeur.
+Ajouter une **extension clavier** iOS. Actions **Corriger**, **Reformuler**, **Traduire** sur **`selectedText`** quand l’app hôte l’expose ; sinon message explicite sans appel API. Résultat par **`insertText`**. Préférences et trousseau via **App Group** `group.local.imi.personnel` ; clés saisies dans l’app hôte seulement. **Accès complet** au clavier requis pour le réseau. Projet Xcode sous `ios/` pour install sur appareil développeur.
 
 ## Options
 
@@ -26,5 +26,5 @@ Pas de `RevisionView` complète dans le clavier ; copie / insertion. Comportemen
 
 ## Trace
 
-- Code : `Sources/GrakerKeyboard/`, `ios/`
+- Code : `Sources/ImiKeyboard/`, `ios/`
 - Lié : [plateformes Apple](2026-11-13-plateformes-apple.md), tests : [Documentation/iOS-Keyboard.md](../../Documentation/iOS-Keyboard.md)

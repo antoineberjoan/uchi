@@ -15,7 +15,7 @@ Trois corrections. Les contrats de la fondation ne changent pas.
    souvent : une phrase correcte échouait à la validation, et le remplacement
    collait le paragraphe au suivant.
 3. **Focus.** À la fermeture du panneau, `PanelController` réactive
-   l'application qui était au premier plan à son ouverture. Sinon, Graker Local
+   l'application qui était au premier plan à son ouverture. Sinon, imi
    reste active sans fenêtre et le collage après « Copier » ne va nulle part.
 
 Le texte progressif part vers l'affichage au plus toutes les 80 ms. Avant,

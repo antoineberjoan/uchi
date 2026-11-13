@@ -5,32 +5,32 @@ Usage personnel sur iPhone avec compte développeur Apple. Pas de CI GitHub requ
 ## Prérequis
 
 - macOS avec **Xcode 16** ou plus, iOS **18** ou plus sur l’appareil
-- Branche avec `ios/Graker.xcodeproj` et le package Swift à la racine
+- Branche avec `ios/Imi.xcodeproj` et le package Swift à la racine
 
 ## Ouvrir le projet
 
 ```sh
 cd /chemin/vers/uchi
-open ios/Graker.xcodeproj
+open ios/Imi.xcodeproj
 ```
 
-1. Sélectionner le target **Graker** → **Signing & Capabilities** : choisir **Team**, bundle `local.graker.personnel.ios` (ou le vôtre + App Group aligné).
-2. Même Team pour **GrakerKeyboard** : `local.graker.personnel.ios.keyboard`.
-3. Créer / activer l’App Group **`group.local.graker.personnel`** sur les deux cibles (entitlements déjà dans le dépôt).
-4. Brancher l’iPhone, choisir l’appareil, **Run** sur **Graker**.
+1. Sélectionner le target **Imi** → **Signing & Capabilities** : choisir **Team**, bundle `local.imi.personnel.ios` (ou le vôtre + App Group aligné).
+2. Même Team pour **ImiKeyboard** : `local.imi.personnel.ios.keyboard`.
+3. Créer / activer l’App Group **`group.local.imi.personnel`** sur les deux cibles (entitlements déjà dans le dépôt).
+4. Brancher l’iPhone, choisir l’appareil, **Run** sur **Imi**. Le nom affiché sur l’iPhone est imi.
 
 ## Activer le clavier
 
-1. Dans l’app Graker : **Réglages** → **Fournisseur IA** → valider clé et modèle.
-2. iOS : **Réglages** → **Général** → **Clavier** → **Claviers** → **Ajouter** → **Graker**.
-3. Touche Graker → **Autoriser l’accès complet** (réseau vers le fournisseur).
+1. Dans l’app imi : **Réglages** → **Fournisseur IA** → valider clé et modèle.
+2. iOS : **Réglages** → **Général** → **Clavier** → **Claviers** → **Ajouter** → **imi**.
+3. Touche imi → **Autoriser l’accès complet** (réseau vers le fournisseur).
 
 ## Checklist de test
 
 | # | Scénario | Résultat attendu |
 |---|----------|------------------|
 | 1 | App : coller et corriger | Résultat + copie OK |
-| 2 | Mail : sélectionner une phrase, clavier Graker, **Corriger** | Remplacement local + copie presse-papiers |
+| 2 | Mail : sélectionner une phrase, clavier imi, **Corriger** | Remplacement local + copie presse-papiers |
 | 3 | Notes : sélection, **Reformuler** / **Traduire** | Idem |
 | 4 | Aucune sélection, toucher un mode | Message « Sélectionnez du texte… », pas d’appel API |
 | 5 | Sans clé configurée | Erreur invitant à ouvrir l’app |
@@ -41,7 +41,7 @@ open ios/Graker.xcodeproj
 
 - **Clavier absent** : réinstaller l’app depuis Xcode après changement de bundle ou d’App Group.
 - **Clé introuvable** : la clé est lue dans le groupe partagé ; revalider le fournisseur dans l’app hôte.
-- **Sélection perdue** en passant au clavier Graker : sélectionner **après** avoir affiché le clavier Graker.
+- **Sélection perdue** en passant au clavier imi : sélectionner **après** avoir affiché le clavier imi.
 
 ## Décision produit
 

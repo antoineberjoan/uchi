@@ -2,8 +2,8 @@
 # Télécharge la dernière application construite par GitHub sur la branche principale.
 # Elle est signée en local (ad hoc) et vise les Mac Apple Silicon.
 set -euo pipefail
-graker_repository="antoineberjoan/uchi"
-graker_destination="${1:-$HOME/Downloads/Graker Local}"
+imi_repository="antoineberjoan/uchi"
+imi_destination="${1:-$HOME/Downloads/imi}"
 
 if ! command -v gh >/dev/null 2>&1; then
   echo "Installez GitHub CLI avec « brew install gh », puis lancez « gh auth login »." >&2
@@ -14,17 +14,17 @@ if ! gh auth status >/dev/null 2>&1; then
   exit 1
 fi
 
-graker_run="$(gh run list --repo "$graker_repository" --workflow verify.yml --branch main \
+imi_run="$(gh run list --repo "$imi_repository" --workflow verify.yml --branch main \
   --status success --limit 1 --json databaseId --jq '.[0].databaseId // empty')"
-if [[ -z "$graker_run" ]]; then
+if [[ -z "$imi_run" ]]; then
   echo "Aucune construction réussie sur main. Vérifiez l'onglet Actions du dépôt." >&2
   exit 1
 fi
 
-rm -rf "$graker_destination"
-mkdir -p "$graker_destination"
-gh run download "$graker_run" --repo "$graker_repository" --name Graker-Local-macOS --dir "$graker_destination"
-ditto -x -k "$graker_destination/Graker-Local-macOS.zip" "$graker_destination"
-rm "$graker_destination/Graker-Local-macOS.zip"
-echo "Application prête : $graker_destination/Graker Local.app (construction $graker_run)"
-open "$graker_destination"
+rm -rf "$imi_destination"
+mkdir -p "$imi_destination"
+gh run download "$imi_run" --repo "$imi_repository" --name imi-macOS --dir "$imi_destination"
+ditto -x -k "$imi_destination/imi-macOS.zip" "$imi_destination"
+rm "$imi_destination/imi-macOS.zip"
+echo "Application prête : $imi_destination/imi.app (construction $imi_run)"
+open "$imi_destination"

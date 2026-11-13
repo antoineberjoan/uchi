@@ -14,13 +14,13 @@ Depuis un dépôt sans changement non enregistré :
 python3 Scripts/export-project.py
 ```
 
-`dist/Graker-Local-sources.zip` inclut `history.bundle` et `EXPORT.txt` (commit et branche exportés).
+`dist/imi-sources.zip` inclut `history.bundle` et `EXPORT.txt` (commit et branche exportés).
 
 ## Restauration pour revue
 
 ```sh
-git clone --branch main /chemin/vers/graker-local/history.bundle graker-local-review
-cd graker-local-review
+git clone --branch main /chemin/vers/imi-local/history.bundle imi-local-review
+cd imi-local-review
 git log --oneline
 ```
 
