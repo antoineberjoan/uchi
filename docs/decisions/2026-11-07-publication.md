@@ -1,20 +1,28 @@
-# Publier Graker Local dans uchi — 7 novembre 2026
+# Publier dans uchi
 
-## Décision de l'utilisateur
+Date : 2026-11-07 · Statut : acceptée
+Décidé par : Antoine
 
-Après l'information sur le caractère public de `antoineberjoan/uchi`, Antoine
-demande de supprimer la sauvegarde de Scratch et de remplacer le contenu de
-la branche principale par notre réimplémentation personnelle de Graker.
-La publication dans ce dépôt public est donc autorisée ; aucune modification
-de visibilité n'est demandée.
+## Contexte
 
-## Application
+Le dépôt `antoineberjoan/uchi` est public. Antoine autorise d’y remplacer Scratch par Graker Local sans changer la visibilité.
 
-Supprimer la branche `backup/scratch-before-graker-2026-11-07`. Publier l'import
-dans une PR, vérifier la construction macOS, puis intégrer le remplacement sur
-`main`. Les sources, images et workflows de Scratch disparaissent de l'arbre
-courant. L'historique Git n'est pas réécrit : il garde la traçabilité des deux
-projets, sans maintenir une branche de sauvegarde de l'ancien produit.
+## Décision
 
-Cette décision complète celle d'import : la sauvegarde préparatoire n'est plus
-conservée comme branche et le choix de visibilité est désormais explicite.
+Supprimer la branche de sauvegarde Scratch, publier l’import, vérifier la construction macOS, puis intégrer sur `main`. L’historique Git n’est pas réécrit.
+
+## Options
+
+| Option | Effet |
+| --- | --- |
+| Nouveau dépôt privé | Refusé par l’intégration ou non demandé |
+| Remplacement dans uchi | Retenu |
+
+## Conséquences
+
+L’arbre courant ne porte plus Scratch ; la traçabilité Git reste. Complète la décision d’import.
+
+## Trace
+
+- Étape de revue par fusion sur `main` : détaillée dans [Documentation/Decisions/2026-11-07-publication.md](../../Documentation/Decisions/2026-11-07-publication.md).
+- Branche de sauvegarde : `backup/scratch-before-graker-2026-11-07`.

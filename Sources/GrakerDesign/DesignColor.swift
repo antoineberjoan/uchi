@@ -17,7 +17,7 @@ public enum DesignColor {
     /// Texte principal et icône porteuse de sens ; pas sur un aplat d'accent (on-accent).
     public static let text: Color = makeAdaptive(light: DesignPrimitive.ink800, dark: DesignPrimitive.paper50)
     /// Texte d'appoint, légende, icône discrète ; jamais une information indispensable seule.
-    public static let textMuted: Color = makeAdaptive(light: DesignPrimitive.ink500, dark: DesignPrimitive.ink300, lightHigh: DesignPrimitive.ink600, darkHigh: DesignPrimitive.ink200)
+    public static let textMuted: Color = makeAdaptive(light: DesignPrimitive.ink500, dark: DesignPrimitive.ink300, lightHigh: DesignPrimitive.ink650, darkHigh: DesignPrimitive.ink200)
     /// Filet de séparation, contour discret ; décoratif, sans seuil de contraste. Pas pour le contour d'un champ qui doit se voir seul.
     public static let rule: Color = makeAdaptive(light: DesignPrimitive.paper100, dark: DesignPrimitive.ink700, lightHigh: DesignPrimitive.ink400, darkHigh: DesignPrimitive.ink400)
     /// Filet au survol ; pas au repos.
@@ -25,15 +25,15 @@ public enum DesignColor {
     /// Fond d'une ligne ou d'un contrôle au survol ; pas pour la sélection.
     public static let hover: Color = makeAdaptive(light: DesignPrimitive.paper50, dark: DesignPrimitive.ink700)
     /// Fond d'un élément sélectionné, accent très léger ; pas pour le survol.
-    public static let selection: Color = makeAdaptive(light: DesignPrimitive.ink800, dark: DesignPrimitive.paper50, lightOpacity: 0.12, darkOpacity: 0.24)
-    /// La seule couleur d'accent : action principale, sélection, repère. En monochrome, l'accent est l'encre. Pas pour décorer.
-    public static let accent: Color = makeAdaptive(light: DesignPrimitive.ink800, dark: DesignPrimitive.paper50)
-    /// L'accent quand il est un texte ou une petite icône (lien) : la nuance de l'accent qui atteint 4,5:1 sur le fond.
-    public static let accentText: Color = makeAdaptive(light: DesignPrimitive.ink800, dark: DesignPrimitive.paper50)
+    public static let selection: Color = makeAdaptive(light: DesignPrimitive.blue600, dark: DesignPrimitive.blue400, lightOpacity: 0.12, darkOpacity: 0.24)
+    /// La seule couleur d'accent : action principale, sélection, repère. Bleu de marque. Pas pour décorer.
+    public static let accent: Color = makeAdaptive(light: DesignPrimitive.blue600, dark: DesignPrimitive.blue400)
+    /// L'accent quand il est un texte ou une petite icône (lien) : nuance qui atteint 4,5:1 sur le fond.
+    public static let accentText: Color = makeAdaptive(light: DesignPrimitive.blue700, dark: DesignPrimitive.blue300)
     /// Texte et icône posés sur un aplat d'accent ; jamais ailleurs.
     public static let onAccent: Color = makeAdaptive(light: DesignPrimitive.paper0, dark: DesignPrimitive.ink800)
     /// L'anneau de focus au clavier : 3:1 au moins sur le fond ; jamais retiré.
-    public static let focus: Color = makeAdaptive(light: DesignPrimitive.ink800, dark: DesignPrimitive.paper50)
+    public static let focus: Color = makeAdaptive(light: DesignPrimitive.blue600, dark: DesignPrimitive.blue400)
     /// L'erreur et la suppression, en texte, icône ou aplat ; jamais une décoration.
     public static let danger: Color = makeAdaptive(light: DesignPrimitive.red500, dark: DesignPrimitive.red300, lightHigh: DesignPrimitive.red600, darkHigh: DesignPrimitive.red150)
     /// Texte posé sur un aplat danger.

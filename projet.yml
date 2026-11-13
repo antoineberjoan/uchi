@@ -10,11 +10,8 @@ liens:
   applique: [sophos]
 marque:
   tokens: Resources/Brand/tokens.json
-  palette: Design/graker-couleurs.json
   icone-claire: Design/icon-light.svg
   icone-sombre: Design/icon-dark.svg
-  mot-symbole-clair: Design/graker-wordmark-light.svg
-  mot-symbole-sombre: Design/graker-wordmark-dark.svg
   clair: { fond: color.background, texte: color.text, accent: color.accent }
   sombre: { fond: color.background, texte: color.text, accent: color.accent }
 politique:

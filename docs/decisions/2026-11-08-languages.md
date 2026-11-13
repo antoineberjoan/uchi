@@ -1,17 +1,27 @@
-# Langues de l'interface — 8 novembre 2026
+# Langues de l’interface
 
-## Décision de l'utilisateur
+Date : 2026-11-08 · Statut : acceptée
+Décidé par : Antoine
 
-Antoine demande de supprimer tout le chinois de l'application, puis de garder
-DeepSeek. Il rappelle l'objectif : copier [Graker](https://graker.fehey.com/)
-pour un usage personnel, puis l'adapter à ses propres cas d'usage.
+## Contexte
 
-## Application
+Antoine retire le chinois de l’application et conserve DeepSeek parmi les fournisseurs.
 
-L'interface est en français. Graker 1.3.0 propose aussi le chinois simplifié et
-le chinois traditionnel : ces langues d'interface ne sont pas reprises.
-Le dépôt ne contient aucun texte chinois.
+## Décision
 
-DeepSeek reste un fournisseur proposé, avec Google Gemini et « Compatible
-OpenAI ». La demande porte sur la langue de l'application, pas sur le choix
-du fournisseur.
+Interface en français uniquement. Pas de chinois simplifié ni traditionnel. Fournisseurs : Gemini, DeepSeek, compatible OpenAI.
+
+## Options
+
+| Option | Effet |
+| --- | --- |
+| Parité langues Graker public | Écartée |
+| FR + fournisseurs actuels | Retenue |
+
+## Conséquences
+
+Aucune chaîne chinoise dans le dépôt. Le choix du fournisseur reste indépendant de la langue d’interface.
+
+## Trace
+
+- Référence : [Documentation/Decisions/2026-11-08-languages.md](../../Documentation/Decisions/2026-11-08-languages.md).

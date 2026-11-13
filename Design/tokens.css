@@ -1,30 +1,31 @@
 /* fabriqué depuis tokens.json par sophos/outils/jetons.mjs ; ne pas modifier à la main (patron 1.2.0). */
 :root {
   color-scheme: light dark;
-  /* primitive.color.ink : Encre et Graphite : texte en clair, fond et surfaces en sombre. */
-  --primitive-color-ink-50: #eceef4;
-  --primitive-color-ink-100: #dbdee4;
-  --primitive-color-ink-200: #bbbec3;
-  --primitive-color-ink-300: #9c9ea4;
-  --primitive-color-ink-400: #7e8085;
-  --primitive-color-ink-500: #616368;
-  --primitive-color-ink-600: #45484c;
-  --primitive-color-ink-700: #2b2f36;
-  --primitive-color-ink-750: #202226;
-  --primitive-color-ink-800: #16181c;
-  --primitive-color-ink-900: #030305;
-  /* primitive.color.paper : Blanc et Pierre : fond et surfaces en clair, texte en sombre. */
-  --primitive-color-paper-0: #ffffff;
-  --primitive-color-paper-50: #eeeeee;
-  --primitive-color-paper-100: #e4e4e2;
-  --primitive-color-paper-200: #bebebe;
-  --primitive-color-paper-300: #9e9e9e;
-  --primitive-color-paper-400: #808080;
-  --primitive-color-paper-500: #636363;
-  --primitive-color-paper-600: #484848;
-  --primitive-color-paper-700: #2e2e2e;
-  --primitive-color-paper-800: #161616;
-  --primitive-color-paper-900: #030303;
+  /* primitive.color.ink : Graphite chaud : texte en clair, fond et surfaces en sombre. */
+  --primitive-color-ink-50: #f1eeeb;
+  --primitive-color-ink-100: #e0ddda;
+  --primitive-color-ink-200: #c0bdba;
+  --primitive-color-ink-300: #a19e9b;
+  --primitive-color-ink-400: #82807d;
+  --primitive-color-ink-500: #656360;
+  --primitive-color-ink-600: #4a4745;
+  --primitive-color-ink-650: #3c3a38;
+  --primitive-color-ink-700: #2e2a26;
+  --primitive-color-ink-750: #23211f;
+  --primitive-color-ink-800: #141210;
+  --primitive-color-ink-900: #040302;
+  /* primitive.color.paper : Papier et pierre : fond et surfaces en clair, texte en sombre. */
+  --primitive-color-paper-0: #faf8f4;
+  --primitive-color-paper-50: #f0eeea;
+  --primitive-color-paper-100: #e4dfd6;
+  --primitive-color-paper-200: #bfbdba;
+  --primitive-color-paper-300: #a09e9a;
+  --primitive-color-paper-400: #82807c;
+  --primitive-color-paper-500: #656360;
+  --primitive-color-paper-600: #494744;
+  --primitive-color-paper-700: #2f2e2b;
+  --primitive-color-paper-800: #171613;
+  --primitive-color-paper-900: #040302;
   /* primitive.color.red : Rouge : l'erreur et la suppression ; jamais une décoration. */
   --primitive-color-red-50: #ffe9e6;
   --primitive-color-red-100: #ffd2cc;
@@ -63,17 +64,16 @@
   --primitive-color-amber-700: #422700;
   --primitive-color-amber-800: #221200;
   --primitive-color-amber-900: #070200;
-  /* primitive.color.blue : Bleu : l'information neutre ; jamais l'accent de la marque. */
+  /* primitive.color.blue : Bleu Graker : accent, focus et information (nuances distinctes via les rôles). */
   --primitive-color-blue-50: #e4f0ff;
-  --primitive-color-blue-100: #c9e0ff;
-  --primitive-color-blue-200: #91c1ff;
-  --primitive-color-blue-300: #64a1ed;
-  --primitive-color-blue-400: #4682cc;
-  --primitive-color-blue-450: #3772bb;
-  --primitive-color-blue-500: #2863ab;
-  --primitive-color-blue-600: #03468b;
-  --primitive-color-blue-700: #002c5e;
-  --primitive-color-blue-800: #001533;
+  --primitive-color-blue-100: #c8e0ff;
+  --primitive-color-blue-200: #90c1ff;
+  --primitive-color-blue-300: #5ba3e8;
+  --primitive-color-blue-400: #3b82d6;
+  --primitive-color-blue-500: #1863b4;
+  --primitive-color-blue-600: #00468b;
+  --primitive-color-blue-700: #002d5d;
+  --primitive-color-blue-800: #001532;
   --primitive-color-blue-900: #00030d;
   /* L'échelle d'espace d'interface : pas de 2 px jusqu'à 16, puis des pas plus larges. */
   --primitive-space-2: 2px;
@@ -163,10 +163,10 @@
   --color-hover: var(--primitive-color-paper-50);
   /* Fond d'un élément sélectionné, accent très léger ; pas pour le survol. */
   --color-selection: color-mix(in srgb, var(--color-accent) 12%, transparent);
-  /* La seule couleur d'accent : action principale, sélection, repère. En monochrome, l'accent est l'encre. Pas pour décorer. */
-  --color-accent: var(--primitive-color-ink-800);
-  /* L'accent quand il est un texte ou une petite icône (lien) : la nuance de l'accent qui atteint 4,5:1 sur le fond. */
-  --color-accent-text: var(--primitive-color-ink-800);
+  /* La seule couleur d'accent : action principale, sélection, repère. Bleu de marque. Pas pour décorer. */
+  --color-accent: var(--primitive-color-blue-600);
+  /* L'accent quand il est un texte ou une petite icône (lien) : nuance qui atteint 4,5:1 sur le fond. */
+  --color-accent-text: var(--primitive-color-blue-700);
   /* Texte et icône posés sur un aplat d'accent ; jamais ailleurs. */
   --color-on-accent: var(--primitive-color-paper-0);
   /* L'anneau de focus au clavier : 3:1 au moins sur le fond ; jamais retiré. */
@@ -462,8 +462,8 @@
     --color-rule-hover: var(--primitive-color-ink-600);
     --color-hover: var(--primitive-color-ink-700);
     --color-selection: color-mix(in srgb, var(--color-accent) 24%, transparent);
-    --color-accent: var(--primitive-color-paper-50);
-    --color-accent-text: var(--primitive-color-paper-50);
+    --color-accent: var(--primitive-color-blue-400);
+    --color-accent-text: var(--primitive-color-blue-300);
     --color-on-accent: var(--primitive-color-ink-800);
     --color-danger: var(--primitive-color-red-300);
     --color-on-danger: var(--primitive-color-ink-800);
@@ -489,8 +489,8 @@
   --color-rule-hover: var(--primitive-color-ink-600);
   --color-hover: var(--primitive-color-ink-700);
   --color-selection: color-mix(in srgb, var(--color-accent) 24%, transparent);
-  --color-accent: var(--primitive-color-paper-50);
-  --color-accent-text: var(--primitive-color-paper-50);
+  --color-accent: var(--primitive-color-blue-400);
+  --color-accent-text: var(--primitive-color-blue-300);
   --color-on-accent: var(--primitive-color-ink-800);
   --color-danger: var(--primitive-color-red-300);
   --color-on-danger: var(--primitive-color-ink-800);
@@ -511,7 +511,7 @@
 
 @media (prefers-contrast: more) {
   :root {
-    --color-text-muted: var(--primitive-color-ink-600);
+    --color-text-muted: var(--primitive-color-ink-650);
     --color-rule: var(--primitive-color-ink-400);
     --color-rule-hover: var(--primitive-color-ink-500);
     --color-danger: var(--primitive-color-red-600);

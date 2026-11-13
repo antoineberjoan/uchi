@@ -4,13 +4,17 @@ Référence : `antoineberjoan/sophos@560b0d8359217339b6c9f5a643c2185b6afdb3ea`.
 Les méthodes restent dans Sophos ; aucune copie dans ce projet. Lire le fichier
 `skills/<nom>/SKILL.md` de ce commit via le dépôt connecté, ou son clone voisin.
 
-| Skill | Version | Application dans ce projet |
-|---|---|---|
-| penser | 1.3.1 | Décisions explicites, hypothèses et limites nommées. |
-| concevoir | 0.2.0 | Panneau discret, états complets, rôles visuels, contrôle à l'écran. |
-| construire | 0.3.4 | Noyau pur, effets isolés, vérifications avant livraison. |
-| fonder | 0.2.1 | Tokens uniques, grammaire, frontières, contrats et carte générée. |
-| expliquer | 0.2.1 | Interface, erreurs et explications du modèle en français simple. |
+<!-- carte:skills:debut — fabriqué depuis projet.yml par sophos/outils/carte.mjs ; ne pas modifier à la main -->
+| Skill | Version |
+| --- | --- |
+| [penser](https://antoineberjoan.github.io/sophos/skills/penser/SKILL.html) | 1.4.0 |
+| [concevoir](https://antoineberjoan.github.io/sophos/skills/concevoir/SKILL.html) | 0.5.0 |
+| [construire](https://antoineberjoan.github.io/sophos/skills/construire/SKILL.html) | 0.9.0 |
+| [fonder](https://antoineberjoan.github.io/sophos/skills/fonder/SKILL.html) | 0.8.8 |
+| [expliquer](https://antoineberjoan.github.io/sophos/skills/expliquer/SKILL.html) | 0.3.0 |
+<!-- carte:skills:fin -->
+
+Ce que chaque skill impose ici : le tableau des versions est fabriqué par `carte.mjs` ; les règles ci-dessous les appliquent au périmètre Graker (panneau discret, jetons DTCG, noyau pur, interface en français).
 
 ## Règles du projet
 

@@ -6,49 +6,16 @@
   <img alt="Graker Local : Corriger et traduire un texte sans quitter son application." src=".github/carte/banniere-claire.svg" width="100%">
 </picture>
 
-**État** actif · **Sorte** application macOS personnelle
+**Raison d'être** Reproduire Graker pour un usage personnel sur Mac et iPhone, avec ses clés API et sans service intermédiaire.
+
+**État** actif · **Sorte** application Apple personnelle
 <!-- carte:en-tete:fin -->
 
 ## Ce que c'est
 
-### Origine et objectif
+Graker Local reproduit [Graker](https://graker.fehey.com/) pour un usage personnel sur Mac et iPhone, avec les méthodes [Sophos](https://antoineberjoan.github.io/sophos/) : correction, reformulation, traduction et affinage depuis l'application où l'on écrit, avec explication et copie ou remplacement (macOS). Interface en français ; fournisseurs Gemini, DeepSeek et compatible OpenAI ; clés dans le trousseau, pas de service intermédiaire. Le [guide propriétaire](docs/fondation.md) pose le périmètre, les principes et les [décisions](docs/decisions/) datées (marque, jetons, plateformes).
 
-Ce projet vient d'une demande d'Antoine : reproduire l'outil présenté sur
-[graker.fehey.com](https://graker.fehey.com/) pour son usage personnel sur Mac,
-en appliquant les méthodes [Sophos](https://antoineberjoan.github.io/sophos/).
-L'objectif est de corriger et traduire un texte depuis l'application où il écrit,
-avec un raccourci, une explication et la possibilité de remplacer la sélection.
-La copie sert ensuite de base pour adapter l'outil à nos propres cas d'usage.
-
-L'interface est en français. Les langues d'interface chinoises de Graker ne
-sont pas reprises. Les fournisseurs proposés sont Google Gemini, DeepSeek et un
-service compatible OpenAI.
-
-Le périmètre accepté dans le chat est une application native SwiftUI, avec
-AppKit et les API macOS pour les fonctions système, et les clés API personnelles
-de l'utilisateur. Tailwind n'est pas utilisé pour l'interface. Le fichier CSS
-de design sert uniquement de source aux tokens Swift générés. « Local » décrit
-l'application installée sur le Mac ; les traitements IA utilisent l'API choisie.
-
-### Fonctionnement et limites
-
-Un outil personnel natif, inspiré du fonctionnement public de Graker 1.6.3 :
-correction expliquée, traduction, affinage et panneau près de la sélection.
-La reformulation est un ajout : elle réécrit un texte, souvent en anglais, pour
-le rendre clair et naturel, puis explique les principaux changements.
-SwiftUI dessine l'interface. Les adaptateurs macOS utilisent AppKit, Accessibilité
-et Carbon pour les fonctions système. Aucun service intermédiaire.
-
-Les requêtes partent directement vers le fournisseur choisi. Ce n'est pas un
-modèle hors ligne. Les clés vont dans le trousseau ; les préférences locales
-n'en contiennent aucune. Les dix résultats récents restent dans la mémoire du
-processus et disparaissent à sa fermeture.
-
-Les sources publiques ne donnent ni le code de Graker ni tous ses comportements.
-Ce projet est une réimplémentation personnelle, sans affiliation avec son auteur.
-La fidélité visuelle et les intégrations doivent être vérifiées sur un Mac.
-Le remplacement porte sur du texte ; la conservation intégrale d'un courriel
-HTML, de ses images et de ses styles n'est pas garantie.
+Application native SwiftUI et adaptateurs système (macOS : panneau, raccourcis, sélection ; iOS : éditeur intégré). `Resources/Brand/tokens.json` alimente l'interface ; `Design/` tient la marque validée. Dix résultats en mémoire à la fermeture. Réimplémentation sans affiliation ; comportements à valider sur un Mac. Voir le [journal public](https://graker.fehey.com/changelog) et la [décision de fondation](docs/decisions/2026-11-07-foundation.md) pour le détail des choix.
 
 ## Démarrer
 
@@ -96,44 +63,9 @@ est souvent une phrase complète. Taper à la main ne lance jamais rien. Le bout
 l'autorisation Accessibilité de macOS. La saisie manuelle fonctionne sans elle.
 Le remplacement refuse une sélection qui a changé ; Copier reste disponible.
 
-Pour régénérer les tokens : `python3 Scripts/generate-tokens.py`.
-Pour la carte, utiliser le script central de Sophos épinglé dans AGENTS.md :
-`node ../sophos/outils/carte.mjs --verifier`. Il ne se copie pas dans le projet.
+Jetons : `node <sophos>/outils/jetons.mjs Resources/Brand/tokens.json` (voir `controler.sh`). Carte : `node <sophos>/outils/carte.mjs --verifier`.
 
-### Archive et reprise dans une autre session
-
-L'archive de sources contient le code Swift de l'application, les tests, les
-règles et les décisions. Elle ne contient ni la transcription intégrale du chat,
-ni une application `.app` compilée, ni de clé API. Le présent README et les
-décisions conservent l'objectif et les choix nécessaires à une reprise.
-
-Pour produire une archive avec l'historique Git, depuis un dépôt sans changement
-non enregistré :
-
-```sh
-python3 Scripts/export-project.py
-```
-
-Le fichier `dist/Graker-Local-sources.zip` contient aussi `history.bundle`, une
-sauvegarde de toutes les références Git locales, et `EXPORT.txt`, qui identifie
-le commit exporté. La session de revue peut restaurer le dépôt complet après
-extraction, depuis un autre dossier :
-
-```sh
-git clone --branch main /chemin/vers/graker-local/history.bundle graker-local-review
-cd graker-local-review
-git log --oneline
-```
-
-La branche à restaurer est écrite dans `EXPORT.txt` : utiliser cette valeur
-si l'archive provient de la branche d'import plutôt que de `main`.
-
-Avant la revue, lire `AGENTS.md`, ce README, la décision de fondation et le
-contrat réseau. Le contrôle Python et les tests du noyau sont exécutables sous
-Linux. Sur Mac, lancer le script de construction, puis le parcours manuel décrit
-ci-dessous. Le workflow macOS compile l'application, exécute les tests et
-produit l'archive `.app`. Les essais interactifs restent distincts de ces
-contrôles automatiques.
+Pour exporter le dépôt et le reprendre dans une autre session : [guide de reprise](docs/guide-reprise.md).
 
 ## Organisation du dépôt
 
@@ -184,7 +116,7 @@ et son [journal](https://graker.fehey.com/changelog), consultés le 7 novembre 2
 ## Règles et décisions
 
 [AGENTS.md](AGENTS.md) active les méthodes Sophos sans les recopier.
-[Décision de fondation](docs/decisions/2026-11-07-foundation.md), [plateformes Apple](docs/decisions/2026-11-13-plateformes-apple.md), [fondation du dépôt](docs/fondation.md) : options,
+[Décision de fondation](docs/decisions/2026-11-07-foundation.md), [marque et jetons](docs/decisions/2026-11-13-marque-jetons.md), [plateformes Apple](docs/decisions/2026-11-13-plateformes-apple.md), [fondation du dépôt](docs/fondation.md) : options,
 critères de qualité, couches, tokens et contrats.
 [Décision d'import dans uchi](Documentation/Decisions/2026-11-07-repository.md) :
 raison du remplacement et conservation des deux historiques.

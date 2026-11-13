@@ -3,50 +3,52 @@
 import SwiftUI
 
 enum DesignPrimitive {
-    /// oklch(0.9493 0.0083 271.3) · Encre et Graphite : texte en clair, fond et surfaces en sombre.
-    static let ink50: UInt32 = 0xECEEF4
-    /// oklch(0.9000 0.0088 264.5) · Encre et Graphite : texte en clair, fond et surfaces en sombre.
-    static let ink100: UInt32 = 0xDBDEE4
-    /// oklch(0.8006 0.0078 260.7) · Encre et Graphite : texte en clair, fond et surfaces en sombre.
-    static let ink200: UInt32 = 0xBBBEC3
-    /// oklch(0.6995 0.0090 271.3) · Encre et Graphite : texte en clair, fond et surfaces en sombre.
-    static let ink300: UInt32 = 0x9C9EA4
-    /// oklch(0.5998 0.0079 268.5) · Encre et Graphite : texte en clair, fond et surfaces en sombre.
-    static let ink400: UInt32 = 0x7E8085
-    /// oklch(0.4996 0.0083 268.5) · Encre et Graphite : texte en clair, fond et surfaces en sombre.
-    static let ink500: UInt32 = 0x616368
-    /// oklch(0.4003 0.0078 255.5) · Encre et Graphite : texte en clair, fond et surfaces en sombre.
-    static let ink600: UInt32 = 0x45484C
-    /// oklch(0.3041 0.0138 261.7) · Encre et Graphite : texte en clair, fond et surfaces en sombre.
-    static let ink700: UInt32 = 0x2B2F36
-    /// oklch(0.2515 0.0081 264.4) · Encre et Graphite : texte en clair, fond et surfaces en sombre.
-    static let ink750: UInt32 = 0x202226
-    /// oklch(0.2086 0.0085 264.4) · Encre et Graphite : texte en clair, fond et surfaces en sombre.
-    static let ink800: UInt32 = 0x16181C
-    /// oklch(0.0989 0.0082 284.8) · Encre et Graphite : texte en clair, fond et surfaces en sombre.
-    static let ink900: UInt32 = 0x030305
-    /// oklch(1.0000 0.0000 none) · Blanc et Pierre : fond et surfaces en clair, texte en sombre.
-    static let paper0: UInt32 = 0xFFFFFF
-    /// oklch(0.9491 0.0000 none) · Blanc et Pierre : fond et surfaces en clair, texte en sombre.
-    static let paper50: UInt32 = 0xEEEEEE
-    /// oklch(0.9183 0.0027 106.5) · Blanc et Pierre : fond et surfaces en clair, texte en sombre.
-    static let paper100: UInt32 = 0xE4E4E2
-    /// oklch(0.8015 0.0000 none) · Blanc et Pierre : fond et surfaces en clair, texte en sombre.
-    static let paper200: UInt32 = 0xBEBEBE
-    /// oklch(0.6993 0.0000 none) · Blanc et Pierre : fond et surfaces en clair, texte en sombre.
-    static let paper300: UInt32 = 0x9E9E9E
-    /// oklch(0.5999 0.0000 none) · Blanc et Pierre : fond et surfaces en clair, texte en sombre.
-    static let paper400: UInt32 = 0x808080
-    /// oklch(0.4997 0.0000 none) · Blanc et Pierre : fond et surfaces en clair, texte en sombre.
-    static let paper500: UInt32 = 0x636363
-    /// oklch(0.4017 0.0000 none) · Blanc et Pierre : fond et surfaces en clair, texte en sombre.
-    static let paper600: UInt32 = 0x484848
-    /// oklch(0.3012 0.0000 none) · Blanc et Pierre : fond et surfaces en clair, texte en sombre.
-    static let paper700: UInt32 = 0x2E2E2E
-    /// oklch(0.2002 0.0000 none) · Blanc et Pierre : fond et surfaces en clair, texte en sombre.
-    static let paper800: UInt32 = 0x161616
-    /// oklch(0.0969 0.0000 none) · Blanc et Pierre : fond et surfaces en clair, texte en sombre.
-    static let paper900: UInt32 = 0x030303
+    /// oklch(0.9506 0.0052 67.8) · Graphite chaud : texte en clair, fond et surfaces en sombre.
+    static let ink50: UInt32 = 0xF1EEEB
+    /// oklch(0.8990 0.0052 67.8) · Graphite chaud : texte en clair, fond et surfaces en sombre.
+    static let ink100: UInt32 = 0xE0DDDA
+    /// oklch(0.7999 0.0054 67.7) · Graphite chaud : texte en clair, fond et surfaces en sombre.
+    static let ink200: UInt32 = 0xC0BDBA
+    /// oklch(0.7009 0.0056 67.7) · Graphite chaud : texte en clair, fond et surfaces en sombre.
+    static let ink300: UInt32 = 0xA19E9B
+    /// oklch(0.6007 0.0051 78.3) · Graphite chaud : texte en clair, fond et surfaces en sombre.
+    static let ink400: UInt32 = 0x82807D
+    /// oklch(0.5005 0.0053 78.3) · Graphite chaud : texte en clair, fond et surfaces en sombre.
+    static let ink500: UInt32 = 0x656360
+    /// oklch(0.4002 0.0052 56.3) · Graphite chaud : texte en clair, fond et surfaces en sombre.
+    static let ink600: UInt32 = 0x4A4745
+    /// oklch(0.3498 0.0044 67.7) · Graphite chaud : texte en clair, fond et surfaces en sombre.
+    static let ink650: UInt32 = 0x3C3A38
+    /// oklch(0.2879 0.0093 67.4) · Graphite chaud : texte en clair, fond et surfaces en sombre.
+    static let ink700: UInt32 = 0x2E2A26
+    /// oklch(0.2492 0.0048 67.6) · Graphite chaud : texte en clair, fond et surfaces en sombre.
+    static let ink750: UInt32 = 0x23211F
+    /// oklch(0.1838 0.0052 67.5) · Graphite chaud : texte en clair, fond et surfaces en sombre.
+    static let ink800: UInt32 = 0x141210
+    /// oklch(0.0986 0.0063 72.5) · Graphite chaud : texte en clair, fond et surfaces en sombre.
+    static let ink900: UInt32 = 0x040302
+    /// oklch(0.9796 0.0057 84.6) · Papier et pierre : fond et surfaces en clair, texte en sombre.
+    static let paper0: UInt32 = 0xFAF8F4
+    /// oklch(0.9495 0.0058 84.6) · Papier et pierre : fond et surfaces en clair, texte en sombre.
+    static let paper50: UInt32 = 0xF0EEEA
+    /// oklch(0.9051 0.0133 82.4) · Papier et pierre : fond et surfaces en clair, texte en sombre.
+    static let paper100: UInt32 = 0xE4DFD6
+    /// oklch(0.7991 0.0048 78.3) · Papier et pierre : fond et surfaces en clair, texte en sombre.
+    static let paper200: UInt32 = 0xBFBDBA
+    /// oklch(0.6997 0.0062 84.6) · Papier et pierre : fond et surfaces en clair, texte en sombre.
+    static let paper300: UInt32 = 0xA09E9A
+    /// oklch(0.6004 0.0064 84.6) · Papier et pierre : fond et surfaces en clair, texte en sombre.
+    static let paper400: UInt32 = 0x82807C
+    /// oklch(0.5005 0.0053 78.3) · Papier et pierre : fond et surfaces en clair, texte en sombre.
+    static let paper500: UInt32 = 0x656360
+    /// oklch(0.3988 0.0056 78.3) · Papier et pierre : fond et surfaces en clair, texte en sombre.
+    static let paper600: UInt32 = 0x494744
+    /// oklch(0.3011 0.0055 91.6) · Papier et pierre : fond et surfaces en clair, texte en sombre.
+    static let paper700: UInt32 = 0x2F2E2B
+    /// oklch(0.2002 0.0061 91.6) · Papier et pierre : fond et surfaces en clair, texte en sombre.
+    static let paper800: UInt32 = 0x171613
+    /// oklch(0.0986 0.0063 72.5) · Papier et pierre : fond et surfaces en clair, texte en sombre.
+    static let paper900: UInt32 = 0x040302
     /// oklch(0.9509 0.0245 26.9) · Rouge : l'erreur et la suppression ; jamais une décoration.
     static let red50: UInt32 = 0xFFE9E6
     /// oklch(0.9007 0.0516 27.0) · Rouge : l'erreur et la suppression ; jamais une décoration.
@@ -117,26 +119,24 @@ enum DesignPrimitive {
     static let amber800: UInt32 = 0x221200
     /// oklch(0.0977 0.0227 60.9) · Ambre : l'avertissement ; jamais une décoration.
     static let amber900: UInt32 = 0x070200
-    /// oklch(0.9506 0.0240 253.9) · Bleu : l'information neutre ; jamais l'accent de la marque.
+    /// oklch(0.9506 0.0240 253.9) · Bleu Graker : accent, focus et information (nuances distinctes via les rôles).
     static let blue50: UInt32 = 0xE4F0FF
-    /// oklch(0.8996 0.0493 255.9) · Bleu : l'information neutre ; jamais l'accent de la marque.
-    static let blue100: UInt32 = 0xC9E0FF
-    /// oklch(0.8004 0.1022 255.1) · Bleu : l'information neutre ; jamais l'accent de la marque.
-    static let blue200: UInt32 = 0x91C1FF
-    /// oklch(0.7002 0.1291 254.7) · Bleu : l'information neutre ; jamais l'accent de la marque.
-    static let blue300: UInt32 = 0x64A1ED
-    /// oklch(0.6009 0.1297 254.8) · Bleu : l'information neutre ; jamais l'accent de la marque.
-    static let blue400: UInt32 = 0x4682CC
-    /// oklch(0.5489 0.1298 255.1) · Bleu : l'information neutre ; jamais l'accent de la marque.
-    static let blue450: UInt32 = 0x3772BB
-    /// oklch(0.4991 0.1301 255.3) · Bleu : l'information neutre ; jamais l'accent de la marque.
-    static let blue500: UInt32 = 0x2863AB
-    /// oklch(0.3998 0.1296 255.1) · Bleu : l'information neutre ; jamais l'accent de la marque.
-    static let blue600: UInt32 = 0x03468B
-    /// oklch(0.2990 0.1002 255.5) · Bleu : l'information neutre ; jamais l'accent de la marque.
-    static let blue700: UInt32 = 0x002C5E
-    /// oklch(0.1995 0.0666 255.4) · Bleu : l'information neutre ; jamais l'accent de la marque.
-    static let blue800: UInt32 = 0x001533
-    /// oklch(0.0988 0.0330 255.4) · Bleu : l'information neutre ; jamais l'accent de la marque.
+    /// oklch(0.8989 0.0499 254.9) · Bleu Graker : accent, focus et information (nuances distinctes via les rôles).
+    static let blue100: UInt32 = 0xC8E0FF
+    /// oklch(0.7998 0.1027 254.7) · Bleu Graker : accent, focus et information (nuances distinctes via les rôles).
+    static let blue200: UInt32 = 0x90C1FF
+    /// oklch(0.6980 0.1252 249.1) · Bleu Graker : accent, focus et information (nuances distinctes via les rôles).
+    static let blue300: UInt32 = 0x5BA3E8
+    /// oklch(0.6026 0.1467 254.5) · Bleu Graker : accent, focus et information (nuances distinctes via les rôles).
+    static let blue400: UInt32 = 0x3B82D6
+    /// oklch(0.5010 0.1463 254.4) · Bleu Graker : accent, focus et information (nuances distinctes via les rôles).
+    static let blue500: UInt32 = 0x1863B4
+    /// oklch(0.3993 0.1301 254.7) · Bleu Graker : accent, focus et information (nuances distinctes via les rôles).
+    static let blue600: UInt32 = 0x00468B
+    /// oklch(0.3007 0.0974 254.5) · Bleu Graker : accent, focus et information (nuances distinctes via les rôles).
+    static let blue700: UInt32 = 0x002D5D
+    /// oklch(0.1985 0.0650 254.8) · Bleu Graker : accent, focus et information (nuances distinctes via les rôles).
+    static let blue800: UInt32 = 0x001532
+    /// oklch(0.0988 0.0330 255.4) · Bleu Graker : accent, focus et information (nuances distinctes via les rôles).
     static let blue900: UInt32 = 0x00030D
 }

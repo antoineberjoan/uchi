@@ -24,7 +24,7 @@ Une source de jetons (`Resources/Brand/tokens.json`). Noyau pur sans réseau. Er
 
 ## Marque
 
-Discret, clair, accent bleu unique. Icônes dans `Design/`. Jetons et sorties Swift dans `Sources/GrakerDesign/`. Texte d'interface en français (`expliquer`).
+Discret, gris chaud, accent bleu unique. Icônes `Design/icon-*.svg`, palette nommée `Design/graker-couleurs.json`, rôles d’interface via `Resources/Brand/tokens.json` → `Sources/GrakerDesign/`. Décision : `docs/decisions/2026-11-13-marque-jetons.md`. Texte d'interface en français (`expliquer`).
 
 ## Voix
 
