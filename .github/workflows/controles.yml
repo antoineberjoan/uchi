@@ -38,6 +38,13 @@ jobs:
         with:
           fetch-depth: 0
       # projet:debut — l'installation propre au projet (langage, dépendances, clone de Sophos)
+      - name: Cloner Sophos
+        run: |
+          git init "$RUNNER_TEMP/sophos"
+          git -C "$RUNNER_TEMP/sophos" remote add origin https://github.com/antoineberjoan/sophos.git
+          git -C "$RUNNER_TEMP/sophos" fetch --depth 1 origin 560b0d8359217339b6c9f5a643c2185b6afdb3ea
+          git -C "$RUNNER_TEMP/sophos" checkout --detach FETCH_HEAD
+          echo "SOPHOS_ROOT=$RUNNER_TEMP/sophos" >> "$GITHUB_ENV"
       # projet:fin
       # Le lanceur lit la branche de base dans BASE, pour ne lancer que ce que les fichiers touchés demandent.
       - name: Lancer le lanceur du projet
