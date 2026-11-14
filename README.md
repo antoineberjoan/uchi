@@ -21,11 +21,7 @@ Application native SwiftUI et adaptateurs système (macOS : panneau, raccourcis,
 
 Mac sous macOS 15 ou plus, Xcode 16 ou plus, Python 3 et Node.js pour les
 vérifications et les fichiers générés. Aucune dépendance Swift externe.
-
-Le workflow GitHub produit aussi `imi-macOS.zip`, contenant une `.app`
-signée localement (ad hoc). Le runner actuel utilise Apple Silicon ; cette
-archive vise donc les Mac Apple Silicon. Sur Intel, le script ci-dessous
-construit l'application pour le Mac qui l'exécute.
+Pas de CI GitHub : le forfait est épuisé. La preuve se fait sur la machine.
 
 ```sh
 python3 Scripts/check-foundation.py
@@ -34,10 +30,8 @@ bash Scripts/build-app.sh
 open "dist/imi.app"
 ```
 
-Pour essayer l'application sans Xcode, `bash Scripts/download-app.sh` télécharge la
-dernière construction réussie de la branche principale. Il demande GitHub CLI
-(`brew install gh`, puis `gh auth login`) et ouvre le dossier de l'application.
-Le parcours de test sur un Mac est dans [Documentation/ManualTests.md](Documentation/ManualTests.md).
+`bash Scripts/build-app.sh` construit l'application pour le Mac qui l'exécute.
+Le parcours de test est dans [Documentation/ManualTests.md](Documentation/ManualTests.md).
 
 Ouvrir aussi `Package.swift` dans Xcode pour développer. Pour l'usage quotidien,
 lancer le paquet `.app` construit, qui garde un identifiant stable pour le
@@ -84,7 +78,6 @@ Tests/                                 ImiCoreTests et ImiPlatformTests
 scripts/ et controler.sh               cliquets Sophos et lanceur unique
 docs/                                  fondation, lexique, décisions datées
 .github/carte/                         bannières fabriquées par carte.mjs
-.github/workflows/                     contrôles Sophos et preuve macOS (écart public)
 ```
 
 Cette carte fixe les emplacements ; un dossier ne naît qu'avec son premier fichier.
@@ -115,7 +108,7 @@ la publication dans le dépôt public fourni ; sa visibilité ne change pas.
 ## Règles et décisions
 
 [AGENTS.md](AGENTS.md) active les méthodes Sophos sans les recopier.
-[Décision de fondation](docs/decisions/2026-11-07-foundation.md), [marque et jetons](docs/decisions/2026-11-13-marque-jetons.md), [plateformes Apple](docs/decisions/2026-11-13-plateformes-apple.md), [fondation du dépôt](docs/fondation.md) : options,
+[Décision de fondation](docs/decisions/2026-11-07-foundation.md), [marque et jetons](docs/decisions/2026-11-13-marque-jetons.md), [plateformes Apple](docs/decisions/2026-11-13-plateformes-apple.md), [pas de CI](docs/decisions/2026-11-14-pas-de-ci.md), [fondation du dépôt](docs/fondation.md) : options,
 critères de qualité, couches, tokens et contrats.
 [Décision d'import dans uchi](Documentation/Decisions/2026-11-07-repository.md) :
 raison du remplacement et conservation des deux historiques.
@@ -132,9 +125,9 @@ surlignage des changements, menu du fournisseur et écarts restants.
 
 Le noyau compile sous Linux avec Swift 6.0.3 ; ses 46 tests XCTest passent. Six tests de plus lisent un faux fournisseur et ne
 s'exécutent que sur macOS.
-L'application complète compile aussi sur macOS 15 Apple Silicon : les 52 tests,
-la construction release et la vérification de signature passent dans
-[GitHub Actions](https://github.com/antoineberjoan/uchi/actions/runs/42600201337).
+L'application complète a déjà compilé sur macOS 15 Apple Silicon
+([construction du 9 novembre](https://github.com/antoineberjoan/uchi/actions/runs/42600201337)).
+Cette construction n'est plus relancée. Elle se refait sur un Mac.
 La vérification Python contrôle la fondation, la génération et les frontières.
 Les essais interactifs de permissions, raccourcis, placement multi-écrans et
 remplacement restent à effectuer sur un Mac. La compilation ne prouve pas ces

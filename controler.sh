@@ -14,5 +14,5 @@ node "$SOPHOS/outils/carte.mjs" --verifier
 if command -v swift >/dev/null 2>&1; then
   swift test
 else
-  echo "Swift absent sur ce runner. Les tests et la construction native restent au workflow macOS."
+  echo "Swift absent. Les tests et la construction se font sur un Mac."
 fi

@@ -9,7 +9,7 @@ imi visait macOS seul. Antoine demande macOS et iPhone avec SwiftUI, en appliqua
 
 ## Décision
 
-Partager `ImiCore`, `ImiDesign`, `ImiUI` et `ImiPlatform` entre les cibles. `ImiMac` garde AppKit (panneau, Accessibilité, raccourcis Carbon). `ImiIOS` livre l’éditeur intégré sans capture de sélection système. Les jetons vivent dans `Resources/Brand/tokens.json` ; les sorties Swift sont fabriquées par `jetons.mjs`. La CI macOS hébergée sur le dépôt public `uchi` reste : écart au filet Sophos, assumé ici.
+Partager `ImiCore`, `ImiDesign`, `ImiUI` et `ImiPlatform` entre les cibles. `ImiMac` garde AppKit (panneau, Accessibilité, raccourcis Carbon). `ImiIOS` livre l’éditeur intégré sans capture de sélection système. Les jetons vivent dans `Resources/Brand/tokens.json` ; les sorties Swift sont fabriquées par `jetons.mjs`. La construction macOS se fait sur le Mac : la CI hébergée est retirée ([pas de CI](2026-11-14-pas-de-ci.md)).
 
 ## Options
 
