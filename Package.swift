@@ -2,24 +2,24 @@
 import PackageDescription
 
 let package = Package(
-    name: "GrakerLocal",
+    name: "Imi",
     platforms: [.macOS("15.0"), .iOS("18.0")],
     products: [
-        .executable(name: "GrakerLocal", targets: ["GrakerMac"]),
-        .executable(name: "GrakerIOS", targets: ["GrakerIOS"]),
-        .library(name: "GrakerUI", targets: ["GrakerUI"]),
-        .library(name: "GrakerDesign", targets: ["GrakerDesign"]),
-        .library(name: "GrakerKeyboard", targets: ["GrakerKeyboard"]),
+        .executable(name: "Imi", targets: ["ImiMac"]),
+        .executable(name: "ImiIOS", targets: ["ImiIOS"]),
+        .library(name: "ImiUI", targets: ["ImiUI"]),
+        .library(name: "ImiDesign", targets: ["ImiDesign"]),
+        .library(name: "ImiKeyboard", targets: ["ImiKeyboard"]),
     ],
     targets: [
-        .target(name: "GrakerCore"),
-        .target(name: "GrakerDesign"),
-        .target(name: "GrakerPlatform", dependencies: ["GrakerCore"]),
-        .target(name: "GrakerUI", dependencies: ["GrakerCore", "GrakerDesign", "GrakerPlatform"]),
-        .target(name: "GrakerKeyboard", dependencies: ["GrakerCore", "GrakerPlatform", "GrakerUI"]),
-        .executableTarget(name: "GrakerMac", dependencies: ["GrakerCore", "GrakerUI", "GrakerDesign"]),
-        .executableTarget(name: "GrakerIOS", dependencies: ["GrakerCore", "GrakerUI", "GrakerDesign"]),
-        .testTarget(name: "GrakerCoreTests", dependencies: ["GrakerCore"]),
-        .testTarget(name: "GrakerPlatformTests", dependencies: ["GrakerPlatform", "GrakerCore"])
+        .target(name: "ImiCore"),
+        .target(name: "ImiDesign"),
+        .target(name: "ImiPlatform", dependencies: ["ImiCore"]),
+        .target(name: "ImiUI", dependencies: ["ImiCore", "ImiDesign", "ImiPlatform"]),
+        .target(name: "ImiKeyboard", dependencies: ["ImiCore", "ImiPlatform", "ImiUI"]),
+        .executableTarget(name: "ImiMac", dependencies: ["ImiCore", "ImiUI", "ImiDesign"]),
+        .executableTarget(name: "ImiIOS", dependencies: ["ImiCore", "ImiUI", "ImiDesign"]),
+        .testTarget(name: "ImiCoreTests", dependencies: ["ImiCore"]),
+        .testTarget(name: "ImiPlatformTests", dependencies: ["ImiPlatform", "ImiCore"])
     ]
 )

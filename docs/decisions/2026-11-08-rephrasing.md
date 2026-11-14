@@ -5,7 +5,7 @@ Décidé par : Antoine
 
 ## Contexte
 
-Besoin de reformuler l’anglais avec explications selon le skill `expliquer`. Graker public ne propose que correction et traduction.
+Besoin de reformuler l’anglais avec explications selon le skill `expliquer`. Le modèle de départ ne propose que correction et traduction.
 
 ## Décision
 

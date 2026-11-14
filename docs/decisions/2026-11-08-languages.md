@@ -15,7 +15,7 @@ Interface en français uniquement. Pas de chinois simplifié ni traditionnel. Fo
 
 | Option | Effet |
 | --- | --- |
-| Parité langues Graker public | Écartée |
+| Parité des langues d'un autre produit | Écartée |
 | FR + fournisseurs actuels | Retenue |
 
 ## Conséquences

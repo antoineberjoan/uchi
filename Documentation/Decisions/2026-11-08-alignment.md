@@ -1,9 +1,9 @@
-# Rapprocher le panneau de Graker — 8 novembre 2026
+# Rapprocher le panneau — 8 novembre 2026
 
 ## Contexte
 
-Antoine demande si l'application suit Graker pour le rendu et les fonctions.
-La comparaison s'appuie sur le [journal de Graker](https://graker.fehey.com/changelog)
+Antoine demande si l'application suit le modèle pour le rendu et les fonctions.
+La comparaison s'appuie sur les captures du 8 novembre 2026
 et sur deux captures de son site, lus le 8 novembre 2026. Antoine retient deux
 recommandations : le surlignage des changements, puis le menu du fournisseur
 avec un modèle par défaut à jour.
@@ -21,9 +21,9 @@ avec un modèle par défaut à jour.
    `Configuration` garde un profil (adresse et modèle) par fournisseur.
 3. **Modèle par défaut.** Gemini passe à `gemini-3.1-flash-lite`, version
    stable de mai 2026 selon [ai.google.dev](https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite),
-   et modèle montré par la capture de Graker.
+   et le modèle montré par la capture.
 
-4. **Clavier.** Antoine choisit de suivre Graker : Retour lance le traitement,
+4. **Clavier.** Antoine choisit de suivre le modèle : Retour lance le traitement,
    ⇧Retour va à la ligne, et un collage dans la saisie lance aussi. Un collage
    se reconnaît à plus d'un caractère ajouté d'un coup (`InputChange`). Un texte
    placé par l'application (sélection, presse-papiers, récent) ne compte pas.
@@ -32,7 +32,7 @@ avec un modèle par défaut à jour.
 
 ## Options écartées
 
-- Une bulle flottante ancrée sur le passage, comme Graker : SwiftUI ne donne
+- Une bulle flottante ancrée sur le passage, comme sur la capture : SwiftUI ne donne
   pas la position d'un passage dans un `Text`. La carte s'affiche sous le texte.
 - Un `NSTextView` avec un `NSPopover` : la bulle serait bien placée, mais la vue
   lirait des couleurs AppKit, ce que la vérification de fondation interdit dans

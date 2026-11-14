@@ -4,7 +4,7 @@ Ce document dit ce qu'est le projet, pour une personne qui ne l'a jamais vu.
 
 ## Nom
 
-**imi** : application personnelle inspirée de Graker, intégrée dans le dépôt GitHub `antoineberjoan/uchi`. Le nom affiché est imi ; les modules Swift gardent le préfixe Graker.
+**imi** : application personnelle, dans le dépôt privé `antoineberjoan/imi`. Le nom affiché est imi ; les modules Swift gardent le préfixe Imi.
 
 ## Raison d'être
 
@@ -16,7 +16,7 @@ Pour Antoine, usage personnel sur Mac et iPhone. Pas pour une redistribution ni 
 
 ## Périmètre
 
-Dedans : noyau pur de requêtes et révisions, interface SwiftUI commune, coquilles macOS (sélection, raccourcis, panneau) et iOS (éditeur intégré + **clavier** pour agir dans d’autres apps). Dehors : capture système de sélection sur iOS, modèles hors ligne, serveur relais.
+Dedans : noyau pur de requêtes et révisions, interface SwiftUI commune, coquille macOS (sélection, raccourcis, panneau) et iPhone (clavier dans les autres apps, app réduite à la clé). Dehors : éditeur de texte sur iPhone, capture système de sélection sur iOS, modèles hors ligne, serveur relais.
 
 ## Principes
 
@@ -28,9 +28,9 @@ Marque imi : encre, brume, surligneur. Fichiers `Design/imi/`. Rôles d’interf
 
 ## Voix
 
-- **Montré** : oui, dépôt public `uchi` ; usage personnel.
+- **Montré** : non, dépôt privé `antoineberjoan/imi`, usage personnel.
 - **Signature** : imi
 - **Publics** : l'utilisateur qui rédige en français et corrige depuis d'autres applications.
 - **Ton** : direct, calme, erreurs explicites en français simple.
 - **Mots** : correction, reformulation, traduction, fournisseur, affinage ; pas de jargon marketing.
-- **Jamais** : promesse de fidélité parfaite à Graker public ; pas de clé partagée ni de secours simulé.
+- **Jamais** : promesse de copie parfaite d'un autre produit ; pas de clé partagée ni de secours simulé.

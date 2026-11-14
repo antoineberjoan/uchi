@@ -5,7 +5,7 @@ Décidé par : Antoine
 
 ## Contexte
 
-Le dépôt `antoineberjoan/uchi` est public. Antoine autorise d’y remplacer Scratch par Graker Local sans changer la visibilité.
+Le dépôt `antoineberjoan/uchi` est public. Antoine autorise d’y remplacer Scratch par imi sans changer la visibilité.
 
 ## Décision
 
@@ -25,4 +25,4 @@ L’arbre courant ne porte plus Scratch ; la traçabilité Git reste. Complète 
 ## Trace
 
 - Étape de revue par fusion sur `main` : détaillée dans [Documentation/Decisions/2026-11-07-publication.md](../../Documentation/Decisions/2026-11-07-publication.md).
-- Branche de sauvegarde : `backup/scratch-before-graker-2026-11-07`.
+- Branche de sauvegarde de Scratch, 7 novembre 2026.

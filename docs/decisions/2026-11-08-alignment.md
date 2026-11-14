@@ -1,11 +1,11 @@
-# Rapprocher le panneau de Graker
+# Rapprocher le panneau
 
 Date : 2026-11-08 · Statut : acceptée
 Décidé par : Antoine
 
 ## Contexte
 
-Comparer l’application au journal public de Graker (captures du 8 novembre 2026). Priorités : surlignage des changements, menu fournisseur, modèle Gemini à jour, comportement clavier comme Graker.
+Comparer l’application aux captures du 8 novembre 2026. Priorités : surlignage des changements, menu fournisseur, modèle Gemini à jour, comportement du clavier.
 
 ## Décision
 
@@ -25,5 +25,4 @@ Surlignage cliquable avec carte sous le texte ; menu fournisseur dans la barre d
 
 ## Trace
 
-- Journal Graker : https://graker.fehey.com/changelog
 - Limites non vérifiées sur Mac (soulignement, ⇧Retour, date modèle Gemini).

@@ -1,0 +1,406 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B00100000000000000000001 /* ImiHostApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00100000000000000000001 /* ImiHostApp.swift */; };
+		B00100000000000000000002 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00100000000000000000002 /* KeyboardViewController.swift */; };
+		B00100000000000000000003 /* ImiKeyboard.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = P00100000000000000000002 /* ImiKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B00100000000000000000004 /* ImiUI in Frameworks */ = {isa = PBXBuildFile; productRef = PP0100000000000000000001 /* ImiUI */; };
+		B00100000000000000000005 /* ImiDesign in Frameworks */ = {isa = PBXBuildFile; productRef = PP0100000000000000000002 /* ImiDesign */; };
+		B00100000000000000000006 /* ImiKeyboard in Frameworks */ = {isa = PBXBuildFile; productRef = PP0100000000000000000003 /* ImiKeyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C00100000000000000000001 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				B00100000000000000000003 /* ImiKeyboard.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F00100000000000000000001 /* ImiHostApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImiHostApp.swift; sourceTree = "<group>"; };
+		F00100000000000000000002 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
+		F00100000000000000000003 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F00100000000000000000004 /* Imi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Imi.entitlements; sourceTree = "<group>"; };
+		F00100000000000000000005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F00100000000000000000006 /* ImiKeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ImiKeyboard.entitlements; sourceTree = "<group>"; };
+		P00100000000000000000001 /* imi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = imi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		P00100000000000000000002 /* ImiKeyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ImiKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FW00100000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B00100000000000000000004 /* ImiUI in Frameworks */,
+				B00100000000000000000005 /* ImiDesign in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FW00100000000000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B00100000000000000000006 /* ImiKeyboard in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		G00100000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				G00100000000000000000002 /* ios */,
+				G00100000000000000000003 /* Products */,
+				G00100000000000000000004 /* Packages */,
+			);
+			sourceTree = "<group>";
+		};
+		G00100000000000000000002 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				G00100000000000000000005 /* ImiHost */,
+				G00100000000000000000006 /* Imi */,
+				G00100000000000000000007 /* ImiKeyboardExtension */,
+			);
+			name = ios;
+			path = .;
+			sourceTree = "<group>";
+		};
+		G00100000000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				P00100000000000000000001 /* imi.app */,
+				P00100000000000000000002 /* ImiKeyboard.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		G00100000000000000000004 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				SP0010000000000000000001 /* XCLocalSwiftPackageReference "Imi" */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		G00100000000000000000005 /* ImiHost */ = {
+			isa = PBXGroup;
+			children = (
+				F00100000000000000000001 /* ImiHostApp.swift */,
+			);
+			path = ImiHost;
+			sourceTree = "<group>";
+		};
+		G00100000000000000000006 /* Imi */ = {
+			isa = PBXGroup;
+			children = (
+				F00100000000000000000003 /* Info.plist */,
+				F00100000000000000000004 /* Imi.entitlements */,
+			);
+			path = Imi;
+			sourceTree = "<group>";
+		};
+		G00100000000000000000007 /* ImiKeyboardExtension */ = {
+			isa = PBXGroup;
+			children = (
+				F00100000000000000000002 /* KeyboardViewController.swift */,
+				F00100000000000000000005 /* Info.plist */,
+				F00100000000000000000006 /* ImiKeyboard.entitlements */,
+			);
+			path = ImiKeyboardExtension;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		T00100000000000000000001 /* Imi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC0010000000000000000001 /* Build configuration list for PBXNativeTarget "Imi" */;
+			buildPhases = (
+				S00100000000000000000001 /* Sources */,
+				FW00100000000000000000001 /* Frameworks */,
+				C00100000000000000000001 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D00100000000000000000001 /* PBXTargetDependency */,
+			);
+			name = Imi;
+			packageProductDependencies = (
+				PP0100000000000000000001 /* ImiUI */,
+				PP0100000000000000000002 /* ImiDesign */,
+			);
+			productName = Imi;
+			productReference = P00100000000000000000001 /* imi.app */;
+			productType = "com.apple.product-type.application";
+		};
+		T00100000000000000000002 /* ImiKeyboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC0010000000000000000002 /* Build configuration list for PBXNativeTarget "ImiKeyboard" */;
+			buildPhases = (
+				S00100000000000000000002 /* Sources */,
+				FW00100000000000000000002 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ImiKeyboard;
+			packageProductDependencies = (
+				PP0100000000000000000003 /* ImiKeyboard */,
+			);
+			productName = ImiKeyboard;
+			productReference = P00100000000000000000002 /* ImiKeyboard.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		PR0010000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+			};
+			buildConfigurationList = BC0010000000000000000003 /* Build configuration list for PBXProject "Imi" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = fr;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				fr,
+				Base,
+			);
+			mainGroup = G00100000000000000000001;
+			packageReferences = (
+				SP0010000000000000000001 /* XCLocalSwiftPackageReference "Imi" */,
+			);
+			productRefGroup = G00100000000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "..";
+			targets = (
+				T00100000000000000000001 /* Imi */,
+				T00100000000000000000002 /* ImiKeyboard */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		S00100000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B00100000000000000000001 /* ImiHostApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		S00100000000000000000002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B00100000000000000000002 /* KeyboardViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D00100000000000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = T00100000000000000000002 /* ImiKeyboard */;
+			targetProxy = D00100000000000000000002 /* PBXContainerItemProxy */;
+		};
+		D00100000000000000000002 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = PR0010000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = T00100000000000000000002;
+			remoteInfo = ImiKeyboard;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		BC0000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		BC0000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		BC0000000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Imi/Imi.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Imi/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = imi;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = local.imi.personnel.ios;
+				PRODUCT_NAME = imi;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BC0000000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Imi/Imi.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Imi/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = imi;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = local.imi.personnel.ios;
+				PRODUCT_NAME = imi;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		BC0000000000000000000005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ImiKeyboardExtension/ImiKeyboard.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ImiKeyboardExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = local.imi.personnel.ios.keyboard;
+				PRODUCT_NAME = ImiKeyboard;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BC0000000000000000000006 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ImiKeyboardExtension/ImiKeyboard.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ImiKeyboardExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = local.imi.personnel.ios.keyboard;
+				PRODUCT_NAME = ImiKeyboard;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BC0010000000000000000001 /* Build configuration list for PBXNativeTarget "Imi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC0000000000000000000003 /* Debug */,
+				BC0000000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BC0010000000000000000002 /* Build configuration list for PBXNativeTarget "ImiKeyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC0000000000000000000005 /* Debug */,
+				BC0000000000000000000006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BC0010000000000000000003 /* Build configuration list for PBXProject "Imi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC0000000000000000000001 /* Debug */,
+				BC0000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		SP0010000000000000000001 /* XCLocalSwiftPackageReference "Imi" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ..;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		PP0100000000000000000001 /* ImiUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ImiUI;
+			package = SP0010000000000000000001 /* XCLocalSwiftPackageReference "Imi" */;
+		};
+		PP0100000000000000000002 /* ImiDesign */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ImiDesign;
+			package = SP0010000000000000000001 /* XCLocalSwiftPackageReference "Imi" */;
+		};
+		PP0100000000000000000003 /* ImiKeyboard */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ImiKeyboard;
+			package = SP0010000000000000000001 /* XCLocalSwiftPackageReference "Imi" */;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = PR0010000000000000000001 /* Project object */;
+}

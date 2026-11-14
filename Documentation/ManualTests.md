@@ -7,9 +7,8 @@ affichée dans le panneau.
 
 ## Avant de commencer
 
-1. Ouvre le Terminal et lance `bash Scripts/download-app.sh` depuis le dépôt.
-   Le script télécharge la dernière app construite par GitHub et ouvre son dossier.
-2. Ouvre « Graker Local » avec un clic droit, puis **Ouvrir**. macOS peut
+1. Sur un Mac, depuis le dépôt, lance `bash Scripts/build-app.sh`, puis ouvre `dist/imi.app`.
+2. Ouvre « imi » avec un clic droit, puis **Ouvrir**. macOS peut
    demander une confirmation : l'app est signée en local, pas par Apple.
 3. Prépare une clé API Google Gemini. Ne l'écris jamais dans un chat.
 

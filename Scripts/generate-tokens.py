@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "Design/tokens.css"
-TARGET = ROOT / "Sources/GrakerLocal/Presentation/Tokens.swift"
+TARGET = ROOT / "Sources/ImiDesign/Tokens.swift"
 
 
 def read_tokens():

@@ -14,16 +14,16 @@ Les méthodes restent dans Sophos ; aucune copie dans ce projet. Lire le fichier
 | [expliquer](https://antoineberjoan.github.io/sophos/skills/expliquer/SKILL.html) | 0.3.0 |
 <!-- carte:skills:fin -->
 
-Ce que chaque skill impose ici : le tableau des versions est fabriqué par `carte.mjs` ; les règles ci-dessous les appliquent au périmètre Graker (panneau discret, jetons DTCG, noyau pur, interface en français).
+Ce que chaque skill impose ici : le tableau des versions est fabriqué par `carte.mjs` ; les règles ci-dessous les appliquent au périmètre imi (panneau discret, jetons DTCG, noyau pur, interface en français).
 
 ## Règles du projet
 
-- `Sources/GrakerCore` importe Foundation ; `PanelPlacement.swift` importe aussi
+- `Sources/ImiCore` importe Foundation ; `PanelPlacement.swift` importe aussi
   CoreGraphics sur macOS pour la géométrie pure de CGRect. Aucun accès au réseau, au disque,
   au presse-papiers, au trousseau ni à l'horloge dans ce module.
-- `Sources/GrakerCore` : noyau pur. `Sources/GrakerDesign` : rôles fabriqués depuis `Resources/Brand/tokens.json`.
-- `Sources/GrakerUI` : SwiftUI et `EditorModel`. `Sources/GrakerPlatform` : trousseau, préférences, réseau.
-- `Sources/GrakerMac` : AppKit (panneau, sélection, raccourcis). `Sources/GrakerIOS` : application iPhone.
+- `Sources/ImiCore` : noyau pur. `Sources/ImiDesign` : rôles fabriqués depuis `Resources/Brand/tokens.json`.
+- `Sources/ImiUI` : SwiftUI et `EditorModel`. `Sources/ImiPlatform` : trousseau, préférences, réseau.
+- `Sources/ImiMac` : AppKit (panneau, sélection, raccourcis). `Sources/ImiIOS` : application iPhone.
 - Ne pas modifier les `Design*.swift` ni `Tokens.swift` à la main : régénérer avec `jetons.mjs`.
 - Les clés restent dans le trousseau. Ni clé ni texte utilisateur dans les logs,
   le dépôt ou les préférences. L'historique reste en mémoire, dix résultats.
@@ -33,7 +33,7 @@ Ce que chaque skill impose ici : le tableau des versions est fabriqué par `cart
 - L'absence de clé, de permission, de réponse valide ou de connexion est une
   erreur visible. Aucun fournisseur de secours et aucune réponse simulée.
 - Vérifier : `./controler.sh`, ou `python3 scripts/check-foundation.py`, puis `swift test` et
-  `bash Scripts/build-app.sh` sur macOS 15 ou plus avec Xcode 16 ou plus (produits `GrakerLocal` et `GrakerIOS`).
+  `bash Scripts/build-app.sh` sur macOS 15 ou plus avec Xcode 16 ou plus (produits `Imi` et `ImiIOS`).
 - Une vérification de syntaxe sous Linux ne prouve pas la compilation macOS.
 
 ## Grammaire des noms
@@ -54,14 +54,10 @@ provider = fournisseur ; endpoint = adresse de base de son API.
 
 ## Versionnement et reprise
 
-L'utilisateur autorise le remplacement du projet dans `antoineberjoan/uchi`
-par Graker Local sur la branche principale. Il demande également de supprimer
-la branche de sauvegarde de Scratch. La branche d'import est `feat/graker-local`.
-Aucun force-push ni effacement d'historique n'est nécessaire.
-
-L'utilisateur autorise la publication dans ce dépôt public existant. Ne pas
-modifier sa visibilité ni annoncer de push, de PR ou de CI sans avoir vérifié
-l'opération sur GitHub.
+Le dépôt du produit est `antoineberjoan/imi`, privé, depuis le 14 novembre 2026.
+L'import du 7 novembre dans `antoineberjoan/uchi` reste l'historique public.
+Ne pas modifier la visibilité de l'un ou de l'autre. Aucun force-push ni
+effacement d'historique. Pas de CI : le forfait GitHub est épuisé.
 
 Les commits locaux portent les lots ; aucune issue ou PR fictive ne remplace
 GitHub. Ouvrir la PR de revue selon Sophos, puis vérifier la compilation macOS.

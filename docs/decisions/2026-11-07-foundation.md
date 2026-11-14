@@ -1,11 +1,11 @@
 # Fondation produit
 
 Date : 2026-11-07 · Statut : acceptée
-Décidé par : Antoine (chat initial Graker Local)
+Décidé par : Antoine (chat initial imi)
 
 ## Contexte
 
-Reproduire Graker pour un usage personnel avec clés API dans le trousseau, interface native et méthodes Sophos. Choix entre SwiftUI natif, WebView Tailwind ou web locale avec compagnon.
+Usage personnel avec clés API dans le trousseau, interface native et méthodes Sophos. Choix entre SwiftUI natif, WebView Tailwind ou web locale avec compagnon.
 
 ## Décision
 
@@ -15,13 +15,13 @@ Application macOS 15 en SwiftUI ; AppKit pour fenêtres, presse-papiers, activat
 
 | Option | Conséquence |
 | --- | --- |
-| Interface native | Retenue : un système de vues, référence Graker |
+| Interface native | Retenue : un système de vues, référence Imi |
 | WebView Tailwind | Écartée : double a11y, pont inutile |
 | Web seule | Écartée : pas de remplacement de sélection externe |
 
 ## Conséquences
 
-Tokens, couches et limites (pas de code Graker source, pas de HTML mail garanti) guident toute l’implémentation. Voir aussi [Documentation/Decisions/2026-11-07-foundation.md](../../Documentation/Decisions/2026-11-07-foundation.md) pour le détail des contrats et critères.
+Tokens, couches et limites (pas de code source d'un autre produit, pas de HTML mail garanti) guident toute l’implémentation. Voir aussi [Documentation/Decisions/2026-11-07-foundation.md](../../Documentation/Decisions/2026-11-07-foundation.md) pour le détail des contrats et critères.
 
 ## Trace
 
