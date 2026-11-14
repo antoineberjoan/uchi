@@ -10,7 +10,7 @@ Usage personnel sur iPhone avec compte développeur Apple. Pas de CI GitHub requ
 ## Ouvrir le projet
 
 ```sh
-cd /chemin/vers/uchi
+cd /chemin/vers/imi
 open ios/Imi.xcodeproj
 ```
 

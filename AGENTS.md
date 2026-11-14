@@ -54,14 +54,10 @@ provider = fournisseur ; endpoint = adresse de base de son API.
 
 ## Versionnement et reprise
 
-L'utilisateur autorise le remplacement du projet dans `antoineberjoan/uchi`
-par imi sur la branche principale. Il demande également de supprimer
-la branche de sauvegarde de Scratch. La branche d'import date du 7 novembre 2026.
-Aucun force-push ni effacement d'historique n'est nécessaire.
-
-L'utilisateur autorise la publication dans ce dépôt public existant. Ne pas
-modifier sa visibilité ni annoncer de push, de PR ou de CI sans avoir vérifié
-l'opération sur GitHub.
+Le dépôt du produit est `antoineberjoan/imi`, privé, depuis le 14 novembre 2026.
+L'import du 7 novembre dans `antoineberjoan/uchi` reste l'historique public.
+Ne pas modifier la visibilité de l'un ou de l'autre. Aucun force-push ni
+effacement d'historique. Pas de CI : le forfait GitHub est épuisé.
 
 Les commits locaux portent les lots ; aucune issue ou PR fictive ne remplace
 GitHub. Ouvrir la PR de revue selon Sophos, puis vérifier la compilation macOS.

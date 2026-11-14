@@ -93,22 +93,12 @@ Le [contrat réseau](Documentation/Network.md) cite les exemples officiels des A
 - **Applique** : [sophos](https://github.com/antoineberjoan/sophos)
 <!-- carte:liens:fin -->
 
-Le dépôt choisi est [antoineberjoan/uchi](https://github.com/antoineberjoan/uchi).
-Son nom GitHub est conservé ; le produit intégré s'appelle imi.
-Les sources, images et workflows du précédent Scratch (Tauri/React) sont
-remplacés par le projet Swift. Sa branche de sauvegarde est supprimée à la
-demande de l'utilisateur. L'historique Git existant n'est pas réécrit.
-Les cinq commits préparés localement sont également conservés
-comme ascendance de l'import. La suppression des fichiers n'efface donc pas
-l'ancien projet de l'historique Git.
-
-La PR d'import porte le remplacement. Après sa fusion, une autre
-session peut repartir de `main` et lire ces documents. L'utilisateur autorise
-la publication dans le dépôt public fourni ; sa visibilité ne change pas.
+Le dépôt du produit est [antoineberjoan/imi](https://github.com/antoineberjoan/imi), privé.
+L'import du 7 novembre dans [antoineberjoan/uchi](https://github.com/antoineberjoan/uchi) reste l'historique public de Scratch et des premiers essais. Sa visibilité ne change pas.
 ## Règles et décisions
 
 [AGENTS.md](AGENTS.md) active les méthodes Sophos sans les recopier.
-[Décision de fondation](docs/decisions/2026-11-07-foundation.md), [marque et jetons](docs/decisions/2026-11-13-marque-jetons.md), [plateformes Apple](docs/decisions/2026-11-13-plateformes-apple.md), [pas de CI](docs/decisions/2026-11-14-pas-de-ci.md), [fondation du dépôt](docs/fondation.md) : options,
+[Décision de fondation](docs/decisions/2026-11-07-foundation.md), [marque et jetons](docs/decisions/2026-11-13-marque-jetons.md), [plateformes Apple](docs/decisions/2026-11-13-plateformes-apple.md), [pas de CI](docs/decisions/2026-11-14-pas-de-ci.md), [dépôt imi](docs/decisions/2026-11-14-depot-imi.md), [fondation du dépôt](docs/fondation.md) : options,
 critères de qualité, couches, tokens et contrats.
 [Décision d'import dans uchi](Documentation/Decisions/2026-11-07-repository.md) :
 raison du remplacement et conservation des deux historiques.

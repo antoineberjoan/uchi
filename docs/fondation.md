@@ -4,7 +4,7 @@ Ce document dit ce qu'est le projet, pour une personne qui ne l'a jamais vu.
 
 ## Nom
 
-**imi** : application personnelle, intégrée dans le dépôt GitHub `antoineberjoan/uchi`. Le nom affiché est imi ; les modules Swift gardent le préfixe Imi.
+**imi** : application personnelle, dans le dépôt privé `antoineberjoan/imi`. Le nom affiché est imi ; les modules Swift gardent le préfixe Imi.
 
 ## Raison d'être
 
@@ -28,7 +28,7 @@ Marque imi : encre, brume, surligneur. Fichiers `Design/imi/`. Rôles d’interf
 
 ## Voix
 
-- **Montré** : oui, dépôt public `uchi` ; usage personnel.
+- **Montré** : non, dépôt privé `antoineberjoan/imi`, usage personnel.
 - **Signature** : imi
 - **Publics** : l'utilisateur qui rédige en français et corrige depuis d'autres applications.
 - **Ton** : direct, calme, erreurs explicites en français simple.
