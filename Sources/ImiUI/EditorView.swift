@@ -2,9 +2,14 @@ import SwiftUI
 import ImiCore
 import ImiDesign
 
-struct EditorView: View {
+public struct EditorView: View {
     @ObservedObject var model: EditorModel
-    var showsPanelChrome = true
+    var showsPanelChrome: Bool
+
+    public init(model: EditorModel, showsPanelChrome: Bool = true) {
+        self.model = model
+        self.showsPanelChrome = showsPanelChrome
+    }
     @Environment(\.openSettings) private var openSettings
     @FocusState private var isRefinementFocused: Bool
 

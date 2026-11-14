@@ -29,7 +29,7 @@ open ios/Imi.xcodeproj
 
 | # | Scénario | Résultat attendu |
 |---|----------|------------------|
-| 1 | App : coller et corriger | Résultat + copie OK |
+| 1 | App : enregistrer la clé et le fournisseur | Message de connexion. Pas d’éditeur de texte dans l’app. |
 | 2 | Mail : sélectionner une phrase, clavier imi, **Corriger** | Remplacement local + copie presse-papiers |
 | 3 | Notes : sélection, **Reformuler** / **Traduire** | Idem |
 | 4 | Aucune sélection, toucher un mode | Message « Sélectionnez du texte… », pas d’appel API |

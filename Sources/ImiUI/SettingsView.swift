@@ -25,7 +25,7 @@ private enum SettingsPage: String, CaseIterable, Identifiable {
     }
 }
 
-struct SettingsView: View {
+public struct SettingsView: View {
     @ObservedObject var model: EditorModel
     @State private var page: SettingsPage? = .provider
     @State private var draft = Configuration()
@@ -35,6 +35,10 @@ struct SettingsView: View {
     @State private var message: String?
     @State private var validationTask: Task<Void, Never>?
     @State private var validationID = UUID()
+
+    public init(model: EditorModel) {
+        self.model = model
+    }
 
     private var availablePages: [SettingsPage] {
 #if os(macOS)

@@ -15,7 +15,7 @@
 
 imi sert pour un usage personnel sur Mac et iPhone, avec les méthodes [Sophos](https://antoineberjoan.github.io/sophos/) : correction, reformulation, traduction et affinage depuis l'application où l'on écrit, avec explication et copie ou remplacement (macOS). Interface en français ; fournisseurs Gemini, DeepSeek et compatible OpenAI ; clés dans le trousseau, pas de service intermédiaire. Le [guide propriétaire](docs/fondation.md) pose le périmètre, les principes et les [décisions](docs/decisions/) datées (marque, jetons, plateformes).
 
-Application native SwiftUI et adaptateurs système (macOS : panneau, raccourcis, sélection ; iOS : éditeur intégré). `Resources/Brand/tokens.json` alimente l'interface ; `Design/` tient la marque validée. Dix résultats en mémoire à la fermeture. Réimplémentation sans affiliation ; comportements à valider sur un Mac. Voir la [décision de fondation](docs/decisions/2026-11-07-foundation.md) pour le détail des choix.
+Application native SwiftUI et adaptateurs système (macOS : panneau, raccourcis, sélection ; iPhone : clavier, app limitée à la clé). `Resources/Brand/tokens.json` alimente l'interface ; `Design/` tient la marque validée. Dix résultats en mémoire à la fermeture. Réimplémentation sans affiliation ; comportements à valider sur un Mac. Voir la [décision de fondation](docs/decisions/2026-11-07-foundation.md) pour le détail des choix.
 
 ## Démarrer
 
@@ -71,7 +71,7 @@ Sources/ImiDesign/                  rôles SwiftUI fabriqués et pont Tokens
 Sources/ImiUI/                      vues SwiftUI et EditorModel partagé
 Sources/ImiPlatform/                trousseau, préférences, client réseau
 Sources/ImiMac/                     coquille macOS (AppKit) et exécutable menu bar
-Sources/ImiIOS/                     éditeur SwiftPM (hors bundle)
+Sources/ImiIOS/                     app iPhone SwiftPM, réglages seuls (hors bundle)
 Sources/ImiKeyboard/                logique clavier iOS
 ios/                                   Imi.xcodeproj (app + extension clavier)
 Tests/                                 ImiCoreTests et ImiPlatformTests

@@ -8,9 +8,6 @@ struct ImiIOSApp: App {
 
     var body: some Scene {
         WindowGroup {
-            EditorView(model: model, showsPanelChrome: false)
-        }
-        Settings {
             SettingsView(model: model)
         }
     }
